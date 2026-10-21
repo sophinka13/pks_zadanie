@@ -1,0 +1,84 @@
+% Kompilácia: latexmk main.tex
+\documentclass[12pt,a4paper]{article}
+\input{template/pks.tex}
+
+\pkssetup{
+  title={Komunikačný protokol pre IoT meteorologické zariadenia},
+  subject={Počítačové a komunikačné siete},
+  author={Sophie Hetešová},
+  ais-id={141435},
+  supervisor={Bc. Filip Hromada},
+  class-time={Deň štvrtok -- 8:00},
+  font={auto}, % Alternatívy: Tinos, Liberation Serif, Times New Roman (ak je nainštalované).
+}
+
+\begin{document}
+\pksdocument
+
+% Dokumentácia má byť stručná, prehľadná a bez zbytočnej vaty.
+
+% Nasledujúca štruktúra je odporúčaná. Kapitoly môžete premenovať, spojiť alebo usporiadať inak, ak dokumentácia obsahuje všetky povinné náležitosti zadania. Pred odovzdaním nahraďte túto osnovu skutočným obsahom dokumentácie.
+\section{Úvod a architektúra riešenia}
+
+\subsection{Cieľ riešenia}
+
+Cieľom projektu je navrhnúť vlastný aplikačný protokol na prenos meteorologických meraní medzi simulovanými IoT senzormi a serverom. Komunikácia prebieha nad transportným protokolom UDP. Keďže UDP nezabezpečuje doručenie ani potvrdenie správ, registráciu senzorov, potvrdzovanie meraní a kontrolu dostupnosti rieši aplikačný protokol.
+
+Správy sa prenášajú ako objekty JSON zakódované v UTF-8. Jeden UDP datagram obsahuje jednu správu. Čitateľný formát umožňuje kontrolovať obsah komunikácie pri ladení a pri sledovaní vo Wiresharku.
+
+\subsection{Rozdelenie programov}
+
+Riešenie je implementované v Pythone a pozostáva z troch súborov:
+
+\begin{itemize}
+  \item \texttt{server.py} prijíma registračné požiadavky, vytvára relácie a prideľuje tokeny. Pri prijatí merania overuje reláciu, kontrolný súčet CRC32 a povolené hodnoty parametrov. Platné meranie potvrdzuje správou ACK, pri chybe integrity žiada jeho opätovné odoslanie. Dostupnosť senzorov sleduje pomocou správ KEEPALIVE.
+  \item \texttt{tester.py} simuluje senzory, generuje ich merania a poskytuje konzolové menu. Používateľ môže odoslať vlastné hodnoty, poškodiť nasledujúcu dátovú správu, zapnúť alebo vypnúť automatické merania, ukončiť reláciu senzora a znova ho zaregistrovať.
+  \item \texttt{lib.py} obsahuje spoločné funkcie na spracovanie JSON, výpočet a overenie CRC32, validáciu vstupov a logovanie. Uchováva aj rozsahy a presnosť jednotlivých meraných parametrov.
+\end{itemize}
+
+UDP komunikácia je v oboch programoch implementovaná priamo pomocou knižnice \texttt{socket}, vrátane vytvorenia a naviazania socketov. IP adresa a port servera sa zadávajú pri spustení. Na serveri sa zadaná adresa používa na počúvanie, v testeri ako cieľ komunikácie.
+
+\subsection{Senzory a súbežné spracovanie}
+
+Tester vytvára štyri simulované senzory:
+
+\begin{itemize}
+  \item \textbf{ThermoNode} (\texttt{T-01}): teplota, relatívna vlhkosť, rosný bod a atmosférický tlak.
+  \item \textbf{WindSense} (\texttt{W-01}): rýchlosť vetra, rýchlosť nárazu, smer vetra a index turbulencie.
+  \item \textbf{RainDetect} (\texttt{R-01}): úhrn zrážok, vlhkosť pôdy, riziko povodne a trvanie zrážok.
+  \item \textbf{AirQuality} (\texttt{A-01}): koncentrácia CO\textsubscript{2}, koncentrácia ozónu a index kvality ovzdušia.
+\end{itemize}
+
+Každý senzor beží vo vlastnom vlákne a má samostatný UDP socket, frontu príkazov, token relácie, poradové čísla správ a časovače. Po úspešnej registrácii automaticky odošle prvé meranie a ďalšie generuje každých približne desať sekúnd. Čakanie jedného senzora na odpoveď neblokuje ostatné senzory. Hlavné vlákno testera obsluhuje menu a odovzdáva požiadavky príslušnému senzoru cez jeho frontu.
+
+Server spracúva správy a časovače relácií v hlavnej sieťovej slučke. Samostatné vlákno číta príkazy jeho menu a odovzdáva ich cez frontu. Relácie tak spravuje iba sieťová slučka. Oba programy zapisujú udalosti a čitateľný obsah správ do vlastného logového súboru aj do konzoly. Pri novom spustení sa príslušný logový súbor prepíše.
+
+\subsection{Rozsah prototypu}
+
+Prototyp pokrýva registráciu a automatické merania (UAT~1), dodatočné meranie so zadanými hodnotami (UAT~2), detekciu poškodenia a retransmisiu na žiadosť servera (UAT~3) a kontrolu dostupnosti vrátane odpojenia a opätovnej registrácie (UAT~4). Tieto scenáre boli overené lokálnymi automatickými testami.
+
+\section{Návrh protokolu}
+
+\subsection{Typy správ a ich formát}
+
+\subsubsection{Príklad správy}
+
+\section{Implementácia servera a testovacieho programu}
+
+\section{Sekvenčné diagramy a overenie UAT}
+
+% Obrázky a diagramy musia byť čitateľné a bez zbytočných prvkov. Na obrázky odkazujte aj v texte (obrázok~\ref{fig:ukazka}).
+% Obdĺžnik môžete nahradiť napríklad \includegraphics[width=\linewidth]{diagram.png}.
+\begin{figure}[htbp]
+\centering
+{\color{cyan}\rule{\linewidth}{45mm}}
+\caption{Ukážkový obrázok -- nahraďte vlastným diagramom.}
+\label{fig:ukazka}
+\end{figure}
+
+\section{Meranie efektivity protokolu}
+
+\section{Zhodnotenie riešenia}
+
+\section{Príloha A}
+\end{document}

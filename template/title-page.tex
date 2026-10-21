@@ -1,0 +1,27 @@
+\newcommand{\pkstitlepage}{%
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\newgeometry{left=25mm,right=25mm,top=18mm,bottom=12mm}
+\thispagestyle{empty}
+\begin{center}
+{\fontsize{18}{22}\selectfont\bfseries Slovenská Technická Univerzita v Bratislave\par}
+{\fontsize{14}{17}\selectfont Fakulta informatiky a informačných technológií\par}
+\end{center}
+\vspace*{81mm}
+\begin{center}
+{\fontsize{18}{22}\selectfont\bfseries\nazovPrace\par}
+{\fontsize{14}{17}\selectfont\nazovPredmetu\par}
+\vspace{7mm}
+{\fontsize{14}{17}\selectfont\bfseries\autor\par}
+{\fontsize{12}{15}\selectfont AIS ID: \aisid\par}
+\end{center}
+\vfill
+{\singlespacing
+\textbf{Vedúci cvičenia:} \veduci\\
+\textbf{Čas cvičenia:} \casCvicenia\par}
+\end{titlepage}
+\restoregeometry
+\setcounter{page}{1}
+\hypersetup{pageanchor=true}
+
+}
