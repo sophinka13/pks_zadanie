@@ -1,9 +1,133 @@
 import ipaddress
 import json
 import logging
+import os
+import shutil
+import sys
+import threading
 import time
 import zlib
 from decimal import Decimal, InvalidOperation
+
+try:
+    import readline
+except ImportError:
+    readline = None
+
+
+_console_lock = threading.RLock()
+_active_prompt = None
+
+
+def console_write(text, stream=None):
+    """Vypiseme cely blok naraz a pri pisani obnovime prompt aj rozpisany vstup."""
+    stream = sys.stdout if stream is None else stream
+    with _console_lock:
+        redraw = _active_prompt is not None and stream.isatty()
+        if redraw:
+            stream.write("\r\033[2K")
+        stream.write(text + "\n")
+        if redraw:
+            typed = readline.get_line_buffer() if readline is not None else ""
+            stream.write(_active_prompt + typed)
+        stream.flush()
+
+
+def console_input(prompt):
+    global _active_prompt
+    with _console_lock:
+        _active_prompt = prompt
+    try:
+        return input(prompt)
+    finally:
+        with _console_lock:
+            _active_prompt = None
+
+
+def console_panel(title, lines):
+    width = min(78, max(40, shutil.get_terminal_size().columns - 2))
+    heading = f"─ {title} "
+    border = "─" * width
+    body = ["", "╭" + heading + "─" * max(0, width - len(heading)), *["│  " + line for line in lines], "╰" + border]
+    console_write("\n".join(body))
+
+
+class ConsoleFormatter(logging.Formatter):
+    """Strucnejsia konzola; suborovy handler nadalej zapisuje uplny protokolovy log."""
+
+    def __init__(self, color=False):
+        super().__init__()
+        self.color = color
+
+    def paint(self, text, code):
+        return f"\033[{code}m{text}\033[0m" if self.color else text
+
+    def format(self, record):
+        timestamp = time.strftime("%H:%M:%S", time.gmtime(record.created))
+        timestamp += f".{int(record.msecs):03d} UTC"
+        parts = record.getMessage().split(" | ", 3)
+        if len(parts) != 4:
+            return f"{timestamp}  {record.getMessage()}"
+        kind, level, source, body = parts
+        source = source.removeprefix("TESTER:")
+        source_color = {"ThermoNode": "36", "WindSense": "34", "RainDetect": "35", "AirQuality": "32"}
+        label = self.paint(source, source_color.get(source.split(":")[0], "37"))
+        time_label = self.paint(timestamp, "90")
+        if kind == "MESSAGE":
+            direction, _, raw = body.partition(" ")
+            try:
+                message = json.loads(raw)
+            except (ValueError, TypeError):
+                message = None
+            if isinstance(message, dict):
+                mark = "TX →" if direction == "Sent" else "RX ←"
+                mark = self.paint(mark, "36" if direction == "Sent" else "32")
+                header = f"{time_label}  {mark}  {label}  {message.get('type', '?')} #{message.get('seq', '?')}"
+                details = []
+                for key, value in message.items():
+                    if key in ("type", "seq", "values"):
+                        continue
+                    details.append(f"{key}={value}")
+                values = message.get("values")
+                rows = [header]
+                if isinstance(values, dict):
+                    units = {
+                        "temperature": "°C", "humidity": "%", "dew_point": "°C", "pressure": "hPa",
+                        "wind_speed": "m/s", "wind_gust": "m/s", "wind_direction": "°",
+                        "rainfall": "mm", "soil_moisture": "%", "rain_duration": "min",
+                        "co2": "ppm", "ozone": "µg/m³",
+                    }
+                    measurements = [f"{name}={value}{' ' + units[name] if name in units else ''}" for name, value in values.items()]
+                    rows.extend(self.detail_rows(measurements))
+                elif "values" in message:
+                    details.append(f"values={values}")
+                rows.extend(self.detail_rows(details))
+                return "\n".join(rows)
+        color = {"INFO": "32", "WARNING": "33", "ERROR": "31"}.get(level, "37")
+        badge = self.paint(f"{level:<7}", color)
+        return f"{time_label}  {badge}  {label}  {body}"
+
+    @staticmethod
+    def detail_rows(items):
+        width = max(36, min(100, shutil.get_terminal_size().columns) - 6)
+        rows = []
+        current = ""
+        for item in items:
+            if current and len(current) + len(item) + 3 > width:
+                rows.append("    " + current)
+                current = ""
+            current += (" | " if current else "") + item
+        if current:
+            rows.append("    " + current)
+        return rows
+
+
+class ConsoleHandler(logging.StreamHandler):
+    def emit(self, record):
+        try:
+            console_write(self.format(record), self.stream)
+        except Exception:
+            self.handleError(record)
 
 
 SENSOR_TYPES = ("ThermoNode", "WindSense", "RainDetect", "AirQuality")
@@ -85,11 +209,15 @@ def create_logger(name, console=False):
         datefmt="%Y-%m-%dT%H:%M:%S",
     )
     formatter.converter = time.gmtime
-    handlers = [logging.FileHandler(f"{name}.log", mode="w", encoding="utf-8")]
+    file_handler = logging.FileHandler(f"{name}.log", mode="w", encoding="utf-8")
+    file_handler.setFormatter(formatter)
+    handlers = [file_handler]
     if console:
-        handlers.append(logging.StreamHandler())
+        terminal = ConsoleHandler(sys.stdout)
+        color = sys.stdout.isatty() and os.environ.get("TERM") != "dumb" and "NO_COLOR" not in os.environ
+        terminal.setFormatter(ConsoleFormatter(color=color))
+        handlers.append(terminal)
     for handler in handlers:
-        handler.setFormatter(formatter)
         logger.addHandler(handler)
     return logger
 
@@ -103,14 +231,14 @@ def ask_address(default_ip, logger=None, source="PROGRAM"):
     """IPv4 a port nacitame z rozhrania a overime pred otvorenim socketu."""
     while True:
         try:
-            host = input(f"IP adresa [{default_ip}]: ").strip() or default_ip
+            host = console_input(f"  IP adresa [{default_ip}]: ").strip() or default_ip
             ipaddress.IPv4Address(host)
-            port = int(input("UDP port [9000]: ").strip() or "9000")
+            port = int(console_input("  UDP port [9000]: ").strip() or "9000")
             if not 1 <= port <= 65535:
                 raise ValueError("Port musi byt od 1 do 65535.")
             return host, port
         except ValueError as error:
-            print(f"Nespravna adresa alebo port: {error}")
+            console_write(f"  ! Nesprávna adresa alebo port: {error}")
             if logger is not None:
                 logger.warning("SYSTEM | WARNING | %s | Invalid address or port: %s", source, error)
 

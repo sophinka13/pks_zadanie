@@ -1,0 +1,15 @@
+\begin{tikzpicture}[x=1cm,y=0.95cm,font=\small]
+\node[seqactor] (user) at (0,0) {Používateľ / menu};
+\node[seqactor] (sensor) at (5,0) {Vlákno senzora};
+\node[seqactor] (server) at (10,0) {Server};
+\draw[dashed] (user.south)--(0,-9.2);
+\draw[dashed] (sensor.south)--(5,-9.2);
+\draw[dashed] (server.south)--(10,-9.2);
+\draw[seqarrow] (0,-1.6)--node[above,align=center]{Výber senzora a\\platné vlastné hodnoty}(5,-1.6);
+\node[seqnote,text width=3.5cm] at (2.5,-3) {Príkaz prejde frontou; menu nepracuje so socketom};
+\draw[seqarrow] (5,-4.5)--node[above]{DATA: vlastné meranie}(10,-4.5);
+\draw[seqarrow] (10,-5.5)--node[above]{ACK}(5,-5.5);
+\draw[seqarrow] (5,-6.5)--node[above]{DATA: automatické meranie}(10,-6.5);
+\draw[seqarrow] (10,-7.5)--node[above]{ACK}(5,-7.5);
+\node[seqnote,text width=9cm] at (5,-9) {Ostatné vlákna pokračujú v meraniach aj počas zadávania.};
+\end{tikzpicture}

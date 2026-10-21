@@ -442,6 +442,20 @@ AUTOMATICKÉ OVERENIE:
 Tieto doplnenia a testy boli vytvorené s pomocou AI.
 
 
+VZHĽAD TERMINÁLU:
+  Menu je oddelené rámčekmi a výber senzorov ukazuje ich aktuálny stav.
+  TX → označuje odoslanú správu, RX ← prijatú. Pri DATA sú hodnoty
+  vypísané po skupinách s jednotkami. Každý typ senzora má vlastnú farbu,
+  WARNING je žlté a ERROR červené. Čas je stále v UTC.
+  Pri výpise z iného vlákna sa obnoví prompt aj rozpracované zadávanie.
+  Súbory server.log a tester.log si ponechávajú pôvodný predpísaný formát
+  a celý obsah JSON správ – na prezentáciu môžem ukázať práve tieto súbory.
+  Farby sa automaticky vypnú pri presmerovaní výstupu do súboru.
+  Ručne ich môžem vypnúť pri spustení:
+    NO_COLOR=1 python3 tester.py
+    NO_COLOR=1 python3 server.py
+
+
 13. KAŽDÝ SENZOR VO VLASTNOM VLÁKNE
 ----------------------------------
 

@@ -1,50 +1,320 @@
-2026-10-21T10:27:13.230Z | SYSTEM | INFO | SERVER | Server listening on 127.0.0.1:9000
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"ThermoNode","sensor_id":"T-01"}
-2026-10-21T10:27:17.221Z | SYSTEM | INFO | SERVER | Sensor registered: ThermoNode:T-01
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":1,"ack_for":1,"token":"fc483888c623971c"}
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"WindSense","sensor_id":"W-01"}
-2026-10-21T10:27:17.221Z | SYSTEM | INFO | SERVER | Sensor registered: WindSense:W-01
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":2,"ack_for":1,"token":"04c16a94529b88b6"}
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"AirQuality","sensor_id":"A-01"}
-2026-10-21T10:27:17.221Z | SYSTEM | INFO | SERVER | Sensor registered: AirQuality:A-01
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":3,"ack_for":1,"token":"5fcea1fb4101637d"}
-2026-10-21T10:27:17.221Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"RainDetect","sensor_id":"R-01"}
-2026-10-21T10:27:17.222Z | SYSTEM | INFO | SERVER | Sensor registered: RainDetect:R-01
-2026-10-21T10:27:17.222Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":4,"ack_for":1,"token":"7ac9d24b13dffb4f"}
-2026-10-21T10:27:17.222Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"T-01","token":"fc483888c623971c","values":{"temperature":-20.9,"humidity":41.4,"dew_point":-29.1,"pressure":914.96},"crc":1715890784}
-2026-10-21T10:27:17.222Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
-2026-10-21T10:27:17.222Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":5,"ack_for":2}
-2026-10-21T10:27:17.222Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"W-01","token":"04c16a94529b88b6","values":{"wind_speed":23.5,"wind_gust":3.0,"wind_direction":60,"turbulence":0.8},"crc":2768401280}
-2026-10-21T10:27:17.223Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
-2026-10-21T10:27:17.223Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":6,"ack_for":2}
-2026-10-21T10:27:17.223Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"R-01","token":"7ac9d24b13dffb4f","values":{"rainfall":48.3,"soil_moisture":56.6,"flood_risk":2,"rain_duration":15},"crc":1209696909}
-2026-10-21T10:27:17.223Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
-2026-10-21T10:27:17.223Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":7,"ack_for":2}
-2026-10-21T10:27:17.223Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"A-01","token":"5fcea1fb4101637d","values":{"co2":4160,"ozone":35.5,"air_quality_index":196},"crc":1420607918}
-2026-10-21T10:27:17.223Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
-2026-10-21T10:27:17.223Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":8,"ack_for":2}
-2026-10-21T10:27:27.223Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"T-01","token":"fc483888c623971c","values":{"temperature":49.9,"humidity":71.3,"dew_point":-44.7,"pressure":883.39},"crc":3513514477}
-2026-10-21T10:27:27.223Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
-2026-10-21T10:27:27.224Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":9,"ack_for":3}
-2026-10-21T10:27:27.224Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"A-01","token":"5fcea1fb4101637d","values":{"co2":1069,"ozone":19.8,"air_quality_index":320},"crc":455134591}
-2026-10-21T10:27:27.224Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
-2026-10-21T10:27:27.224Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":10,"ack_for":3}
-2026-10-21T10:27:27.225Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"W-01","token":"04c16a94529b88b6","values":{"wind_speed":10.9,"wind_gust":53.2,"wind_direction":256,"turbulence":0.3},"crc":1511327697}
-2026-10-21T10:27:27.225Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
-2026-10-21T10:27:27.225Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":11,"ack_for":3}
-2026-10-21T10:27:27.225Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"R-01","token":"7ac9d24b13dffb4f","values":{"rainfall":179.3,"soil_moisture":63.3,"flood_risk":2,"rain_duration":18},"crc":2600447021}
-2026-10-21T10:27:27.225Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
-2026-10-21T10:27:27.226Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":12,"ack_for":3}
-2026-10-21T10:27:37.224Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"T-01","token":"fc483888c623971c","values":{"temperature":-23.8,"humidity":15.9,"dew_point":-46.8,"pressure":813.65},"crc":4058233094}
-2026-10-21T10:27:37.224Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
-2026-10-21T10:27:37.224Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":13,"ack_for":4}
-2026-10-21T10:27:37.225Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"W-01","token":"04c16a94529b88b6","values":{"wind_speed":41.5,"wind_gust":51.8,"wind_direction":236,"turbulence":0.4},"crc":819565749}
-2026-10-21T10:27:37.226Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
-2026-10-21T10:27:37.226Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":14,"ack_for":4}
-2026-10-21T10:27:37.226Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"A-01","token":"5fcea1fb4101637d","values":{"co2":3533,"ozone":118.9,"air_quality_index":116},"crc":4259425463}
-2026-10-21T10:27:37.226Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
-2026-10-21T10:27:37.226Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":15,"ack_for":4}
-2026-10-21T10:27:37.227Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"R-01","token":"7ac9d24b13dffb4f","values":{"rainfall":44.1,"soil_moisture":97.2,"flood_risk":3,"rain_duration":3},"crc":3387536952}
-2026-10-21T10:27:37.227Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
-2026-10-21T10:27:37.227Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":16,"ack_for":4}
-2026-10-21T10:27:46.151Z | SYSTEM | INFO | SERVER | Server stopped
+2026-10-21T15:30:29.984Z | SYSTEM | INFO | SERVER | Server listening on 127.0.0.1:9000
+2026-10-21T15:30:58.501Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"RainDetect","sensor_id":"R-01"}
+2026-10-21T15:30:58.504Z | SYSTEM | INFO | SERVER | Sensor registered: RainDetect:R-01
+2026-10-21T15:30:58.504Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":1,"ack_for":1,"token":"8b58e65c102fcdb6"}
+2026-10-21T15:30:58.504Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"WindSense","sensor_id":"W-01"}
+2026-10-21T15:30:58.504Z | SYSTEM | INFO | SERVER | Sensor registered: WindSense:W-01
+2026-10-21T15:30:58.504Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":2,"ack_for":1,"token":"dff1f2c509fbd5c9"}
+2026-10-21T15:30:58.504Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"ThermoNode","sensor_id":"T-01"}
+2026-10-21T15:30:58.504Z | SYSTEM | INFO | SERVER | Sensor registered: ThermoNode:T-01
+2026-10-21T15:30:58.504Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":3,"ack_for":1,"token":"d9ac24599c315cee"}
+2026-10-21T15:30:58.505Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":1,"sensor_type":"AirQuality","sensor_id":"A-01"}
+2026-10-21T15:30:58.505Z | SYSTEM | INFO | SERVER | Sensor registered: AirQuality:A-01
+2026-10-21T15:30:58.505Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":4,"ack_for":1,"token":"411f977fac425b7f"}
+2026-10-21T15:30:58.505Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":379.6,"soil_moisture":90.5,"flood_risk":2,"rain_duration":34},"crc":2521682377}
+2026-10-21T15:30:58.506Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:30:58.506Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":5,"ack_for":2}
+2026-10-21T15:30:58.506Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":32.2,"wind_gust":47.2,"wind_direction":205,"turbulence":0.6},"crc":380677611}
+2026-10-21T15:30:58.506Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:30:58.506Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":6,"ack_for":2}
+2026-10-21T15:30:58.507Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":4.2,"humidity":24.6,"dew_point":-46.5,"pressure":1075.1},"crc":2696399269}
+2026-10-21T15:30:58.507Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:30:58.507Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":7,"ack_for":2}
+2026-10-21T15:30:58.507Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":2,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":3137,"ozone":200.3,"air_quality_index":200},"crc":1777668009}
+2026-10-21T15:30:58.507Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:30:58.507Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":8,"ack_for":2}
+2026-10-21T15:31:08.506Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":351.4,"soil_moisture":75.7,"flood_risk":2,"rain_duration":16},"crc":4113237331}
+2026-10-21T15:31:08.507Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:08.507Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":9,"ack_for":3}
+2026-10-21T15:31:08.507Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":29.4,"humidity":92.5,"dew_point":48.2,"pressure":903.35},"crc":2072990153}
+2026-10-21T15:31:08.507Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:08.508Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":10,"ack_for":3}
+2026-10-21T15:31:08.508Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":31.2,"wind_gust":44.1,"wind_direction":10,"turbulence":0.2},"crc":1499598015}
+2026-10-21T15:31:08.508Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:08.508Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":11,"ack_for":3}
+2026-10-21T15:31:08.508Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":3,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":652,"ozone":487.2,"air_quality_index":394},"crc":3364818504}
+2026-10-21T15:31:08.508Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:08.509Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":12,"ack_for":3}
+2026-10-21T15:31:18.507Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":329.2,"soil_moisture":21.6,"flood_risk":3,"rain_duration":7},"crc":3392485081}
+2026-10-21T15:31:18.508Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:18.508Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":13,"ack_for":4}
+2026-10-21T15:31:18.508Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":-35.8,"humidity":37.3,"dew_point":16.4,"pressure":938.58},"crc":1847427370}
+2026-10-21T15:31:18.509Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:18.509Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":14,"ack_for":4}
+2026-10-21T15:31:18.509Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":7.7,"wind_gust":40.2,"wind_direction":35,"turbulence":0.5},"crc":3887891677}
+2026-10-21T15:31:18.509Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:18.510Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":15,"ack_for":4}
+2026-10-21T15:31:18.510Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":4,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":1108,"ozone":102.6,"air_quality_index":204},"crc":4141028426}
+2026-10-21T15:31:18.510Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:18.510Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":16,"ack_for":4}
+2026-10-21T15:31:28.509Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":5,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":-37.9,"humidity":95.8,"dew_point":-32.3,"pressure":965.9},"crc":3418096062}
+2026-10-21T15:31:28.509Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:28.510Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":17,"ack_for":5}
+2026-10-21T15:31:28.510Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":5,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":428.8,"soil_moisture":62.8,"flood_risk":2,"rain_duration":20},"crc":1099190825}
+2026-10-21T15:31:28.510Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:28.510Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":18,"ack_for":5}
+2026-10-21T15:31:28.510Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":5,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":43.2,"wind_gust":27.2,"wind_direction":301,"turbulence":0.2},"crc":2538910202}
+2026-10-21T15:31:28.511Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:28.511Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":19,"ack_for":5}
+2026-10-21T15:31:28.511Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":5,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2884,"ozone":184.8,"air_quality_index":415},"crc":2413224709}
+2026-10-21T15:31:28.511Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:28.511Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":20,"ack_for":5}
+2026-10-21T15:31:38.511Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":6,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":34.2,"humidity":77.7,"dew_point":-4.4,"pressure":835.29},"crc":1519491892}
+2026-10-21T15:31:38.511Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:38.511Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":21,"ack_for":6}
+2026-10-21T15:31:38.512Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":6,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":84.7,"soil_moisture":76.1,"flood_risk":3,"rain_duration":45},"crc":3934732805}
+2026-10-21T15:31:38.512Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:38.512Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":22,"ack_for":6}
+2026-10-21T15:31:38.512Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":6,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":27.2,"wind_gust":24.0,"wind_direction":316,"turbulence":0.3},"crc":3380167653}
+2026-10-21T15:31:38.512Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:38.512Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":23,"ack_for":6}
+2026-10-21T15:31:38.512Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":6,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":3489,"ozone":133.9,"air_quality_index":401},"crc":3177152223}
+2026-10-21T15:31:38.513Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:38.513Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":24,"ack_for":6}
+2026-10-21T15:31:48.512Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":7,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":46.1,"humidity":28.7,"dew_point":-31.0,"pressure":992.94},"crc":2916285863}
+2026-10-21T15:31:48.513Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:48.513Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":25,"ack_for":7}
+2026-10-21T15:31:48.513Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":7,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":80.1,"soil_moisture":6.3,"flood_risk":1,"rain_duration":0},"crc":4271262999}
+2026-10-21T15:31:48.514Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:48.514Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":26,"ack_for":7}
+2026-10-21T15:31:48.514Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":7,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":2.7,"wind_gust":58.1,"wind_direction":321,"turbulence":0.5},"crc":2287307048}
+2026-10-21T15:31:48.514Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:48.514Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":27,"ack_for":7}
+2026-10-21T15:31:48.515Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":7,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2615,"ozone":437.3,"air_quality_index":149},"crc":4097904575}
+2026-10-21T15:31:48.515Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:48.515Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":28,"ack_for":7}
+2026-10-21T15:31:58.514Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":8,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":41.7,"humidity":22.4,"dew_point":10.5,"pressure":842.61},"crc":2081585236}
+2026-10-21T15:31:58.514Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:31:58.515Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":29,"ack_for":8}
+2026-10-21T15:31:58.515Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":8,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":17.8,"wind_gust":59.8,"wind_direction":75,"turbulence":0.8},"crc":641589241}
+2026-10-21T15:31:58.515Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:31:58.515Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":30,"ack_for":8}
+2026-10-21T15:31:58.515Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":8,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":429.6,"soil_moisture":15.8,"flood_risk":3,"rain_duration":21},"crc":1635564219}
+2026-10-21T15:31:58.516Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:31:58.516Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":31,"ack_for":8}
+2026-10-21T15:31:58.516Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":8,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":781,"ozone":442.2,"air_quality_index":410},"crc":699322973}
+2026-10-21T15:31:58.516Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:31:58.516Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":32,"ack_for":8}
+2026-10-21T15:32:08.515Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":9,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":60,"humidity":40.6,"dew_point":-33.2,"pressure":885.03},"crc":3366831327}
+2026-10-21T15:32:08.516Z | SYSTEM | WARNING | SERVER | Integrity check failed for ThermoNode:T-01; retransmission requested
+2026-10-21T15:32:08.516Z | SYSTEM | WARNING | SERVER | Measurement rejected: T-01: Integrity check failed
+2026-10-21T15:32:08.516Z | MESSAGE | INFO | SERVER | Sent {"type":"RETRANSMIT","seq":33,"ack_for":9,"reason":"Integrity check failed","sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:32:08.516Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":9,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":0.0,"wind_gust":20.5,"wind_direction":239,"turbulence":0.9},"crc":2038066649}
+2026-10-21T15:32:08.517Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:08.517Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":34,"ack_for":9}
+2026-10-21T15:32:08.517Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":9,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":322.6,"soil_moisture":67.0,"flood_risk":3,"rain_duration":34},"crc":2769416414}
+2026-10-21T15:32:08.517Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:08.517Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":35,"ack_for":9}
+2026-10-21T15:32:08.517Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":9,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":4226,"ozone":14.5,"air_quality_index":272},"crc":2797811971}
+2026-10-21T15:32:08.517Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:08.518Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":36,"ack_for":9}
+2026-10-21T15:32:08.518Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":9,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":2.7,"humidity":40.6,"dew_point":-33.2,"pressure":885.03},"crc":3366831327}
+2026-10-21T15:32:08.518Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:32:08.518Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":37,"ack_for":9}
+2026-10-21T15:32:18.516Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":10,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":-16.8,"humidity":36.9,"dew_point":18.7,"pressure":927.19},"crc":3027957266}
+2026-10-21T15:32:18.517Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:32:18.517Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":38,"ack_for":10}
+2026-10-21T15:32:18.517Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":10,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":462.9,"soil_moisture":92.5,"flood_risk":3,"rain_duration":12},"crc":2221552407}
+2026-10-21T15:32:18.518Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:18.518Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":39,"ack_for":10}
+2026-10-21T15:32:18.518Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":10,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":22.1,"wind_gust":13.1,"wind_direction":242,"turbulence":0.1},"crc":2722666014}
+2026-10-21T15:32:18.518Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:18.518Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":40,"ack_for":10}
+2026-10-21T15:32:18.519Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":10,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":4222,"ozone":381.5,"air_quality_index":153},"crc":489303096}
+2026-10-21T15:32:18.519Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:18.519Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":41,"ack_for":10}
+2026-10-21T15:32:28.517Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":11,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":49.3,"humidity":59.4,"dew_point":24.3,"pressure":810.72},"crc":3214309634}
+2026-10-21T15:32:28.518Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:32:28.518Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":42,"ack_for":11}
+2026-10-21T15:32:28.518Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":11,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":138.0,"soil_moisture":77.7,"flood_risk":3,"rain_duration":20},"crc":215741045}
+2026-10-21T15:32:28.519Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:28.519Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":43,"ack_for":11}
+2026-10-21T15:32:28.519Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":11,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":45.9,"wind_gust":22.1,"wind_direction":95,"turbulence":0.5},"crc":3452681144}
+2026-10-21T15:32:28.520Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:28.520Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":44,"ack_for":11}
+2026-10-21T15:32:28.520Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":11,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":4606,"ozone":171.6,"air_quality_index":52},"crc":3478340323}
+2026-10-21T15:32:28.520Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:28.520Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":45,"ack_for":11}
+2026-10-21T15:32:38.519Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":12,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":-7.7,"humidity":83.6,"dew_point":-46.7,"pressure":995.63},"crc":3412469060}
+2026-10-21T15:32:38.520Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:32:38.520Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":46,"ack_for":12}
+2026-10-21T15:32:38.520Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":12,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":65.3,"soil_moisture":87.1,"flood_risk":2,"rain_duration":56},"crc":2622758484}
+2026-10-21T15:32:38.521Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:38.521Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":47,"ack_for":12}
+2026-10-21T15:32:38.521Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":12,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":3904,"ozone":65.7,"air_quality_index":372},"crc":875232156}
+2026-10-21T15:32:38.521Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:38.521Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":48,"ack_for":12}
+2026-10-21T15:32:38.522Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":12,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":32.8,"wind_gust":17.4,"wind_direction":281,"turbulence":0.5},"crc":37592213}
+2026-10-21T15:32:38.522Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:38.522Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":49,"ack_for":12}
+2026-10-21T15:32:48.521Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":13,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":165.6,"soil_moisture":77.3,"flood_risk":3,"rain_duration":38},"crc":41901916}
+2026-10-21T15:32:48.522Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:48.522Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":50,"ack_for":13}
+2026-10-21T15:32:48.523Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":13,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2285,"ozone":485.0,"air_quality_index":150},"crc":2252352502}
+2026-10-21T15:32:48.523Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:48.523Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":51,"ack_for":13}
+2026-10-21T15:32:48.523Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":13,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":20.2,"wind_gust":24.5,"wind_direction":52,"turbulence":1.0},"crc":470243088}
+2026-10-21T15:32:48.523Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:48.523Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":52,"ack_for":13}
+2026-10-21T15:32:53.521Z | SYSTEM | INFO | SERVER | SENSOR IDLE: ThermoNode:T-01
+2026-10-21T15:32:53.522Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":53,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:32:53.523Z | MESSAGE | INFO | SERVER | Received {"type":"KEEPALIVE_ACK","seq":13,"ack_for":53,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:32:58.521Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":54,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:32:58.522Z | MESSAGE | INFO | SERVER | Received {"type":"KEEPALIVE_ACK","seq":14,"ack_for":54,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:32:58.523Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":14,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":1459,"ozone":87.5,"air_quality_index":292},"crc":1713052803}
+2026-10-21T15:32:58.523Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:32:58.523Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":55,"ack_for":14}
+2026-10-21T15:32:58.523Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":14,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":5.3,"wind_gust":24.9,"wind_direction":235,"turbulence":0.1},"crc":4073987700}
+2026-10-21T15:32:58.524Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:32:58.524Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":56,"ack_for":14}
+2026-10-21T15:32:58.524Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":14,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":288.7,"soil_moisture":14.3,"flood_risk":2,"rain_duration":24},"crc":3418593922}
+2026-10-21T15:32:58.524Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:32:58.524Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":57,"ack_for":14}
+2026-10-21T15:33:02.949Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":15,"sensor_id":"T-01","token":"d9ac24599c315cee","values":{"temperature":-46.2,"humidity":96.9,"dew_point":35.7,"pressure":939.26},"crc":1438321945}
+2026-10-21T15:33:02.949Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:33:02.949Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":58,"ack_for":15}
+2026-10-21T15:33:08.524Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":15,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2752,"ozone":21.2,"air_quality_index":195},"crc":2679203601}
+2026-10-21T15:33:08.525Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:08.525Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":59,"ack_for":15}
+2026-10-21T15:33:08.525Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":15,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":33.3,"wind_gust":55.1,"wind_direction":357,"turbulence":0.8},"crc":3366873255}
+2026-10-21T15:33:08.526Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:08.526Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":60,"ack_for":15}
+2026-10-21T15:33:08.526Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":15,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":411.1,"soil_moisture":25.7,"flood_risk":2,"rain_duration":11},"crc":1263220529}
+2026-10-21T15:33:08.526Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:08.526Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":61,"ack_for":15}
+2026-10-21T15:33:17.951Z | SYSTEM | INFO | SERVER | SENSOR IDLE: ThermoNode:T-01
+2026-10-21T15:33:17.952Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":62,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:33:18.525Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":16,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2347,"ozone":266.7,"air_quality_index":66},"crc":2768572847}
+2026-10-21T15:33:18.526Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:18.526Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":63,"ack_for":16}
+2026-10-21T15:33:18.526Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":16,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":39.4,"wind_gust":14.5,"wind_direction":238,"turbulence":0.3},"crc":2365189398}
+2026-10-21T15:33:18.527Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:18.527Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":64,"ack_for":16}
+2026-10-21T15:33:18.527Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":16,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":400.1,"soil_moisture":52.7,"flood_risk":3,"rain_duration":16},"crc":2705007241}
+2026-10-21T15:33:18.527Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:18.527Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":65,"ack_for":16}
+2026-10-21T15:33:22.951Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":66,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:33:27.951Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":67,"sensor_id":"T-01","token":"d9ac24599c315cee"}
+2026-10-21T15:33:28.526Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":17,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2938,"ozone":473.6,"air_quality_index":177},"crc":1479298390}
+2026-10-21T15:33:28.527Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:28.527Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":68,"ack_for":17}
+2026-10-21T15:33:28.527Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":17,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":31.4,"wind_gust":42.0,"wind_direction":217,"turbulence":0.7},"crc":2327937008}
+2026-10-21T15:33:28.528Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:28.528Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":69,"ack_for":17}
+2026-10-21T15:33:28.528Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":17,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":148.0,"soil_moisture":66.6,"flood_risk":1,"rain_duration":23},"crc":3101354423}
+2026-10-21T15:33:28.528Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:28.528Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":70,"ack_for":17}
+2026-10-21T15:33:32.951Z | SYSTEM | WARNING | SERVER | SENSOR DISCONNECTED: ThermoNode:T-01
+2026-10-21T15:33:38.527Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":18,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":4306,"ozone":29.0,"air_quality_index":403},"crc":692855666}
+2026-10-21T15:33:38.528Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:38.528Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":71,"ack_for":18}
+2026-10-21T15:33:38.528Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":18,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":46.0,"wind_gust":3.5,"wind_direction":264,"turbulence":0.2},"crc":3884406721}
+2026-10-21T15:33:38.529Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:38.529Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":72,"ack_for":18}
+2026-10-21T15:33:38.529Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":18,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":25.8,"soil_moisture":40.1,"flood_risk":1,"rain_duration":48},"crc":3469957788}
+2026-10-21T15:33:38.529Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:38.529Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":73,"ack_for":18}
+2026-10-21T15:33:48.529Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":19,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":3216,"ozone":116.3,"air_quality_index":493},"crc":428417933}
+2026-10-21T15:33:48.529Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:48.530Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":74,"ack_for":19}
+2026-10-21T15:33:48.530Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":19,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":19.3,"wind_gust":11.0,"wind_direction":106,"turbulence":0.4},"crc":3556400363}
+2026-10-21T15:33:48.531Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:48.531Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":75,"ack_for":19}
+2026-10-21T15:33:48.531Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":19,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":434.1,"soil_moisture":68.5,"flood_risk":2,"rain_duration":59},"crc":2251826546}
+2026-10-21T15:33:48.531Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:48.531Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":76,"ack_for":19}
+2026-10-21T15:33:58.530Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":20,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":1654,"ozone":427.9,"air_quality_index":322},"crc":3848613378}
+2026-10-21T15:33:58.531Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:33:58.531Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":77,"ack_for":20}
+2026-10-21T15:33:58.531Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":20,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":40.6,"soil_moisture":31.0,"flood_risk":3,"rain_duration":28},"crc":463562695}
+2026-10-21T15:33:58.532Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:33:58.532Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":78,"ack_for":20}
+2026-10-21T15:33:58.532Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":20,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":43.8,"wind_gust":59.9,"wind_direction":27,"turbulence":0.6},"crc":2072030168}
+2026-10-21T15:33:58.532Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:33:58.532Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":79,"ack_for":20}
+2026-10-21T15:34:08.532Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":21,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":1861,"ozone":157.7,"air_quality_index":310},"crc":2217443314}
+2026-10-21T15:34:08.532Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:34:08.532Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":80,"ack_for":21}
+2026-10-21T15:34:08.533Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":21,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":97.8,"soil_moisture":55.1,"flood_risk":1,"rain_duration":8},"crc":3579725615}
+2026-10-21T15:34:08.533Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:34:08.533Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":81,"ack_for":21}
+2026-10-21T15:34:08.534Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":21,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":40.1,"wind_gust":50.8,"wind_direction":327,"turbulence":0.0},"crc":1871014521}
+2026-10-21T15:34:08.534Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:34:08.534Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":82,"ack_for":21}
+2026-10-21T15:34:18.533Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":22,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":2351,"ozone":330.8,"air_quality_index":489},"crc":4274439033}
+2026-10-21T15:34:18.534Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:34:18.534Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":83,"ack_for":22}
+2026-10-21T15:34:18.535Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":22,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":100.5,"soil_moisture":85.7,"flood_risk":2,"rain_duration":4},"crc":2177219928}
+2026-10-21T15:34:18.535Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:34:18.535Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":84,"ack_for":22}
+2026-10-21T15:34:18.535Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":22,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":28.9,"wind_gust":14.4,"wind_direction":95,"turbulence":0.3},"crc":2478614611}
+2026-10-21T15:34:18.536Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:34:18.536Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":85,"ack_for":22}
+2026-10-21T15:34:21.650Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":16,"sensor_type":"ThermoNode","sensor_id":"T-01"}
+2026-10-21T15:34:21.650Z | SYSTEM | INFO | SERVER | Sensor registered: ThermoNode:T-01
+2026-10-21T15:34:21.650Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":86,"ack_for":16,"token":"5394cf4d85916aa5"}
+2026-10-21T15:34:21.651Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":17,"sensor_id":"T-01","token":"5394cf4d85916aa5","values":{"temperature":-45.2,"humidity":24.0,"dew_point":-33.7,"pressure":930.68},"crc":1745895473}
+2026-10-21T15:34:21.651Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:34:21.651Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":87,"ack_for":17}
+2026-10-21T15:34:28.535Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":23,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":4155,"ozone":243.4,"air_quality_index":217},"crc":3435176689}
+2026-10-21T15:34:28.535Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:34:28.535Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":88,"ack_for":23}
+2026-10-21T15:34:28.536Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":23,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":31.9,"wind_gust":14.2,"wind_direction":1,"turbulence":0.5},"crc":776262152}
+2026-10-21T15:34:28.536Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:34:28.536Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":89,"ack_for":23}
+2026-10-21T15:34:28.536Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":23,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":101.9,"soil_moisture":43.4,"flood_risk":0,"rain_duration":33},"crc":2508234735}
+2026-10-21T15:34:28.536Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:34:28.537Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":90,"ack_for":23}
+2026-10-21T15:34:31.653Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":18,"sensor_id":"T-01","token":"5394cf4d85916aa5","values":{"temperature":-35.3,"humidity":98.4,"dew_point":54.7,"pressure":990.01},"crc":2981210140}
+2026-10-21T15:34:31.654Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:34:31.654Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":91,"ack_for":18}
+2026-10-21T15:34:38.537Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":24,"sensor_id":"A-01","token":"411f977fac425b7f","values":{"co2":3793,"ozone":12.5,"air_quality_index":7},"crc":1419881306}
+2026-10-21T15:34:38.537Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:34:38.537Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":92,"ack_for":24}
+2026-10-21T15:34:38.538Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":24,"sensor_id":"R-01","token":"8b58e65c102fcdb6","values":{"rainfall":166.8,"soil_moisture":30.7,"flood_risk":3,"rain_duration":41},"crc":455243779}
+2026-10-21T15:34:38.538Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:34:38.538Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":93,"ack_for":24}
+2026-10-21T15:34:38.538Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":24,"sensor_id":"W-01","token":"dff1f2c509fbd5c9","values":{"wind_speed":37.6,"wind_gust":0.9,"wind_direction":88,"turbulence":0.3},"crc":3028707557}
+2026-10-21T15:34:38.539Z | SYSTEM | INFO | SERVER | Measurement accepted: WindSense:W-01
+2026-10-21T15:34:38.539Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":94,"ack_for":24}
+2026-10-21T15:34:46.656Z | SYSTEM | INFO | SERVER | SENSOR IDLE: ThermoNode:T-01
+2026-10-21T15:34:46.656Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":95,"sensor_id":"T-01","token":"5394cf4d85916aa5"}
+2026-10-21T15:34:51.655Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":96,"sensor_id":"T-01","token":"5394cf4d85916aa5"}
+2026-10-21T15:34:53.537Z | SYSTEM | INFO | SERVER | SENSOR IDLE: AirQuality:A-01
+2026-10-21T15:34:53.538Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":97,"sensor_id":"A-01","token":"411f977fac425b7f"}
+2026-10-21T15:34:53.539Z | SYSTEM | INFO | SERVER | SENSOR IDLE: RainDetect:R-01
+2026-10-21T15:34:53.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":98,"sensor_id":"R-01","token":"8b58e65c102fcdb6"}
+2026-10-21T15:34:53.540Z | SYSTEM | INFO | SERVER | SENSOR IDLE: WindSense:W-01
+2026-10-21T15:34:53.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":99,"sensor_id":"W-01","token":"dff1f2c509fbd5c9"}
+2026-10-21T15:34:56.656Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":100,"sensor_id":"T-01","token":"5394cf4d85916aa5"}
+2026-10-21T15:34:58.539Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":101,"sensor_id":"R-01","token":"8b58e65c102fcdb6"}
+2026-10-21T15:34:58.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":102,"sensor_id":"W-01","token":"dff1f2c509fbd5c9"}
+2026-10-21T15:34:58.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":103,"sensor_id":"A-01","token":"411f977fac425b7f"}
+2026-10-21T15:35:01.655Z | SYSTEM | WARNING | SERVER | SENSOR DISCONNECTED: ThermoNode:T-01
+2026-10-21T15:35:03.539Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":104,"sensor_id":"R-01","token":"8b58e65c102fcdb6"}
+2026-10-21T15:35:03.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":105,"sensor_id":"W-01","token":"dff1f2c509fbd5c9"}
+2026-10-21T15:35:03.540Z | MESSAGE | INFO | SERVER | Sent {"type":"KEEPALIVE","seq":106,"sensor_id":"A-01","token":"411f977fac425b7f"}
+2026-10-21T15:35:06.109Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":19,"sensor_type":"ThermoNode","sensor_id":"T-01"}
+2026-10-21T15:35:06.109Z | SYSTEM | INFO | SERVER | Sensor registered: ThermoNode:T-01
+2026-10-21T15:35:06.110Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":107,"ack_for":19,"token":"4e48eebf5fb3af59"}
+2026-10-21T15:35:06.110Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":20,"sensor_id":"T-01","token":"4e48eebf5fb3af59","values":{"temperature":-29.6,"humidity":61.2,"dew_point":49.7,"pressure":848.49},"crc":3164337596}
+2026-10-21T15:35:06.110Z | SYSTEM | INFO | SERVER | Measurement accepted: ThermoNode:T-01
+2026-10-21T15:35:06.111Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":108,"ack_for":20}
+2026-10-21T15:35:07.964Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":25,"sensor_type":"WindSense","sensor_id":"W-01"}
+2026-10-21T15:35:07.964Z | MESSAGE | INFO | SERVER | Sent {"type":"REJECT","seq":109,"ack_for":25,"reason":"Sensor ID is already registered"}
+2026-10-21T15:35:08.539Z | SYSTEM | WARNING | SERVER | SENSOR DISCONNECTED: RainDetect:R-01
+2026-10-21T15:35:08.539Z | SYSTEM | WARNING | SERVER | SENSOR DISCONNECTED: WindSense:W-01
+2026-10-21T15:35:08.540Z | SYSTEM | WARNING | SERVER | SENSOR DISCONNECTED: AirQuality:A-01
+2026-10-21T15:35:09.975Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":25,"sensor_type":"RainDetect","sensor_id":"R-01"}
+2026-10-21T15:35:09.976Z | SYSTEM | INFO | SERVER | Sensor registered: RainDetect:R-01
+2026-10-21T15:35:09.976Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":110,"ack_for":25,"token":"1a9037d130a60632"}
+2026-10-21T15:35:09.977Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":26,"sensor_id":"R-01","token":"1a9037d130a60632","values":{"rainfall":188.0,"soil_moisture":88.1,"flood_risk":3,"rain_duration":39},"crc":3023773245}
+2026-10-21T15:35:09.977Z | SYSTEM | INFO | SERVER | Measurement accepted: RainDetect:R-01
+2026-10-21T15:35:09.977Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":111,"ack_for":26}
+2026-10-21T15:35:12.590Z | MESSAGE | INFO | SERVER | Received {"type":"REGISTER","seq":25,"sensor_type":"AirQuality","sensor_id":"A-01"}
+2026-10-21T15:35:12.590Z | SYSTEM | INFO | SERVER | Sensor registered: AirQuality:A-01
+2026-10-21T15:35:12.591Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":112,"ack_for":25,"token":"f8dc99de467bb9ab"}
+2026-10-21T15:35:12.591Z | MESSAGE | INFO | SERVER | Received {"type":"DATA","seq":26,"sensor_id":"A-01","token":"f8dc99de467bb9ab","values":{"co2":348,"ozone":406.5,"air_quality_index":322},"crc":3401293154}
+2026-10-21T15:35:12.592Z | SYSTEM | INFO | SERVER | Measurement accepted: AirQuality:A-01
+2026-10-21T15:35:12.592Z | MESSAGE | INFO | SERVER | Sent {"type":"ACK","seq":113,"ack_for":26}
+2026-10-21T15:35:17.105Z | SYSTEM | INFO | SERVER | Server stopped

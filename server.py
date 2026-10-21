@@ -7,6 +7,7 @@ import time
 from lib import (
     SENSOR_TYPES, ask_address, create_logger, decode_message,
     encode_message, log_message, validate_values, verify_crc,
+    console_input, console_panel, console_write,
 )
 
 IDLE_TIMEOUT = 15
@@ -67,18 +68,19 @@ def server_menu(commands):
     """Menu nevstupuje do relacii; prikazy spracuje sietova slucka."""
     try:
         while True:
-            print("\n0 - Ukoncit server")
-            choice = input("Volba: ").strip()
+            console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
+            choice = console_input("  Voľba › ").strip()
             if choice == "0":
                 commands.put("STOP")
                 return
-            print("Zadaj 0 alebo ukonci server cez Ctrl+C.")
+            console_write("  ! Zadaj 0 alebo ukonči server cez Ctrl+C.")
     except (EOFError, KeyboardInterrupt):
         return
 
 
 def main():
     logger = create_logger("server", console=True)
+    console_panel("FIIT METEO · SERVER", ["Príjem meteorologických meraní cez UDP", "Nastav lokálnu IP a port. Enter ponechá predvolenú hodnotu."])
     try:
         address = ask_address("127.0.0.1", logger, "SERVER")
     except (EOFError, KeyboardInterrupt):

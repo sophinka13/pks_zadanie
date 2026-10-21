@@ -1,0 +1,21 @@
+\begin{tikzpicture}[node distance=6mm]
+\node[flowend] (start) {Opakovanie hlavnej slučky servera};
+\node[flowbox,below=of start] (timers) {Príkazy menu a kontrola časovačov relácií};
+\node[flowbox,below=of timers] (receive) {Prijať UDP datagram cez \texttt{recvfrom()}};
+\node[flowchoice,below=of receive] (valid) {Platný JSON, typ a \texttt{seq}?};
+\node[flowbox,right=12mm of valid,text width=2.5cm] (discard) {Zalogovať chybu a zahodiť};
+\node[flowbox,below=8mm of valid] (dispatch) {REGISTER: overiť typ a ID\\DATA: overiť reláciu, CRC a hodnoty\\KEEPALIVE\_ACK: overiť čakajúcu sondu};
+\node[flowbox,below=of dispatch] (state) {Aktualizovať platnú reláciu alebo pripraviť odmietnutie};
+\node[flowbox,below=of state] (reply) {Ak treba odpoveď, vykonať odosielací cyklus};
+\node[flowend,below=of reply] (repeat) {Ďalšia iterácia};
+\draw[flowarrow] (start)--(timers);
+\draw[flowarrow] (timers)--(receive);
+\draw[flowarrow] (receive)--(valid);
+\draw[flowarrow] (valid)--node[above,font=\small]{nie}(discard);
+\draw[flowarrow] (valid)--node[right,font=\small]{áno}(dispatch);
+\draw[flowarrow] (dispatch)--(state);
+\draw[flowarrow] (state)--(reply);
+\draw[flowarrow] (reply)--(repeat);
+\draw[flowarrow] (discard.south)|-(repeat.east);
+\draw[flowarrow] (repeat.west)--++(-10mm,0)|-(start.west);
+\end{tikzpicture}

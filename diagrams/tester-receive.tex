@@ -1,0 +1,19 @@
+\begin{tikzpicture}[node distance=6mm]
+\node[flowend] (start) {Opakovanie slučky jedného senzora};
+\node[flowbox,below=of start] (timers) {Spracovať frontu príkazov a časovače; pri vypršaní ukončiť príslušné čakanie alebo reláciu};
+\node[flowbox,below=of timers] (receive) {Čakať na datagram najviac 0,2 s alebo do najbližšieho termínu};
+\node[flowchoice,below=of receive] (valid) {Prišla použiteľná správa od servera?};
+\node[flowbox,right=12mm of valid,text width=2.5cm] (ignore) {Timeout alebo zahodenie správy};
+\node[flowbox,below=8mm of valid] (dispatch) {ACK: potvrdiť registráciu alebo meranie\\RETRANSMIT: overiť reláciu a odoslať originál\\KEEPALIVE: overiť reláciu a odpovedať\\REJECT: ukončiť príslušné čakanie};
+\node[flowbox,below=of dispatch] (state) {Aktualizovať stav senzora a čas platného kontaktu podľa typu odpovede};
+\node[flowend,below=of state] (repeat) {Ďalšia iterácia};
+\draw[flowarrow] (start)--(timers);
+\draw[flowarrow] (timers)--(receive);
+\draw[flowarrow] (receive)--(valid);
+\draw[flowarrow] (valid)--node[above,font=\small]{nie}(ignore);
+\draw[flowarrow] (valid)--node[right,font=\small]{áno}(dispatch);
+\draw[flowarrow] (dispatch)--(state);
+\draw[flowarrow] (state)--(repeat);
+\draw[flowarrow] (ignore.south)|-(repeat.east);
+\draw[flowarrow] (repeat.west)--++(-10mm,0)|-(start.west);
+\end{tikzpicture}

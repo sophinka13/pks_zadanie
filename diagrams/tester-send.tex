@@ -1,0 +1,20 @@
+\begin{tikzpicture}[node distance=6mm]
+\node[flowend] (start) {Príkaz menu, čas automatického merania alebo reakcia na server};
+\node[flowchoice,below=of start] (allowed) {Akcia je povolená v aktuálnom stave?};
+\node[flowbox,right=12mm of allowed,text width=2.5cm] (invalid) {Zalogovať odmietnutú akciu};
+\node[flowbox,below=8mm of allowed] (build) {Zostaviť REGISTER, DATA alebo KEEPALIVE\_ACK; pri oprave použiť uložený originál};
+\node[flowbox,below=of build] (crc) {Pri novej DATA doplniť CRC32 a uložiť správny originál};
+\node[flowbox,below=of crc] (corrupt) {Ak bola zvolená simulácia chyby, zmeniť iba odosielanú kópiu DATA};
+\node[flowbox,below=of corrupt] (send) {Zakódovať JSON, odoslať vlastným socketom a zalogovať skutočný obsah};
+\node[flowbox,below=of send] (pending) {Pri REGISTER a DATA uložiť čakanie na odpoveď; aktualizovať plán merania};
+\node[flowend,below=of pending] (end) {Pokračovať v slučke senzora};
+\draw[flowarrow] (start)--(allowed);
+\draw[flowarrow] (allowed)--node[above,font=\small]{nie}(invalid);
+\draw[flowarrow] (allowed)--node[right,font=\small]{áno}(build);
+\draw[flowarrow] (build)--(crc);
+\draw[flowarrow] (crc)--(corrupt);
+\draw[flowarrow] (corrupt)--(send);
+\draw[flowarrow] (send)--(pending);
+\draw[flowarrow] (pending)--(end);
+\draw[flowarrow] (invalid.south)|-(end.east);
+\end{tikzpicture}

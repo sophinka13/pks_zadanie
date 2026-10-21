@@ -1,0 +1,21 @@
+\begin{tikzpicture}[x=1cm,y=0.9cm,font=\small]
+\node[seqactor] (sensor) at (0,0) {Vlákno senzora};
+\node[seqactor] (server) at (9,0) {Server};
+\draw[dashed] (sensor.south)--(0,-17.3);
+\draw[dashed] (server.south)--(9,-17.3);
+\node[seqnote,text width=7cm] at (4.5,-1.1) {Vypnuté automatické merania, relácia zostáva platná};
+\draw[seqarrow] (9,-2.5)--node[above]{Po 15 s bez DATA: KEEPALIVE}(0,-2.5);
+\draw[seqarrow] (0,-3.4)--node[above]{KEEPALIVE\_ACK}(9,-3.4);
+\draw[seqarrow] (0,-4.3)--node[above]{Zapnutie meraní: DATA}(9,-4.3);
+\draw[seqarrow] (9,-5.2)--node[above]{ACK}(0,-5.2);
+\node[seqnote,text width=7cm] at (4.5,-6.4) {Úplné lokálne odpojenie; nasledujúce časy sú od poslednej DATA};
+\draw[seqarrow] (9,-7.9)--node[above]{15 s: prvý KEEPALIVE, bez odpovede}(0,-7.9);
+\draw[seqarrow] (9,-8.8)--node[above]{20 s: druhý KEEPALIVE, bez odpovede}(0,-8.8);
+\draw[seqarrow] (9,-9.7)--node[above]{25 s: tretí KEEPALIVE, bez odpovede}(0,-9.7);
+\node[seqnote,text width=7cm] at (4.5,-11) {30 s: \texttt{SENSOR DISCONNECTED}\\Server zruší reláciu a token.};
+\draw[seqarrow] (0,-12.5)--node[above]{Nový REGISTER s rovnakým ID}(9,-12.5);
+\draw[seqarrow] (9,-13.4)--node[above]{ACK: nový token}(0,-13.4);
+\draw[seqarrow] (0,-14.3)--node[above]{DATA s novým tokenom}(9,-14.3);
+\draw[seqarrow] (9,-15.2)--node[above]{ACK}(0,-15.2);
+\node[align=center,text width=8cm] at (4.5,-16.5) {Ostatné senzory počas testu pokračujú nezávisle.};
+\end{tikzpicture}

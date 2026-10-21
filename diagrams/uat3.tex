@@ -1,0 +1,12 @@
+\begin{tikzpicture}[x=1cm,y=0.9cm,font=\small]
+\node[seqactor] (sensor) at (0,0) {Vlákno senzora};
+\node[seqactor] (server) at (9,0) {Server};
+\draw[dashed] (sensor.south)--(0,-8.5);
+\draw[dashed] (server.south)--(9,-8.5);
+\draw[seqarrow] (0,-1)--node[above]{DATA: zmenená hodnota, pôvodné CRC}(9,-1);
+\node[seqnote,text width=6cm] at (4.5,-2) {Server zaloguje chybu integrity; meranie neprijme.};
+\draw[seqarrow] (9,-3.5)--node[above]{RETRANSMIT: \texttt{ack\_for} poškodenej DATA}(0,-3.5);
+\draw[seqarrow] (0,-4.6)--node[above]{DATA: uložený správny originál}(9,-4.6);
+\draw[seqarrow] (9,-5.7)--node[above]{ACK}(0,-5.7);
+\node[seqnote,text width=7cm] at (4.5,-7) {Obe DATA majú rovnaké \texttt{seq} a CRC.\\Pri opakovaní sa obnovia správne hodnoty.};
+\end{tikzpicture}

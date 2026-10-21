@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=1cm,y=0.85cm,font=\small]
+\node[seqactor] (sensor) at (0,0) {Vlákno senzora};
+\node[seqactor] (server) at (9,0) {Server};
+\draw[dashed] (sensor.south)--(0,-9.3);
+\draw[dashed] (server.south)--(9,-9.3);
+\draw[seqarrow] (0,-1)--node[above]{REGISTER: typ a ID}(9,-1);
+\draw[seqarrow] (9,-2)--node[above]{ACK: pridelený token}(0,-2);
+\draw[seqarrow] (0,-3)--node[above]{DATA: prvé meranie, token a CRC}(9,-3);
+\draw[seqarrow] (9,-4)--node[above]{ACK pre prvé meranie}(0,-4);
+\node[seqnote,text width=6.5cm] at (4.5,-5) {Nasledujúca DATA približne 10 s po prvej};
+\draw[seqarrow] (0,-6.6)--node[above]{DATA: nové hodnoty a nové \texttt{seq}}(9,-6.6);
+\draw[seqarrow] (9,-7.6)--node[above]{ACK pre druhé meranie}(0,-7.6);
+\node[align=center] at (4.5,-8.8) {Rovnaký priebeh nezávisle pre všetky štyri senzory.};
+\end{tikzpicture}

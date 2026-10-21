@@ -8,6 +8,7 @@ import time
 from lib import (
     SENSOR_FIELDS, ask_address, create_logger, decode_message,
     encode_message, log_message, parse_sensor_value, calculate_crc,
+    console_input, console_panel, console_write,
 )
 
 MEASUREMENT_INTERVAL = 10
@@ -114,7 +115,6 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
                     "SYSTEM | INFO | %s | Automatic measurements %s",
                     sensor_source(sensor), state,
                 )
-                print(f"{sensor['sensor_id']}: automaticke merania {'zapnute' if sensor['automatic'] else 'vypnute'}.")
                 continue
             damaged = sensor["sensor_id"] in corrupt_next
             corrupt_next.discard(sensor["sensor_id"])
@@ -238,15 +238,17 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
 
 def read_custom_values(sensor_type, logger=None, source="TESTER"):
     values = {}
+    console_panel(f"VLASTNÉ MERANIE · {sensor_type}", ["Použi desatinnú bodku. Neplatnú hodnotu môžeš opraviť."])
     for name, (minimum, maximum, places) in SENSOR_FIELDS[sensor_type].items():
         while True:
             try:
-                text = input(f"{name} ({minimum} az {maximum}, desatinne miesta: {places}): ").strip()
+                precision = "celé číslo" if places == 0 else f"max. {places} des. miest"
+                text = console_input(f"  {name} [{minimum} až {maximum}; {precision}]: ").strip()
                 value = parse_sensor_value(sensor_type, name, text)
                 values[name] = value
                 break
             except ValueError as error:
-                print(f"Nespravna hodnota: {error}")
+                console_write(f"  ! Nesprávna hodnota: {error}")
                 if logger is not None:
                     logger.warning(
                         "SYSTEM | WARNING | %s | Invalid custom value for %s: %r; %s",
@@ -257,25 +259,32 @@ def read_custom_values(sensor_type, logger=None, source="TESTER"):
 
 def run_menu(sensors, commands, stop, logger):
     while not stop.is_set():
-        print(
-            "\n1 - Odoslat vlastne meranie\n2 - Poskodit nasledujuce meranie"
-            "\n3 - Vypnut/zapnut automaticke merania senzora"
-            "\n4 - Uplne odpojit senzor\n5 - Znova zaregistrovat senzor\n0 - Ukoncit tester"
-        )
-        choice = input("Volba: ").strip()
+        console_panel("TESTER · MENU", [
+            "1  Odoslať vlastné meranie",
+            "2  Poškodiť nasledujúce meranie",
+            "3  Vypnúť / zapnúť automatické merania",
+            "4  Úplne odpojiť senzor",
+            "5  Znova zaregistrovať senzor",
+            "0  Ukončiť tester",
+        ])
+        choice = console_input("  Voľba › ").strip()
         if choice == "0":
             return
         if choice not in ("1", "2", "3", "4", "5"):
-            print("Zadaj volbu 0 az 5.")
+            console_write("  ! Vyber číslo od 0 do 5.")
             continue
+        rows = [f"{'#':<3} {'SENZOR':<16} {'ID':<7} STAV", "─" * 52]
         for index, sensor in enumerate(sensors, start=1):
-            print(f"{index} - {sensor['sensor_type']}:{sensor['sensor_id']}")
+            active = sensor.get("active")
+            state = "registrácia" if active is None else "odpojený" if not active else "automatika" if sensor.get("automatic") else "pauza"
+            rows.append(f"{index:<3} {sensor['sensor_type']:<16} {sensor['sensor_id']:<7} {state}")
+        console_panel("VÝBER SENZORA", rows)
         try:
-            selected = int(input("Cislo senzora: "))
+            selected = int(console_input("  Číslo senzora › "))
             if not 1 <= selected <= len(sensors):
                 raise ValueError()
         except ValueError:
-            print("Nespravne cislo senzora.")
+            console_write("  ! Nesprávne číslo senzora.")
             continue
         sensor = sensors[selected - 1]
         if choice in ("4", "5"):
@@ -286,11 +295,11 @@ def run_menu(sensors, commands, stop, logger):
             continue
         if choice == "2":
             commands[sensor["sensor_id"]].put(("CORRUPT", sensor, None))
-            print("Nasledujuce meranie vybraneho senzora bude poskodene.")
+            console_write(f"  → {sensor['sensor_id']}: požiadavka na poškodenie zaradená do fronty.")
             continue
         values = read_custom_values(sensor["sensor_type"], logger, sensor_source(sensor))
         commands[sensor["sensor_id"]].put(("DATA", sensor, values))
-        print("Meranie je vo fronte na odoslanie. Potvrdenie najdes v logu.")
+        console_write(f"  → {sensor['sensor_id']}: meranie zaradené do fronty. Prijatie potvrdí ACK.")
 
 
 def start_measurements_and_menu(server_address, sensors, logger):
@@ -316,7 +325,7 @@ def start_measurements_and_menu(server_address, sensors, logger):
         finally:
             logger.info("SYSTEM | INFO | %s | Sensor worker stopped", source)
 
-    print("Kazdy senzor bezi vo vlastnom vlakne. Automaticke merania kazdych 10 sekund.")
+    console_write("\n  4 senzory · samostatné vlákna · merania každých 10 s · ukončenie Ctrl+C")
     try:
         for sensor in sensors:
             worker = threading.Thread(
@@ -334,6 +343,7 @@ def start_measurements_and_menu(server_address, sensors, logger):
 
 def main():
     logger = create_logger("tester", console=True)
+    console_panel("FIIT METEO · TESTER", ["Simulátor meteorologických senzorov", "Nastav adresu servera. Enter ponechá predvolenú hodnotu."])
     try:
         server_address = ask_address("127.0.0.1", logger, "TESTER")
     except (EOFError, KeyboardInterrupt):
