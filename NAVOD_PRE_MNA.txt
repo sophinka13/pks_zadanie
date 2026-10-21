@@ -1,0 +1,470 @@
+Tento návod opisuje aktuálny JSON prototyp pre UAT 1, 2, 3 a 4.
+UAT 5 nie je súčasťou našej verzie. Návod bol vytvorený s pomocou AI.
+Je to osobná pomôcka, nenahrádza odovzdávanú PDF dokumentáciu.
+
+
+1. ČO ROBIA JEDNOTLIVÉ SÚBORY
+
+server.py
+  Prijíma UDP správy, registruje senzory a prideľuje tokeny. Kontroluje
+  merania a CRC, posiela potvrdenia a žiadosti o opravu poškodenej správy.
+  Pomocou KEEPALIVE zisťuje, či sú senzory ešte dostupné.
+
+tester.py
+  Simuluje štyri senzory. Zaregistruje ich a automaticky generuje merania.
+  Obsahuje menu na vlastné merania, poškodenie správy, prepnutie automatiky,
+  úplné odpojenie a opätovnú registráciu senzora.
+
+lib.py
+  Spoločné funkcie: JSON, CRC32, logovanie, kontrola IP adresy a portu,
+  povolené rozsahy parametrov. Tento súbor sa samostatne nespúšťa.
+
+server.log / tester.log
+  Záznamy udalostí a komunikácie. Príslušný log sa vyčistí pri spustení
+  programu, ešte pred zadaním IP adresy a portu. Po ukončení zostane
+  posledný beh dostupný na prečítanie až do ďalšieho spustenia.
+
+
+Programy používajú štandardné knižnice Pythonu; netreba inštalovať balíky
+cez pip. server.py, tester.py a lib.py majú byť v rovnakom priečinku.
+
+
+2. NAJRÝCHLEJŠIE SPUSTENIE NA JEDNOM POČÍTAČI
+
+Vo VS Code otvor terminál v priečinku projektu:
+  Terminal -> New Terminal
+
+Ak nie si v priečinku projektu, prejdi doň príkazom:
+  cd "/Users/sophiehetesova/Desktop/3. semester/pks/zadanie"
+
+PRVÝ TERMINÁL – SERVER:
+  python3 server.py
+
+Pri otázkach stlač Enter:
+  IP adresa [127.0.0.1]: Enter
+  UDP port [9000]: Enter
+
+Očakávaný výsledok:
+  Server listening on 127.0.0.1:9000
+
+Server nechaj bežať. Nečakaj, že sa vráti príkazový riadok terminálu.
+Je pripravený prijímať správy aj vtedy, keď jeho menu čaká na zadanie.
+
+DRUHÝ TERMINÁL – TESTER:
+  Otvor ďalší terminál cez tlačidlo + v paneli terminálov.
+  python3 tester.py
+
+Aj tu dvakrát Enter: IP 127.0.0.1 a port 9000.
+
+Tester spustí štyri vlákna senzorov a otvorí menu. Senzory sa registrujú
+súbežne; každý po úspešnej registrácii odošle prvé meranie a ďalšie
+posiela každých približne 10 sekúnd. Pred skúšaním menu počkám na štyri
+výpisy Registration successful.
+
+Pri každej položke menu zadaj číslo a potvrď Enterom.
+Zápis „3 -> 1“ v tomto návode znamená: napíš 3, Enter, potom 1, Enter.
+
+Programy nemajú prepínače ako --port. IP a port zadávam do otázok
+po spustení programu.
+
+
+3. VÝBER SENZORA
+
+Pri operáciách v menu testera sa ponúkajú tieto čísla:
+
+  1 = ThermoNode, ID T-01   – teplota, vlhkosť, rosný bod, tlak
+  2 = WindSense, ID W-01    – rýchlosť, nárazy a smer vetra, turbulencia
+  3 = RainDetect, ID R-01   – zrážky, vlhkosť pôdy, riziko, trvanie zrážok
+  4 = AirQuality, ID A-01   – CO2, ozón, index kvality vzduchu
+
+Pozor: číslo voľby menu a číslo senzora sú dva rôzne vstupy.
+Napríklad menu 4 -> senzor 1 odpojí ThermoNode, nie AirQuality.
+
+
+4. VŠETKY MOŽNOSTI MENU TESTERA
+
+0 – UKONČIŤ TESTER
+  Ukončí celý tester, teda všetky jeho senzory prestanú komunikovať.
+  Server zostane bežať a neprítomnosť senzorov zistí cez KEEPALIVE.
+  Alternatíva: Ctrl+C v termináli testera (na Macu tiež Ctrl, nie Cmd).
+
+1 – ODOSLAŤ VLASTNÉ MERANIE
+  Vyberiem senzor a postupne zadám všetky jeho hodnoty.
+  Používam desatinnú bodku, napríklad 21.3, nie 21,3.
+  Pri celočíselnom parametri píšem napríklad 90, nie 90.0.
+  Neplatnú hodnotu si program vypýta znova.
+
+  Automatické merania pokračujú aj počas zadávania. Ručné meranie
+  nenahradí automatické, je to dodatočná správa s novým seq.
+  Funguje aj pri vypnutej automatike, ale senzor musí mať platnú reláciu.
+
+  Po vložení do fronty ešte nie je potvrdené prijatie serverom.
+  V logu hľadám Sent DATA, Received ACK a Measurement acknowledged.
+
+2 – POŠKODIŤ NASLEDUJÚCE MERANIE
+  Vyberiem senzor a počkám na jeho ďalšiu správu DATA.
+  Môže byť automatická alebo ručne zadaná.
+  Voľba sama žiadnu protokolovú správu serveru neposiela.
+
+  Tester najprv vypočíta CRC a uloží správny originál. V odosielanej
+  kópii zmení jednu hodnotu bez prepočítania CRC. Server chybu zistí
+  a požiada o retransmisiu. Tester pošle správny originál s rovnakým seq.
+
+  Očakávaný priebeh:
+    poškodená DATA -> RETRANSMIT -> správna DATA -> ACK
+
+  Poškodí sa iba jedna nasledujúca správa vybraného senzora.
+  Pri vypnutej automatike treba poslať ručné meranie alebo zapnúť automatiku.
+  Opakované označenie pred odoslaním neznamená viac poškodených správ.
+
+3 – VYPNÚŤ/ZAPNÚŤ AUTOMATICKÉ MERANIA
+  Vyberiem senzor. Ak odosielal automaticky, prestane; ak neodosielal,
+  znovu začne. Pri zapnutí sa najbližšie meranie odošle hneď, ďalšie po 10 s.
+
+  Relácia a token zostanú zachované. Senzor naďalej odpovedá na KEEPALIVE
+  a môžem mu poslať ručné meranie. Ostatné senzory pokračujú.
+
+  V logu uvidím:
+    Automatic measurements disabled = automatika vypnutá
+    Automatic measurements enabled  = automatika zapnutá
+
+4 – ÚPLNE ODPOJIŤ SENZOR
+  Vyberiem senzor. Tester ukončí jeho lokálnu reláciu, zahodí token
+  a čakajúce správy. Senzor prestane posielať merania aj KEEPALIVE_ACK.
+  Ostatné senzory pokračujú. Serveru sa neposiela osobitné oznámenie.
+
+  Server reláciu zruší až po neúspešnom overení dostupnosti.
+  Odpojenému senzoru nestačí zapnúť automatiku cez voľbu 3;
+  najprv sa musí znova zaregistrovať cez voľbu 5.
+
+5 – ZNOVA ZAREGISTROVAŤ SENZOR
+  Vyberiem odpojený senzor. Tester odošle REGISTER.
+  Po úspechu dostane nový token a automatické merania sa zapnú.
+
+  Pred registráciou počkám na serverový výpis SENSOR DISCONNECTED.
+  Ak stará relácia ešte platí, server registráciu odmietne.
+  Potom počkám a voľbu 5 zopakujem.
+  Aktívny senzor sa touto voľbou znovu neregistruje.
+
+Výpisy z komunikácie sa môžu objaviť aj počas písania do menu.
+Je to tým, že menu beží v hlavnom vlákne a každý senzor vo vlastnom vlákne.
+Ak sa v termináli zle orientujem, priebeh si pozriem v súbore tester.log.
+
+
+5. MENU SERVERA
+
+  0 = ukončiť server
+  Ctrl+C = tiež ukončiť server
+
+Prijímanie správ pokračuje počas čakania na vstup do menu.
+Server nemá voľbu na potláčanie ACK – UAT 5 sme vyradili.
+
+
+6. POVOLENÉ HODNOTY A PRÍKLADY PRE RUČNÉ MERANIA
+
+Rozsahy zahŕňajú obe hranice. Počet desatinných miest je maximálna
+povolená presnosť: napríklad tlak 1000 alebo 1000.5 je tiež platný.
+
+THERMONODE (senzor 1):
+  temperature: -50.0 až 60.0 °C, najviac 1 desatinné miesto
+  humidity: 0.0 až 100.0 %, najviac 1 desatinné miesto
+  dew_point: -50.0 až 60.0 °C, najviac 1 desatinné miesto
+  pressure: 800.00 až 1100.00 hPa, najviac 2 desatinné miesta
+  Príklad vstupov v tomto poradí: 21.3, 55.4, 11.9, 1013.25
+
+WINDSENSE (senzor 2):
+  wind_speed: 0.0 až 50.0 m/s, najviac 1 desatinné miesto
+  wind_gust: 0.0 až 70.0 m/s, najviac 1 desatinné miesto
+  wind_direction: 0 až 359 stupňov, celé číslo
+  turbulence: 0.0 až 1.0, najviac 1 desatinné miesto
+  Príklad vstupov: 5.2, 8.1, 90, 0.3
+
+RAINDETECT (senzor 3):
+  rainfall: 0.0 až 500.0 mm, najviac 1 desatinné miesto
+  soil_moisture: 0.0 až 100.0 %, najviac 1 desatinné miesto
+  flood_risk: 0 až 3, celé číslo (0 žiadne, 1 nízke, 2 stredné, 3 vysoké)
+  rain_duration: 0 až 60 minút, celé číslo
+  Príklad vstupov: 12.5, 60.0, 1, 20
+
+AIRQUALITY (senzor 4):
+  co2: 300 až 5000 ppm, celé číslo
+  ozone: 0.0 až 500.0 µg/m³, najviac 1 desatinné miesto
+  air_quality_index: 0 až 500, celé číslo
+  Príklad vstupov: 800, 45.2, 50
+
+Príklady tu píšem oddelené čiarkami len pre čitateľnosť.
+Do programu zadávam každé číslo zvlášť a po každom stlačím Enter.
+
+
+7. AKO POSTUPNE VYSKÚŠAŤ UAT 1–4
+
+UAT 1 – REGISTRÁCIA A AUTOMATICKÉ MERANIA
+  1. Spustím server a potom tester s rovnakou adresou servera a portom.
+  2. Nič ďalšie nezadávam a nechám ich bežať približne 25 sekúnd.
+  3. Kontrolujem štyri Registration successful a pridelené tokeny.
+  4. Od každého senzora musia byť aspoň dve DATA približne 10 s od seba.
+  5. Kontrolujem ACK a Measurement acknowledged.
+
+UAT 2 – VLASTNÉ HODNOTY
+  1. V testeri zvolím 1 -> 1 (vlastné meranie -> ThermoNode).
+  2. Zadám postupne 21.3, 55.4, 11.9, 1013.25, každé zvlášť.
+  3. Na serveri hľadám DATA s presne týmito hodnotami a následné ACK.
+  4. Ostatné automatické merania musia pokračovať aj počas zadávania.
+
+UAT 3 – CHYBA INTEGRITY A OPRAVA
+  1. Zvolím 2 -> 1 (poškodiť nasledujúce meranie ThermoNode).
+  2. Pri zapnutej automatike počkám najviac približne 10 s.
+  3. Server vypíše Integrity check failed a odošle RETRANSMIT.
+  4. Tester odošle správny originál a server ho potvrdí.
+  5. Obe DATA musia mať rovnaké seq; poškodené meranie nesmie byť prijaté.
+  Rovnako môžem vybrať senzor 2, 3 alebo 4.
+
+UAT 4 – PAUZA, KEEPALIVE, ODPOJENIE A NOVÁ REGISTRÁCIA
+  1. Zvolím 3 -> 1: vypnem automatiku ThermoNode.
+  2. Po 15 s bez merania server vypíše SENSOR IDLE a pošle KEEPALIVE.
+  3. Tester odpovedá KEEPALIVE_ACK. Relácia zostáva platná.
+  4. Zvolím 3 -> 1 a počkám na aspoň jedno potvrdené nové meranie.
+  5. Zvolím 4 -> 1: úplne odpojím ThermoNode.
+  6. Počkám na SENSOR DISCONNECTED, približne 30 s od poslednej DATA.
+  7. Zvolím 5 -> 1: znova zaregistrujem senzor.
+  8. Kontrolujem nový token a obnovené automatické merania.
+
+Časová os bez dát a bez odpovedí na sondy:
+  0 s   = posledná platná DATA (alebo registrácia, ak ešte neboli dáta)
+  15 s  = SENSOR IDLE a prvý KEEPALIVE
+  20 s  = druhý KEEPALIVE
+  25 s  = tretí KEEPALIVE
+  30 s  = SENSOR DISCONNECTED a zrušenie tokenu
+
+Časy sú od poslednej DATA, nie od stlačenia voľby 4.
+Ak prichádzajú odpovede na KEEPALIVE, server reláciu nezruší a pokračuje
+v sondách každých 5 s. Ručné meranie tiež obnoví čas posledných dát.
+
+Pre odovzdanie treba tieto scenáre predviesť na dvoch fyzických
+zariadeniach a komunikáciu sledovať vo Wiresharku.
+
+
+8. INÝ PORT A SPUSTENIE NA DVOCH POČÍTAČOCH
+
+INÝ PORT NA JEDNOM POČÍTAČI:
+  Pri spustení servera aj testera zadám napríklad port 9001.
+  Port musí byť rovnaký v oboch programoch, v rozsahu 1 až 65535.
+  IP môže na jednom počítači zostať 127.0.0.1.
+
+DVA POČÍTAČE:
+  Na prvom počítači beží server, na druhom tester.
+  Oba musia mať sieťové spojenie, ktoré umožňuje prenos UDP.
+
+  Príklad: počítač servera má adresu 192.168.1.10.
+  Túto ukážkovú adresu nahradím skutočnou IPv4 adresou servera.
+
+  SERVER:
+    python3 server.py
+    IP adresa: 0.0.0.0
+    UDP port: 9000
+
+  TESTER NA DRUHOM POČÍTAČI:
+    python3 tester.py
+    IP adresa: 192.168.1.10
+    UDP port: 9000
+
+  0.0.0.0 na serveri znamená počúvanie na všetkých lokálnych IPv4
+  rozhraniach. V testeri zadávam skutočnú adresu servera, nie 0.0.0.0.
+  Adresa 127.0.0.1 označuje vlastný počítač, preto na dvoch počítačoch
+  nemôže tester používať 127.0.0.1 ako adresu vzdialeného servera.
+
+  Ak lokálny test funguje a vzdialený nie, skontrolujem adresu servera,
+  port, firewall a možnú izoláciu klientov v použitej sieti.
+  Na druhý počítač prenesiem aj lib.py spolu s príslušným programom.
+
+
+9. AKO ČÍTAŤ LOGY
+
+Formát:
+  UTC čas | druh záznamu | závažnosť | zdroj | udalosť alebo obsah správy
+
+SYSTEM = udalosť programu, napríklad registrácia alebo odpojenie.
+MESSAGE = prijatá alebo odoslaná správa protokolu.
+Sent = odoslané, Received = prijaté.
+INFO = informačný záznam, WARNING = upozornenie, ERROR = chyba.
+TESTER:ThermoNode:T-01 označuje konkrétny senzor.
+Čas s koncovým Z je v UTC, preto sa môže líšiť od miestneho času.
+
+REGISTER = žiadosť o registráciu.
+ACK = potvrdenie; pri registrácii obsahuje aj nový token.
+DATA = meranie s hodnotami a CRC.
+RETRANSMIT = žiadosť o opakovanie poškodenej správy.
+REJECT = odmietnutie správy alebo registrácie; reason uvádza dôvod.
+KEEPALIVE = otázka servera, či senzor ešte komunikuje.
+KEEPALIVE_ACK = odpoveď senzora na KEEPALIVE.
+
+seq = číslo správy u odosielateľa.
+ack_for = číslo správy, ku ktorej sa odpoveď vzťahuje.
+token = identifikátor platnej relácie pridelený serverom.
+values = namerané hodnoty.
+crc = kontrolný súčet na odhalenie poškodenia obsahu.
+
+Každý senzor používa vlastný čítač seq. Jeho prvá registrácia má seq 1
+a prvé meranie seq 2. Rôzne senzory preto môžu mať rovnaké seq;
+rozlišujú sa podľa relácie a vlastného UDP socketu. Sondy a ich odpovede
+tiež používajú poradové čísla, takže neskôr nemusia DATA nasledovať
+číselne hneď za sebou. Server má vlastný nezávislý čítač.
+
+Pri neprišlom ACK tester po 3 s meranie zahodí a zapíše upozornenie.
+Automatické časované opakovanie nie je zapnuté (UAT 5 sme odstránili).
+Opakovanie na žiadosť RETRANSMIT zostáva súčasťou UAT 3.
+
+Ak potrebujem log zachovať na dokumentáciu, skopírujem ho pod iným
+názvom ešte pred ďalším spustením. Nový beh pôvodný súbor prepíše.
+
+
+10. UKONČENIE, REŠTART A BEŽNÉ PROBLÉMY
+
+BEŽNÝ REŠTART OBOCH PROGRAMOV:
+  1. V testeri zvolím 0 alebo Ctrl+C.
+  2. Na serveri zvolím 0 alebo Ctrl+C.
+  3. Znovu spustím server a až potom tester.
+  4. Pri lokálnom teste v oboch dvakrát Enter.
+  Po reštarte server nemá pôvodné relácie ani tokeny.
+
+Address already in use / Errno 48:
+  Port už používa iný proces, často starý server v inom termináli.
+  Nájdem pôvodný server a zastavím ho cez Ctrl+C alebo voľbu 0.
+  Prípadne zvolím iný port, napríklad 9001, v oboch programoch.
+  Nespúšťam druhý server na tej istej adrese a porte.
+
+Registration timed out after 3 seconds:
+  Tester nedostal včas odpoveď. Overím, či server už beží a vypísal
+  Server listening. Skontrolujem adresu a port v oboch programoch.
+  Po oprave môžem skúsiť voľbu 5 pre neaktívny senzor alebo reštart oboch.
+  Ak sa odpoveď stratila, stará relácia na serveri môže ešte dočasne platiť.
+
+Sensor ID is already registered:
+  Server ešte eviduje pôvodnú reláciu. Pri odpojenom senzore počkám na
+  SENSOR DISCONNECTED a zopakujem voľbu 5. Pri novom teste je najjednoduchšie
+  riadne zastaviť a spustiť oba programy. Nespúšťam viac testerov naraz
+  s rovnakými pevne nastavenými ID T-01, W-01, R-01 a A-01.
+
+Sensor is already active or registration is pending:
+  Voľba 5 bola použitá pre aktívny senzor alebo už čaká na registráciu.
+  Pre aktívny senzor používam bežné merania, nie novú registráciu.
+
+Sensor is disconnected; register it first:
+  Senzor nemá lokálnu platnú reláciu. Použijem voľbu 5.
+  Ak server ešte drží starú reláciu, počkám na jej zrušenie.
+
+Invalid sensor ID or token:
+  Server token nepozná, napríklad bol reštartovaný alebo relácia vypršala.
+  Tester pri tomto odmietnutí lokálnu reláciu ukončí. Zaregistrujem ju znova.
+
+Nesprávna IP alebo port:
+  Program sa opýta znova. Používam číselnú IPv4 adresu a celočíselný port.
+  Doménové názvy ako localhost ani IPv6 táto verzia neprijíma ako adresu.
+
+Nesprávna hodnota merania:
+  Skontrolujem povolený rozsah, počet desatinných miest a bodku.
+  Pri celočíselnom poli nepíšem desatinnú časť.
+
+Po reštarte testera nevidím staré merania:
+  Je to zámer: log obsahuje iba posledné spustenie.
+  Nespúšťam dve inštancie rovnakého programu naraz, aby si neprepisovali log.
+
+
+11. POZNÁMKY K AKTUÁLNEJ VERZII
+
+Senzory majú zatiaľ pevne nastavené typy a ID; menu nepridáva nové senzory.
+Komunikácia je JSON nad UDP, nie finálny binárny protokol.
+Logovanie do konzoly je v oboch programoch aktuálne zapnuté priamo v kóde;
+menu nemá prepínač konzolového logovania. Zápis do súboru je vždy zapnutý.
+
+Tester pri 30 s bez platného kontaktu zo servera ukončí lokálnu reláciu.
+Čas obnovujú KEEPALIVE, potvrdenie merania a platná žiadosť RETRANSMIT.
+Túto interpretáciu nejasnej formulácie P9 treba potvrdiť s cvičiacim:
+pri bežnom prenose server KEEPALIVE neposiela, preto funkčnú reláciu
+udržiavajú aj potvrdenia dát. Podrobnosť je zapísaná aj v PRVA_FAZA.md.
+
+Na odovzdanie ešte potrebujem PDF dokumentáciu podľa školského vzoru,
+overenie na dvoch fyzických zariadeniach s Wiresharkom a finálny ZIP.
+
+
+12. HRANIČNÉ SITUÁCIE NA PREZENTÁCIU
+----------------------------------
+
+Kontroly podľa obrázka boli doplnené a pokrýva ich tests/test_presentation.py.
+UAT 5 zostáva podľa dohody mimo projektu.
+
+UAT 1 – NESPRÁVNY FORMÁT IP:
+  1. Spustím server a pri IP zadám napríklad 999.1.1.1.
+  2. Program vypíše chybu a opýta sa znova; nesmie spadnúť.
+  3. Zadám správnu IP (pri lokálnom teste 127.0.0.1) a port.
+  4. V server.log ukážem Invalid address or port aj Server listening.
+  Rovnaká kontrola funguje v testeri. Port abc, -1 alebo 65536 sa odmietne.
+
+UAT 2 – HODNOTA MIMO ROZSAHU A POTOM PLATNÉ CUSTOM DÁTA:
+  1. V testeri zadám 1 -> 1 a pri temperature skúsim 61.
+  2. Program hodnotu odmietne, zapíše ju do tester.log a opýta sa znova.
+  3. Skúsim aj abc, NaN alebo 21.33 – tiež sa odmietnu.
+  4. Opravím na 21.3 a dokončím hodnotami 55.4, 11.9, 1013.25.
+  5. V tester.log ukážem Invalid custom value, potom odoslanú DATA a ACK.
+  6. V server.log ukážem presné prijaté hodnoty a Measurement accepted.
+  Neplatná rozpracovaná hodnota sa serveru neposiela. Server aj samostatne
+  kontroluje rozsahy prijatých DATA, takže nekontroluje iba tester.
+  Kontrola presnosti prebehne pred prevodom vstupu na float: ani veľmi dlhý
+  vstup 21.300000000000000001 neprejde ako platných 21.3.
+
+UAT 3 – CHYBA A OPAKOVANIE TEJ ISTEJ SPRÁVY:
+  1. V testeri zadám 2 -> číslo senzora a počkám na ďalšiu DATA.
+  2. V server.log ukážem Integrity check failed a odoslaný RETRANSMIT.
+  3. V tester.log ukážem obe DATA s rovnakým seq a crc, ale odlišnou hodnotou.
+  4. Druhá DATA je správny originál. V server.log ukážem prijatie a ACK.
+
+UAT 4 – ODPOJENIE, ČAKANIE A NOVÉ PRIPOJENIE:
+  1. Skúsim 3 -> 1: merania sa vypnú, KEEPALIVE_ACK naďalej funguje.
+  2. Znova 3 -> 1 a počkám na potvrdené meranie.
+  3. Zadám 4 -> 1 a nechám server bežať.
+  4. V server.log ukážem tri sondy a SENSOR DISCONNECTED približne 30 s
+     od posledného merania. Potom zadám 5 -> 1.
+  5. Ukážem nový token a nové meranie v oboch logoch.
+  Ak zadám 5 predčasne, server odmietne stále existujúce ID. Nespadne;
+  po SENSOR DISCONNECTED môžem registráciu zopakovať.
+
+AUTOMATICKÉ OVERENIE:
+  Rýchle kontroly bez sieťových socketov:
+    python3 -m unittest discover -s tests -v
+
+  Celý lokálny scenár so serverom a testerom, približne minúta:
+    PKS_RUN_UDP_TESTS=1 python3 -m unittest discover -s tests -v
+
+  Testy si používajú vlastný dočasný priečinok a voľný UDP port.
+  Neprepisujú moje server.log ani tester.log. Lokálne automatické testy
+  nenahrádzajú predvedenie na dvoch fyzických počítačoch s Wiresharkom.
+
+Tieto doplnenia a testy boli vytvorené s pomocou AI.
+
+
+13. KAŽDÝ SENZOR VO VLASTNOM VLÁKNE
+----------------------------------
+
+Tester má hlavné vlákno pre menu a štyri samostatné vlákna:
+  sensor-T-01 – ThermoNode
+  sensor-W-01 – WindSense
+  sensor-R-01 – RainDetect
+  sensor-A-01 – AirQuality
+
+Každé má vlastný UDP socket s vlastným lokálnym portom, frontu príkazov,
+čítač seq, token a časovače. Registráciu, DATA, ACK, opravu správ aj KEEPALIVE
+obsluhuje vždy vlákno príslušného senzora. Čakanie jedného senzora
+na registráciu alebo ACK nezastaví ostatné senzory.
+
+Menu posiela príkaz do fronty vybraného senzora. Logovanie do tester.log
+je spoločné; knižnica logging zabezpečuje zápis z viacerých vlákien.
+V logu uvidím Sensor worker started s názvom vlákna a UDP portom.
+
+Voľba 4 ukončí reláciu senzora, ale jeho vlákno zostane pripravené
+na opätovnú registráciu cez voľbu 5. Pri ukončení celého testera cez 0
+alebo Ctrl+C sa zastavia všetky štyri vlákna a zatvoria ich sockety.
+V logu bude pre každé vlákno Sensor worker stopped.
+
+Spustenie programov ani čísla volieb menu sa nemenia. Pri použití
+Wiresharku filtrujem serverový port, keďže každý senzor má iný lokálny port.
+Táto úprava bola vytvorená s pomocou AI.
