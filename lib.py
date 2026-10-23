@@ -19,8 +19,8 @@ _console_lock = threading.RLock()
 _active_prompt = None
 
 
+# vypise cely blok do terminalu a obnovi rozpisany vstup, aby ho spravy z vlakien neprepisali
 def console_write(text, stream=None):
-    """Vypiseme cely blok naraz a pri pisani obnovime prompt aj rozpisany vstup."""
     stream = sys.stdout if stream is None else stream
     with _console_lock:
         redraw = _active_prompt is not None and stream.isatty()
@@ -33,6 +33,7 @@ def console_write(text, stream=None):
         stream.flush()
 
 
+# nacita vstup od pouzivatela a zapamata si aktualnu vyzvu pre obnovovanie terminalu
 def console_input(prompt):
     global _active_prompt
     with _console_lock:
@@ -44,6 +45,7 @@ def console_input(prompt):
             _active_prompt = None
 
 
+# zobrazi nadpis a zoznam riadkov v prehladnom ramceku
 def console_panel(title, lines):
     width = min(78, max(40, shutil.get_terminal_size().columns - 2))
     heading = f"─ {title} "
@@ -53,15 +55,16 @@ def console_panel(title, lines):
 
 
 class ConsoleFormatter(logging.Formatter):
-    """Strucnejsia konzola; suborovy handler nadalej zapisuje uplny protokolovy log."""
-
+    # nastavi, ci sa pri formatovani konzolovych vypisov pouziju farby
     def __init__(self, color=False):
         super().__init__()
         self.color = color
 
+    # obali text farebnymi kodmi, ak su farby zapnute
     def paint(self, text, code):
         return f"\033[{code}m{text}\033[0m" if self.color else text
 
+    # prevedie logovy zaznam na citatelny konzolovy vypis s casom, zdrojom a hodnotami
     def format(self, record):
         timestamp = time.strftime("%H:%M:%S", time.gmtime(record.created))
         timestamp += f".{int(record.msecs):03d} UTC"
@@ -107,6 +110,7 @@ class ConsoleFormatter(logging.Formatter):
         badge = self.paint(f"{level:<7}", color)
         return f"{time_label}  {badge}  {label}  {body}"
 
+    # rozdeli podrobnosti spravy do riadkov podla sirky terminalu
     @staticmethod
     def detail_rows(items):
         width = max(36, min(100, shutil.get_terminal_size().columns) - 6)
@@ -123,6 +127,7 @@ class ConsoleFormatter(logging.Formatter):
 
 
 class ConsoleHandler(logging.StreamHandler):
+    # naformatuje logovy zaznam a bezpecne ho vypise do konzoly
     def emit(self, record):
         try:
             console_write(self.format(record), self.stream)
@@ -157,11 +162,12 @@ SENSOR_FIELDS = {
 }
 
 
+# overi, ci je cislo konecne, v povolenom rozsahu a s povolenou desatinnou presnostou
 def validate_number(name, value, minimum, maximum, places):
     number = Decimal(str(value))
     if not number.is_finite() or not minimum <= number <= maximum:
         raise ValueError(f"{name} must be between {minimum} and {maximum}")
-    # Kontrola povodnych cislic nepouziva zaokruhlovanie float ani Decimal.
+    # kontrola povodnych cislic nepouziva zaokruhlovanie float ani decimal.
     digits = number.as_tuple().digits
     trailing_zeros = 0
     for digit in reversed(digits):
@@ -172,6 +178,7 @@ def validate_number(name, value, minimum, maximum, places):
         raise ValueError(f"{name} allows at most {places} decimal places")
 
 
+# prevedie zadany text na cislo a overi pravidla konkretneho parametra senzora
 def parse_sensor_value(sensor_type, name, text):
     minimum, maximum, places = SENSOR_FIELDS[sensor_type][name]
     try:
@@ -182,8 +189,8 @@ def parse_sensor_value(sensor_type, name, text):
     return number if places == 0 else float(number)
 
 
+# overi uplnost, datove typy, rozsahy a presnost vsetkych hodnot merania
 def validate_values(sensor_type, values):
-    """Overime uplnost, rozsahy aj presnost merania daneho typu."""
     fields = SENSOR_FIELDS[sensor_type]
     if not isinstance(values, dict) or values.keys() != fields.keys():
         raise ValueError(f"{sensor_type} requires exactly these fields: {', '.join(fields)}")
@@ -196,8 +203,8 @@ def validate_values(sensor_type, values):
         validate_number(name, value, minimum, maximum, places)
 
 
+# vytvori logovanie do noveho suboru a volitelne aj do konzoly
 def create_logger(name, console=False):
-    """Pri spusteni vycistime log; zapisujeme v UTC, volitelne aj do konzoly."""
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -222,13 +229,14 @@ def create_logger(name, console=False):
     return logger
 
 
+# zapise odoslanu alebo prijatu protokolovu spravu do logu ako citatelny json
 def log_message(logger, source, direction, message):
     content = json.dumps(message, ensure_ascii=False, separators=(",", ":"))
     logger.info("MESSAGE | INFO | %s | %s %s", source, direction, content)
 
 
+# vypyta ipv4 adresu a port a pri neplatnom vstupe umozni opravu
 def ask_address(default_ip, logger=None, source="PROGRAM"):
-    """IPv4 a port nacitame z rozhrania a overime pred otvorenim socketu."""
     while True:
         try:
             host = console_input(f"  IP adresa [{default_ip}]: ").strip() or default_ip
@@ -243,12 +251,13 @@ def ask_address(default_ip, logger=None, source="PROGRAM"):
                 logger.warning("SYSTEM | WARNING | %s | Invalid address or port: %s", source, error)
 
 
+# prevedie slovnik spravy na json bajty zakodovane v utf-8 pre odoslanie cez udp
 def encode_message(message):
     return json.dumps(message, separators=(",", ":")).encode("utf-8")
 
 
+# vypocita crc32 z jednotneho json zapisu celej spravy bez pola crc
 def calculate_crc(message):
-    """CRC32 nad celym JSON objektom okrem pola crc, v jednotnom tvare."""
     content = {key: value for key, value in message.items() if key != "crc"}
     data = json.dumps(
         content, sort_keys=True, separators=(",", ":"),
@@ -257,6 +266,7 @@ def calculate_crc(message):
     return zlib.crc32(data)
 
 
+# overi, ci sprava obsahuje platne crc a ci sa zhoduje s prepocitanou hodnotou
 def verify_crc(message):
     checksum = message.get("crc")
     if type(checksum) is not int or not 0 <= checksum <= 0xFFFFFFFF:
@@ -267,6 +277,7 @@ def verify_crc(message):
         return False
 
 
+# prevedie prijate utf-8 bajty na json objekt a overi, ze ide o slovnik
 def decode_message(data):
     message = json.loads(data.decode("utf-8"))
     if not isinstance(message, dict):

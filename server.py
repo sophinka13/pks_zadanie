@@ -15,6 +15,7 @@ KEEPALIVE_INTERVAL = 5
 KEEPALIVE_ATTEMPTS = 3
 
 
+# obnovi aktivny stav relacie a nastavi prvu kontrolu dostupnosti o 15 sekund
 def reset_activity(session, now):
     session.update(
         last_data=now, idle=False, unanswered=0,
@@ -22,8 +23,8 @@ def reset_activity(session, now):
     )
 
 
+# posiela keepalive sondy necinnych senzorov a po troch sondach bez odpovede zrusi relaciu
 def monitor_sessions(udp_socket, sessions, logger, next_seq, now):
-    """Po 15 s prva sonda, potom po 5 s; po tretej este 5 s cakame."""
     for sensor_id, session in list(sessions.items()):
         if now < session["next_probe"]:
             continue
@@ -47,15 +48,16 @@ def monitor_sessions(udp_socket, sessions, logger, next_seq, now):
     return next_seq
 
 
+# overi relaciu, adresu, crc a hodnoty merania a vrati dovod chyby alebo none
 def process_measurement(message, sender, sessions):
-    """Vrati None pri uspechu, inak dovod odmietnutia."""
+    """vrati none pri uspechu, inak dovod odmietnutia."""
     sensor_id = message.get("sensor_id")
     session = sessions.get(sensor_id) if isinstance(sensor_id, str) else None
     if session is None or message.get("token") != session["token"]:
         return "Invalid sensor ID or token"
     if sender != session["address"]:
         return "Sender address does not match the registered sensor"
-    if not verify_crc(message):
+    if not verify_crc(message): #vrati true ak crc sedi, inak false
         return "Integrity check failed"
     try:
         validate_values(session["sensor_type"], message.get("values"))
@@ -64,8 +66,8 @@ def process_measurement(message, sender, sessions):
     return None
 
 
+# obsluhuje menu servera a cez frontu odovzda poziadavku na ukoncenie
 def server_menu(commands):
-    """Menu nevstupuje do relacii; prikazy spracuje sietova slucka."""
     try:
         while True:
             console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
@@ -78,6 +80,7 @@ def server_menu(commands):
         return
 
 
+# nastavi server, otvori udp socket a spracuva registracie, merania, odpovede a casovace
 def main():
     logger = create_logger("server", console=True)
     console_panel("FIIT METEO · SERVER", ["Príjem meteorologických meraní cez UDP", "Nastav lokálnu IP a port. Enter ponechá predvolenú hodnotu."])
@@ -91,12 +94,12 @@ def main():
     commands = queue.Queue()
 
     try:
-        # AF_INET znamena IPv4, SOCK_DGRAM znamena UDP.
+        # af_inet znamena ipv4, sock_dgram znamena udp.
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as udp_socket:
             udp_socket.bind(address)
             logger.info("SYSTEM | INFO | SERVER | Server listening on %s:%s", *address)
             udp_socket.settimeout(0.2)
-            # Vlakno iba cita vstup; pri Ctrl+C nesmie blokovat ukoncenie procesu.
+            # vlakno iba cita vstup; pri ctrl+c nesmie blokovat ukoncenie procesu.
             threading.Thread(target=server_menu, args=(commands,), daemon=True).start()
 
             while True:
@@ -134,7 +137,7 @@ def main():
                         session["unanswered"] = 0
                         session["probe_seq"] = None
                         continue
-                    if message.get("type") == "DATA":
+                    if message.get("type") == "DATA": #overenie merania, ak je v poriadku, ulozi sa do accepted a posle ACK, inak REJECT
                         reason = process_measurement(message, sender, sessions)
                         reply = {"type": "ACK", "seq": next_seq, "ack_for": seq}
                         if reason is not None:
@@ -160,7 +163,7 @@ def main():
                             accepted = session["accepted"]
                             if seq not in accepted:
                                 accepted[seq] = message["crc"]
-                                # Pamat na nedavne merania ma obmedzenu velkost.
+                                # pamat na nedavne merania ma obmedzenu velkost.
                                 if len(accepted) > 256:
                                     del accepted[next(iter(accepted))]
                                 logger.info(
@@ -184,7 +187,7 @@ def main():
                     if not isinstance(sensor_id, str) or not sensor_id.strip():
                         raise ValueError("Sensor ID must be a nonempty string")
 
-                    # ID je jedinecne napriec vsetkymi typmi senzorov.
+                    # id je jedinecne napriec vsetkymi typmi senzorov.
                     if sensor_id in sessions:
                         reply = {
                             "type": "REJECT", "seq": next_seq,

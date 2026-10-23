@@ -17,6 +17,7 @@ MAX_SENDS = 3
 SESSION_TIMEOUT = 30
 
 
+# ulozi prideleny token, aktivuje relaciu a zapne automaticke merania
 def activate_sensor(sensor, token):
     sensor.update(
         token=token, active=True, automatic=True,
@@ -24,6 +25,7 @@ def activate_sensor(sensor, token):
     )
 
 
+# ukonci lokalnu relaciu senzora a odstrani jeho token aj cakajuce poziadavky
 def deactivate_sensor(sensor, pending, registrations, corrupt_next, logger, reason):
     sensor.update(active=False, automatic=False, token=None)
     for mapping in (pending, registrations):
@@ -34,8 +36,8 @@ def deactivate_sensor(sensor, pending, registrations, corrupt_next, logger, reas
     logger.info("SYSTEM | INFO | %s | Local session closed: %s", sensor_source(sensor), reason)
 
 
+# vytvori poskodenu kopiu merania bez prepocitania crc a zachova spravny original
 def corrupt_measurement(measurement, sensor_type):
-    """Zmenime jednu hodnotu po vypocte CRC; povodna sprava ostane zachovana."""
     damaged = copy.deepcopy(measurement)
     name, (minimum, maximum, places) = next(iter(SENSOR_FIELDS[sensor_type].items()))
     value = damaged["values"][name]
@@ -43,12 +45,13 @@ def corrupt_measurement(measurement, sensor_type):
     return damaged
 
 
+# vytvori oznacenie zdroja logu z typu a identifikatora senzora
 def sensor_source(sensor):
     return f"TESTER:{sensor['sensor_type']}:{sensor['sensor_id']}"
 
 
+# vygeneruje nahodne hodnoty senzora v povolenych rozsahoch a s pozadovanou presnostou
 def generate_values(sensor_type):
-    """Cele parametre ostanu int, desatinne maju predpisanu presnost."""
     values = {}
     for name, (minimum, maximum, places) in SENSOR_FIELDS[sensor_type].items():
         scale = 10 ** places
@@ -57,6 +60,7 @@ def generate_values(sensor_type):
     return values
 
 
+# prijme udp odpoved a dekoduje ju, ak prisla zo zadanej adresy servera
 def receive_reply(udp_socket, server_address, logger, source):
     data, sender = udp_socket.recvfrom(65535)
     if sender != server_address:
@@ -68,8 +72,9 @@ def receive_reply(udp_socket, server_address, logger, source):
         return None
 
 
+# obsluhuje jedno vlakno senzora vratane prikazov, registracie, merani, odpovedi a casovacov
 def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
-    # Kazdy senzor ma vlastny socket, poradove cisla a cakajuce spravy.
+    # kazdy senzor ma vlastny socket, poradove cisla a cakajuce spravy.
     seq = 1
     pending = {}
     registrations = {}
@@ -77,7 +82,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
     while not stop.is_set():
         now = time.monotonic()
         outgoing = []
-        # Menu vklada poziadavky do fronty; iba toto vlakno pracuje so socketom.
+        # menu vklada poziadavky do fronty; iba toto vlakno pracuje so socketom.
         while True:
             try:
                 action, sensor, values = commands.get_nowait()
@@ -86,7 +91,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             if action == "DISCONNECT":
                 deactivate_sensor(sensor, pending, registrations, corrupt_next, logger, "user request")
                 continue
-            if action == "REGISTER":
+            if action == "REGISTER": #poziadavka na registraciu, ak je senzor aktivny alebo uz caka registracia, ignoruje sa
                 if sensor.get("active") or any(e["sensor"] is sensor for e in registrations.values()):
                     logger.warning("SYSTEM | WARNING | %s | Sensor is already active or registration is pending", sensor_source(sensor))
                     continue
@@ -106,7 +111,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
                 corrupt_next.add(sensor["sensor_id"])
                 logger.info("SYSTEM | INFO | %s | Next measurement will be corrupted", sensor_source(sensor))
                 continue
-            if action == "TOGGLE_AUTO":
+            if action == "TOGGLE_AUTO": #zapne alebo vypne automaticke merania, ak je senzor aktivny
                 sensor["automatic"] = not sensor["automatic"]
                 if sensor["automatic"]:
                     sensor["next_send"] = time.monotonic()
@@ -130,12 +135,12 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
         for sensor, values, damaged in outgoing:
             if not sensor.get("active"):
                 continue
-            measurement = {
+            measurement = { #zostavenie spravy merania, crc sa pocita az po zostaveni celej spravy
                 "type": "DATA", "seq": seq,
                 "sensor_id": sensor["sensor_id"], "token": sensor["token"],
                 "values": values,
             }
-            # CRC sa pocita az po zostaveni celej spravy, pred jej odoslanim.
+            # crc sa pocita az po zostaveni celej spravy, pred jej odoslanim.
             measurement["crc"] = calculate_crc(measurement)
             transmitted = corrupt_measurement(measurement, sensor["sensor_type"]) if damaged else measurement
             udp_socket.sendto(encode_message(transmitted), server_address)
@@ -146,7 +151,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             }
             seq += 1
 
-        # Cakajuce potvrdenia patria iba tomuto senzoru.
+        # cakajuce potvrdenia patria iba tomuto senzoru.
         now = time.monotonic()
         for message_seq, entry in list(pending.items()):
             if now >= entry["deadline"]:
@@ -168,7 +173,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             if sensor["automatic"]:
                 deadlines.append(sensor["next_send"])
         deadlines.extend(entry["deadline"] for entry in pending.values())
-        # Kratke cakanie umozni spracovat rucne meranie aj ukoncenie menu.
+        # kratke cakanie umozni spracovat rucne meranie aj ukoncenie menu.
         udp_socket.settimeout(max(0.001, min(0.2, min(deadlines) - time.monotonic())))
         try:
             reply = receive_reply(udp_socket, server_address, logger, sensor_source(sensor))
@@ -176,7 +181,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             continue
         if reply is None:
             continue
-        if reply.get("type") == "KEEPALIVE":
+        if reply.get("type") == "KEEPALIVE": #server posiela KEEPALIVE, tester mu odpovie KEEPALIVE_ACK
             if reply.get("sensor_id") != sensor["sensor_id"] or not sensor.get("active"):
                 log_message(logger, sensor_source(sensor), "Received", reply)
                 continue
@@ -218,12 +223,12 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             sensor["last_contact"] = time.monotonic()
             del pending[ack_for]
             logger.info("SYSTEM | INFO | %s | Measurement acknowledged", source)
-        elif reply.get("type") == "RETRANSMIT":
+        elif reply.get("type") == "RETRANSMIT": #ak server zistil, ze meranie nebolo prijate, posle RETRANSMIT a tester ho odosle znova
             if reply.get("sensor_id") != sensor["sensor_id"] or reply.get("token") != sensor["token"]:
                 continue
             sensor["last_contact"] = time.monotonic()
             if entry["attempts"] >= MAX_SENDS:
-                # Po tretom odoslani este pockame na ACK do aktualneho deadline.
+                # po tretom odoslani este pockame na ack do aktualneho deadline.
                 continue
             udp_socket.sendto(encode_message(entry["message"]), server_address)
             log_message(logger, source, "Sent", entry["message"])
@@ -236,6 +241,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
                 deactivate_sensor(sensor, pending, registrations, corrupt_next, logger, "server rejected session")
 
 
+# postupne nacita a overi vlastne hodnoty vsetkych parametrov vybraneho senzora
 def read_custom_values(sensor_type, logger=None, source="TESTER"):
     values = {}
     console_panel(f"VLASTNÉ MERANIE · {sensor_type}", ["Použi desatinnú bodku. Neplatnú hodnotu môžeš opraviť."])
@@ -257,6 +263,7 @@ def read_custom_values(sensor_type, logger=None, source="TESTER"):
     return values
 
 
+# zobrazi menu testera a vlozi prikaz do fronty vybraneho senzora
 def run_menu(sensors, commands, stop, logger):
     while not stop.is_set():
         console_panel("TESTER · MENU", [
@@ -294,23 +301,25 @@ def run_menu(sensors, commands, stop, logger):
             commands[sensor["sensor_id"]].put(("TOGGLE_AUTO", sensor, None))
             continue
         if choice == "2":
-            commands[sensor["sensor_id"]].put(("CORRUPT", sensor, None))
+            commands[sensor["sensor_id"]].put(("CORRUPT", sensor, None)) #ozaceni nasledujuce meranie ako poskodene, menu ho vlozi do fronty a vlakno senzora ho odosle
             console_write(f"  → {sensor['sensor_id']}: požiadavka na poškodenie zaradená do fronty.")
             continue
-        values = read_custom_values(sensor["sensor_type"], logger, sensor_source(sensor))
+        values = read_custom_values(sensor["sensor_type"], logger, sensor_source(sensor)) #menu ziska vlastne hodnoty a vlozi ich do fronty senzora, ktory ich odosle
         commands[sensor["sensor_id"]].put(("DATA", sensor, values))
         console_write(f"  → {sensor['sensor_id']}: meranie zaradené do fronty. Prijatie potvrdí ACK.")
 
 
+# spusti samostatne vlakno pre kazdy senzor a pri ukonceni zastavi vsetky vlakna
 def start_measurements_and_menu(server_address, sensors, logger):
     commands = {sensor["sensor_id"]: queue.Queue() for sensor in sensors}
     stop = threading.Event()
     workers = []
 
+    # vytvori vlastny udp socket senzora, poziada o registraciu a spusti jeho komunikacnu slucku
     def sensor_worker(sensor):
         source = sensor_source(sensor)
         try:
-            # Vlastny UDP port zaisti, ze vlakna si navzajom nevezmu odpovede.
+            # vlastny udp port zaisti, ze vlakna si navzajom nevezmu odpovede.
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as udp_socket:
                 udp_socket.bind(("0.0.0.0", 0))
                 logger.info(
@@ -341,6 +350,7 @@ def start_measurements_and_menu(server_address, sensors, logger):
                 worker.join()
 
 
+# nacita adresu servera, pripravi styri senzory a spusti ich vlakna spolu s menu
 def main():
     logger = create_logger("tester", console=True)
     console_panel("FIIT METEO · TESTER", ["Simulátor meteorologických senzorov", "Nastav adresu servera. Enter ponechá predvolenú hodnotu."])
@@ -349,7 +359,7 @@ def main():
     except (EOFError, KeyboardInterrupt):
         logger.info("SYSTEM | INFO | TESTER | Tester stopped during configuration")
         return
-    sensors = [
+    sensors = [ #zoznam serverov
         {"sensor_type": "ThermoNode", "sensor_id": "T-01", "token": None},
         {"sensor_type": "WindSense", "sensor_id": "W-01", "token": None},
         {"sensor_type": "RainDetect", "sensor_id": "R-01", "token": None},
