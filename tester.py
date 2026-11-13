@@ -6,10 +6,12 @@ import threading
 import time
 
 from lib import (
-    SENSOR_FIELDS, ask_address, create_logger, decode_message,
-    encode_message, log_message, parse_sensor_value, calculate_crc,
+    SENSOR_FIELDS, ask_address, create_logger,
+    log_message, parse_sensor_value,
     console_input, console_panel, console_write,
 )
+
+from wire_protocol import encode_message, decode_message, calculate_crc
 
 MEASUREMENT_INTERVAL = 10
 ACK_TIMEOUT = 3
@@ -138,6 +140,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             measurement = { #zostavenie spravy merania, crc sa pocita az po zostaveni celej spravy
                 "type": "DATA", "seq": seq,
                 "sensor_id": sensor["sensor_id"], "token": sensor["token"],
+                "sensor_type": sensor["sensor_type"],
                 "values": values,
             }
             # crc sa pocita az po zostaveni celej spravy, pred jej odoslanim.
@@ -181,6 +184,9 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             continue
         if reply is None:
             continue
+        if reply.get("sensor_type") != sensor["sensor_type"]:
+            continue
+        reply["sensor_id"] = sensor["sensor_id"]
         if reply.get("type") == "KEEPALIVE": #server posiela KEEPALIVE, tester mu odpovie KEEPALIVE_ACK
             if reply.get("sensor_id") != sensor["sensor_id"] or not sensor.get("active"):
                 log_message(logger, sensor_source(sensor), "Received", reply)
@@ -191,8 +197,9 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
                 continue
             sensor["last_contact"] = time.monotonic()
             response = {
-                "type": "KEEPALIVE_ACK", "seq": seq, "ack_for": reply["seq"],
+                "type": "KEEPALIVE_ACK", "seq": reply["seq"], "ack_for": reply["seq"],
                 "sensor_id": sensor["sensor_id"], "token": sensor["token"],
+                "sensor_type": sensor["sensor_type"],
             }
             seq += 1
             udp_socket.sendto(encode_message(response), server_address)
@@ -204,7 +211,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             sensor = entry["sensor"]
             source = sensor_source(sensor)
             log_message(logger, source, "Received", reply)
-            if reply.get("type") == "ACK" and isinstance(reply.get("token"), str) and reply["token"]:
+            if reply.get("type") == "REGISTER_ACK" and isinstance(reply.get("token"), str) and reply["token"]:
                 activate_sensor(sensor, reply["token"])
                 del registrations[ack_for]
                 logger.info("SYSTEM | INFO | %s | Registration successful", source)
@@ -219,6 +226,8 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
         sensor = entry["sensor"]
         source = sensor_source(sensor)
         log_message(logger, source, "Received", reply)
+        if reply.get("token") != sensor.get("token") and not (reply.get("type") == "REJECT" and reply.get("reason_code") == 1 and reply.get("token") == 0):
+            continue
         if reply.get("type") == "ACK":
             sensor["last_contact"] = time.monotonic()
             del pending[ack_for]

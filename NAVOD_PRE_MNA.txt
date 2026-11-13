@@ -1,3 +1,22 @@
+AKTUALIZACIA: BINARNY PRENOS
+==========================
+Aktualne server.py a tester.py uz pouzivaju binarny protokol v1.
+Spustanie a volby menu ostavaju rovnake: python3 server.py a python3 tester.py.
+Pri aktualizacii restartuj oba programy, JSON a binarna verzia nie su kompatibilne.
+Logy ostavaju citatelne JSON objekty, hoci po sieti idu binarne bajty.
+Registraciu potvrdzuje REGISTER_ACK. Pole ack_for v logu je odvodene zo seq;
+v binarnom pakete sa samostatne neposiela. Token je na sieti 8 bajtov,
+v logu hexadecimalny text. ID sa po registracii doplna zo znamej relacie.
+CRC32 sa teraz pocita z binarnych bajtov hlavicky a payloadu.
+Dalsie moduly potrebne na spustenie: binary_protocol.py a wire_protocol.py.
+Povodna JSON verzia je v json_baseline/ a spusta sa rovnakymi prikazmi
+z tohto priecinka; je urcena na neskorsie porovnanie efektivity.
+Podrobny format je v NAVRH_BINARNEHO_PROTOKOLU.md.
+Starsie vysvetlenia JSON nizsie sa tykaju povodneho prototypu.
+UAT 5 este nie je implementovane; pripravujeme ho ako dalsiu cast finalnej verzie.
+
+POVODNY NAVOD PRE JSON PROTOTYP
+=============================
 Tento návod opisuje aktuálny JSON prototyp pre UAT 1, 2, 3 a 4.
 UAT 5 nie je súčasťou našej verzie. Návod bol vytvorený s pomocou AI.
 Je to osobná pomôcka, nenahrádza odovzdávanú PDF dokumentáciu.

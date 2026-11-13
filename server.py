@@ -5,10 +5,12 @@ import threading
 import time
 
 from lib import (
-    SENSOR_TYPES, ask_address, create_logger, decode_message,
-    encode_message, log_message, validate_values, verify_crc,
+    SENSOR_TYPES, ask_address, create_logger,
+    log_message, validate_values,
     console_input, console_panel, console_write,
 )
+
+from wire_protocol import encode_message, decode_message, verify_crc
 
 IDLE_TIMEOUT = 15
 KEEPALIVE_INTERVAL = 5
@@ -38,6 +40,7 @@ def monitor_sessions(udp_socket, sessions, logger, next_seq, now):
         probe = {
             "type": "KEEPALIVE", "seq": next_seq,
             "sensor_id": sensor_id, "token": session["token"],
+            "sensor_type": session["sensor_type"],
         }
         udp_socket.sendto(encode_message(probe), session["address"])
         log_message(logger, "SERVER", "Sent", probe)
@@ -119,7 +122,7 @@ def main():
                 except socket.timeout:
                     continue
                 try:
-                    message = decode_message(data)
+                    message = decode_message(data, sessions)
                     log_message(logger, "SERVER", "Received", message)
                     seq = message.get("seq")
                     if type(seq) is not int or seq < 1:
@@ -139,9 +142,12 @@ def main():
                         continue
                     if message.get("type") == "DATA": #overenie merania, ak je v poriadku, ulozi sa do accepted a posle ACK, inak REJECT
                         reason = process_measurement(message, sender, sessions)
-                        reply = {"type": "ACK", "seq": next_seq, "ack_for": seq}
+                        reply = {"type": "ACK", "seq": seq, "ack_for": seq,
+                                 "sensor_type": message["sensor_type"], "token": message["token"]}
                         if reason is not None:
-                            reply.update(type="REJECT", reason=reason)
+                            reply.update(type="REJECT", reason=reason, reason_code=1 if reason == "Invalid sensor ID or token" else 6 if reason == "Sender address does not match the registered sensor" else 3)
+                            if reason == "Invalid sensor ID or token":
+                                reply["token"] = 0
                             if reason == "Integrity check failed":
                                 session = sessions[message["sensor_id"]]
                                 reply.update(
@@ -171,7 +177,7 @@ def main():
                                     session["sensor_type"], sensor_id,
                                 )
                             elif accepted[seq] != message["crc"]:
-                                reply.update(type="REJECT", reason="Sequence number reused with different data")
+                                reply.update(type="REJECT", reason="Sequence number reused with different data", reason_code=5)
                             else:
                                 logger.info("SYSTEM | INFO | SERVER | Duplicate measurement acknowledged: %s, seq=%s", sensor_id, seq)
                         next_seq += 1
@@ -190,19 +196,22 @@ def main():
                     # id je jedinecne napriec vsetkymi typmi senzorov.
                     if sensor_id in sessions:
                         reply = {
-                            "type": "REJECT", "seq": next_seq,
+                            "type": "REJECT", "seq": seq,
                             "ack_for": seq, "reason": "Sensor ID is already registered",
+                            "reason_code": 2, "sensor_type": sensor_type, "token": 0,
                         }
                     else:
                         token = secrets.token_hex(8)
+                        while token == "0000000000000000" or any(s["token"] == token for s in sessions.values()):
+                            token = secrets.token_hex(8)
                         sessions[sensor_id] = {
                             "sensor_type": sensor_type, "token": token, "address": sender,
                             "accepted": {},
                         }
                         reset_activity(sessions[sensor_id], time.monotonic())
                         reply = {
-                            "type": "ACK", "seq": next_seq,
-                            "ack_for": seq, "token": token,
+                            "type": "REGISTER_ACK", "seq": seq,
+                            "ack_for": seq, "token": token, "sensor_type": sensor_type,
                         }
                         logger.info(
                             "SYSTEM | INFO | SERVER | Sensor registered: %s:%s",

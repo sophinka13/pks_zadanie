@@ -22,9 +22,10 @@ from datetime import datetime
 from unittest.mock import patch
 
 from lib import (
-    SENSOR_FIELDS, ask_address, calculate_crc, create_logger,
-    decode_message, encode_message, parse_sensor_value, validate_values,
+    SENSOR_FIELDS, ask_address, create_logger,
+    parse_sensor_value, validate_values,
 )
+from wire_protocol import encode_message, decode_message, calculate_crc
 from server import monitor_sessions, process_measurement, reset_activity
 from tester import corrupt_measurement, generate_values, read_custom_values
 
@@ -70,24 +71,26 @@ class PresentationInputs(unittest.TestCase):
         self.assertEqual(values, dict(temperature=21.3, humidity=55.4, dew_point=11.9, pressure=1013.25))
         self.assertEqual(self.output.getvalue().count("Invalid custom value"), 3)
 
-    def test_bad_values_are_rejected_by_server_even_with_valid_crc(self):
+    def test_bad_values_cannot_be_encoded_or_accepted(self):
         address = ("127.0.0.1", 12345)
         for kind, fields in SENSOR_FIELDS.items():
             for field, (_, maximum, _) in fields.items():
-                message = dict(type="DATA", seq=1, sensor_id="test", token="valid", values=generate_values(kind))
+                message = dict(type="DATA", seq=1, sensor_id="test", sensor_type=kind, token="1234567890abcdef", values=generate_values(kind))
                 message["values"][field] = maximum + 1
-                message["crc"] = calculate_crc(message)
-                sessions = {"test": dict(sensor_type=kind, token="valid", address=address)}
+                with self.assertRaises(ValueError):
+                    encode_message(message)
+                message["crc"] = 0
+                sessions = {"test": dict(sensor_type=kind, token="1234567890abcdef", address=address)}
                 self.assertIsNotNone(process_measurement(message, address, sessions))
 
     def test_corruption_preserves_original_and_repair_works_for_all_types(self):
         address = ("127.0.0.1", 12345)
         for kind in SENSOR_FIELDS:
-            message = dict(type="DATA", seq=1, sensor_id="test", token="valid", values=generate_values(kind))
+            message = dict(type="DATA", seq=1, sensor_id="test", sensor_type=kind, token="1234567890abcdef", values=generate_values(kind))
             message["crc"] = calculate_crc(message)
             original = copy.deepcopy(message)
             damaged = corrupt_measurement(message, kind)
-            sessions = {"test": dict(sensor_type=kind, token="valid", address=address)}
+            sessions = {"test": dict(sensor_type=kind, token="1234567890abcdef", address=address)}
             self.assertEqual(message, original)
             self.assertEqual(process_measurement(damaged, address, sessions), "Integrity check failed")
             self.assertIsNone(process_measurement(original, address, sessions))
@@ -101,7 +104,7 @@ class PresentationInputs(unittest.TestCase):
                 self.sent.append(decode_message(data))
 
         udp = CaptureSocket()
-        session = dict(sensor_type="ThermoNode", token="old", address=("127.0.0.1", 12345))
+        session = dict(sensor_type="ThermoNode", token="1234567890abcdef", address=("127.0.0.1", 12345))
         reset_activity(session, 0)
         sessions = {"test": session}
         seq = 1
@@ -111,7 +114,7 @@ class PresentationInputs(unittest.TestCase):
             self.assertEqual(bool(sessions), active)
         self.assertIn("SENSOR IDLE", self.output.getvalue())
         self.assertIn("SENSOR DISCONNECTED", self.output.getvalue())
-        self.assertEqual(process_measurement(dict(sensor_id="test", token="old"), session["address"], sessions), "Invalid sensor ID or token")
+        self.assertEqual(process_measurement(dict(sensor_id="test", token="1234567890abcdef"), session["address"], sessions), "Invalid sensor ID or token")
 
     def test_new_run_replaces_old_log_without_duplicate_handlers(self):
         with tempfile.TemporaryDirectory() as work:
@@ -203,7 +206,7 @@ class PresentationUDP(unittest.TestCase):
                 def thermo_tokens():
                     prefix = "TESTER:ThermoNode:T-01 | Received "
                     replies = [json.loads(line.split(prefix, 1)[1]) for line in read(tester_log).splitlines() if prefix + "{" in line]
-                    return [m["token"] for m in replies if m.get("type") == "ACK" and "token" in m]
+                    return [m["token"] for m in replies if m.get("type") == "REGISTER_ACK" and "token" in m]
 
                 old_token = thermo_tokens()[0]
                 send(tester, "3\n1\n")
@@ -263,16 +266,16 @@ class PresentationUDP(unittest.TestCase):
                         except socket.timeout:
                             continue
                         message = decode_message(data)
-                        sensor_id = message.get("sensor_id")
+                        sensor_id = message.get("sensor_id") or next((identifier for identifier, address in registered.items() if address == sender), None)
                         if message["type"] == "REGISTER":
                             registered[sensor_id] = sender
                             if sensor_id == "T-01":
                                 # Jednemu senzoru nikdy neposleme registracne ACK.
                                 continue
-                            reply = dict(type="ACK", seq=1, ack_for=message["seq"], token=sensor_id)
+                            reply = dict(type="REGISTER_ACK", seq=message["seq"], token="1234567890abcdef", sensor_type=message["sensor_type"])
                         elif message["type"] == "DATA":
                             measured.add(sensor_id)
-                            reply = dict(type="ACK", seq=2, ack_for=message["seq"])
+                            reply = dict(type="ACK", seq=message["seq"], token=message["token"], sensor_type=message["sensor_type"])
                         else:
                             continue
                         server.sendto(encode_message(reply), sender)

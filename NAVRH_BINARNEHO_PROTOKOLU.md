@@ -1,7 +1,8 @@
 # FIIT Meteo: navrh binarneho protokolu v1
 
-Tento dokument je specifikacia pre dalsiu implementaciu. Aktualny kod stale
-prenasa JSON. Navrh pouziva UDP, jednu spravu na datagram a network byte order
+Tento dokument specifikuje binarny format implementovany v binary_protocol.py.
+Server a tester ho pouzivaju cez adaptacny modul wire_protocol.py. Povodna
+JSON verzia je zachovana v json_baseline/. Navrh pouziva UDP, jednu spravu na datagram a network byte order
 (big-endian). Logy zostanu citatelne objekty s nazvami parametrov.
 
 ## Spolocny format
