@@ -245,6 +245,93 @@ class PresentationUDP(unittest.TestCase):
                         process.send_signal(signal.SIGINT)
                     process.communicate(timeout=5)
 
+    # overi pat vynechanych ack, zahodenie prveho merania a potvrdenie druheho
+    def test_uat5_five_suppressed_acks(self):
+        with tempfile.TemporaryDirectory(prefix="pks-uat5-") as work:
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+                probe.bind(("127.0.0.1", 0))
+                port = probe.getsockname()[1]
+            processes = []
+            server_log = Path(work, "server.log")
+            tester_log = Path(work, "tester.log")
+
+            # precita priebezny log bez vytvarania suboru
+            def read(path):
+                return path.read_text() if path.exists() else ""
+
+            # pocka na ocakavanu udalost s diagnostikou pri chybe
+            def wait_for(check, timeout=5):
+                deadline = time.monotonic() + timeout
+                while time.monotonic() < deadline:
+                    if check():
+                        return
+                    time.sleep(0.03)
+                self.fail("Timeout\n" + read(server_log) + "\n" + read(tester_log))
+
+            # vlozi prikazy do skutocneho terminaloveho rozhrania procesu
+            def send(process, text):
+                process.stdin.write(text)
+                process.stdin.flush()
+
+            try:
+                for name in ("server.py", "tester.py"):
+                    process = subprocess.Popen([sys.executable, str(ROOT / name)], cwd=work,
+                        stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+                    processes.append(process)
+                    send(process, f"127.0.0.1\n{port}\n")
+                    if name == "server.py":
+                        wait_for(lambda: "Server listening" in read(server_log))
+                server, tester = processes
+                wait_for(lambda: read(tester_log).count("Measurement acknowledged") >= 4)
+                send(tester, "3\n1\n")
+                wait_for(lambda: "TESTER:ThermoNode:T-01 | Automatic measurements disabled" in read(tester_log))
+                send(server, "1\nunknown\n5\n1\nT-01\n5\n")
+                wait_for(lambda: "ACK suppression configured: T-01, count=5" in read(server_log))
+                self.assertIn("Unknown sensor ID: unknown", read(server_log))
+                custom = "1\n1\n21.3\n55.4\n11.9\n1013.25\n"
+                send(tester, custom)
+                wait_for(lambda: "dropped after ACK timeout" in read(tester_log), 11)
+                self.assertEqual(read(server_log).count("ACK suppressed: T-01"), 3)
+                before = read(tester_log).count("TESTER:ThermoNode:T-01 | Measurement acknowledged")
+                send(tester, custom)
+                wait_for(lambda: read(tester_log).count("TESTER:ThermoNode:T-01 | Measurement acknowledged") > before, 8)
+                self.assertEqual(read(server_log).count("ACK suppressed: T-01"), 5)
+                sent = []
+                for line in read(tester_log).splitlines():
+                    if "TESTER:ThermoNode:T-01 | Sent {" in line:
+                        message = json.loads(line.split(" | Sent ", 1)[1])
+                        if message["type"] == "DATA":
+                            sent.append((line, message))
+                retried = {}
+                for line, message in sent:
+                    retried.setdefault(message["seq"], []).append((line, message))
+                groups = [group for group in retried.values() if len(group) == 3]
+                self.assertEqual(len(groups), 2)
+                for group in groups:
+                    self.assertTrue(all(message == group[0][1] for _, message in group))
+                    stamps = [datetime.fromisoformat(line.split(" | ")[0].replace("Z", "+00:00")) for line, _ in group]
+                    for first, second in zip(stamps, stamps[1:]):
+                        self.assertGreaterEqual((second-first).total_seconds(), 2.9)
+                        self.assertLess((second-first).total_seconds(), 3.7)
+                self.assertEqual(read(tester_log).count("dropped after ACK timeout"), 1)
+                self.assertEqual(read(server_log).count("Measurement accepted: ThermoNode:T-01"), 3)
+                self.assertGreaterEqual(read(server_log).count("Measurement accepted: WindSense:W-01"), 2)
+                send(server, "1\nT-01\n0\n")
+                wait_for(lambda: "ACK suppression configured: T-01, count=0" in read(server_log))
+                before = read(tester_log).count("TESTER:ThermoNode:T-01 | Measurement acknowledged")
+                send(tester, custom)
+                wait_for(lambda: read(tester_log).count("TESTER:ThermoNode:T-01 | Measurement acknowledged") > before)
+                for process in (tester, server):
+                    send(process, "0\n")
+                    process.wait(timeout=3)
+                    self.assertEqual(process.returncode, 0)
+            finally:
+                for process in reversed(processes):
+                    if process.poll() is None:
+                        process.send_signal(signal.SIGINT)
+                    _, errors = process.communicate(timeout=5)
+                    self.assertNotIn("Traceback", errors)
+
     def test_unresponsive_sensor_does_not_block_other_workers(self):
         with tempfile.TemporaryDirectory(prefix="pks-independent-") as work:
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as server:

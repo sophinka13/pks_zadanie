@@ -149,7 +149,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             udp_socket.sendto(encode_message(transmitted), server_address)
             log_message(logger, sensor_source(sensor), "Sent", transmitted)
             pending[seq] = {
-                "sensor": sensor, "message": measurement,
+                "sensor": sensor, "message": measurement, "packet": encode_message(measurement),
                 "deadline": time.monotonic() + ACK_TIMEOUT, "attempts": 1,
             }
             seq += 1
@@ -159,6 +159,13 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
         for message_seq, entry in list(pending.items()):
             if now >= entry["deadline"]:
                 source = sensor_source(entry["sensor"])
+                if entry["attempts"] < MAX_SENDS:
+                    udp_socket.sendto(entry["packet"], server_address)
+                    log_message(logger, source, "Sent", entry["message"])
+                    entry["attempts"] += 1
+                    entry["deadline"] = time.monotonic() + ACK_TIMEOUT
+                    logger.warning("SYSTEM | WARNING | %s | ACK timeout; retry %s/%s for measurement %s", source, entry["attempts"], MAX_SENDS, message_seq)
+                    continue
                 logger.warning(
                     "SYSTEM | WARNING | %s | Measurement %s dropped after ACK timeout",
                     source, message_seq,
@@ -176,6 +183,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             if sensor["automatic"]:
                 deadlines.append(sensor["next_send"])
         deadlines.extend(entry["deadline"] for entry in pending.values())
+        deadlines.extend(entry["deadline"] for entry in registrations.values())
         # kratke cakanie umozni spracovat rucne meranie aj ukoncenie menu.
         udp_socket.settimeout(max(0.001, min(0.2, min(deadlines) - time.monotonic())))
         try:
@@ -239,7 +247,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             if entry["attempts"] >= MAX_SENDS:
                 # po tretom odoslani este pockame na ack do aktualneho deadline.
                 continue
-            udp_socket.sendto(encode_message(entry["message"]), server_address)
+            udp_socket.sendto(entry["packet"], server_address)
             log_message(logger, source, "Sent", entry["message"])
             entry["attempts"] += 1
             entry["deadline"] = time.monotonic() + ACK_TIMEOUT

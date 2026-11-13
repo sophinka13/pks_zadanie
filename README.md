@@ -15,7 +15,9 @@ Po zmene z JSON restartuj oba programy. Logy zostavaju citatelne v anglictine.
 - Osobny navod: [NAVOD_PRE_MNA.txt](NAVOD_PRE_MNA.txt)
 - Povodna spustitelna JSON verzia: `json_baseline/`
 - Existujuce PDF dokumentacie a ZIP este opisuju povodnu verziu.
-- UAT 5, Lua dissector a meranie efektivity budu nasledovat.
+- UAT 5: serverove menu `1`, ID senzora a pocet vynechanych ACK (0 = zrusit).
+  Tester opakuje po 3 s, maximalne 3 odoslania; potom spravu zahodi.
+- Lua dissector a meranie efektivity budu nasledovat.
 
 Testy bez siete:
 
@@ -23,7 +25,7 @@ Testy bez siete:
 python3 -m unittest discover -s tests -v
 ```
 
-Aj lokalne UDP scenare UAT 1 az 4 (priblizne minuta):
+Aj lokalne UDP scenare UAT 1 az 5 (priblizne 80 sekund):
 
 ```sh
 PKS_RUN_UDP_TESTS=1 python3 -m unittest discover -s tests -v

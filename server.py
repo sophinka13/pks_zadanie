@@ -69,16 +69,27 @@ def process_measurement(message, sender, sessions):
     return None
 
 
-# obsluhuje menu servera a cez frontu odovzda poziadavku na ukoncenie
+# obsluhuje menu a cez frontu odovzda ukoncenie alebo pocet vynechanych ack
 def server_menu(commands):
     try:
         while True:
-            console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
+            console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "1  Vynechať ACK pre vybraný senzor", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
             choice = console_input("  Voľba › ").strip()
             if choice == "0":
                 commands.put("STOP")
                 return
-            console_write("  ! Zadaj 0 alebo ukonči server cez Ctrl+C.")
+            if choice == "1":
+                sensor_id = console_input("  ID senzora (napr. T-01) › ").strip()
+                try:
+                    count = int(console_input("  Počet ACK na vynechanie (0 = zrušiť) › "))
+                    if not sensor_id or count < 0:
+                        raise ValueError()
+                except ValueError:
+                    console_write("  ! Zadaj ID a nezáporný celý počet.")
+                    continue
+                commands.put(("SUPPRESS_ACK", sensor_id, count))
+                continue
+            console_write("  ! Zadaj 0 alebo 1.")
     except (EOFError, KeyboardInterrupt):
         return
 
@@ -114,6 +125,13 @@ def main():
                     if action == "STOP":
                         logger.info("SYSTEM | INFO | SERVER | Server stopped")
                         return
+                    if isinstance(action, tuple) and action[0] == "SUPPRESS_ACK":
+                        _, sensor_id, count = action
+                        if sensor_id not in sessions:
+                            logger.warning("SYSTEM | WARNING | SERVER | Unknown sensor ID: %s", sensor_id)
+                        else:
+                            sessions[sensor_id]["skip_acks"] = count
+                            logger.info("SYSTEM | INFO | SERVER | ACK suppression configured: %s, count=%s", sensor_id, count)
                 next_seq = monitor_sessions(udp_socket, sessions, logger, next_seq, time.monotonic())
                 deadline = min((s["next_probe"] for s in sessions.values()), default=time.monotonic() + 0.2)
                 udp_socket.settimeout(max(0.001, min(0.2, deadline - time.monotonic())))
@@ -179,8 +197,12 @@ def main():
                             elif accepted[seq] != message["crc"]:
                                 reply.update(type="REJECT", reason="Sequence number reused with different data", reason_code=5)
                             else:
-                                logger.info("SYSTEM | INFO | SERVER | Duplicate measurement acknowledged: %s, seq=%s", sensor_id, seq)
+                                logger.info("SYSTEM | INFO | SERVER | Duplicate measurement received: %s, seq=%s", sensor_id, seq)
                         next_seq += 1
+                        if reply["type"] == "ACK" and session.get("skip_acks", 0) > 0:
+                            session["skip_acks"] -= 1
+                            logger.info("SYSTEM | INFO | SERVER | ACK suppressed: %s, seq=%s, remaining=%s", sensor_id, seq, session["skip_acks"])
+                            continue
                         udp_socket.sendto(encode_message(reply), sender)
                         log_message(logger, "SERVER", "Sent", reply)
                         continue

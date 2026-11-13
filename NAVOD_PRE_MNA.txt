@@ -13,7 +13,25 @@ Povodna JSON verzia je v json_baseline/ a spusta sa rovnakymi prikazmi
 z tohto priecinka; je urcena na neskorsie porovnanie efektivity.
 Podrobny format je v NAVRH_BINARNEHO_PROTOKOLU.md.
 Starsie vysvetlenia JSON nizsie sa tykaju povodneho prototypu.
-UAT 5 este nie je implementovane; pripravujeme ho ako dalsiu cast finalnej verzie.
+UAT 5 JE IMPLEMENTOVANE:
+  Tester po 3 s bez ACK zopakuje tu istu spravu (rovnake binarne bajty).
+  Najviac ju odosle 3-krat; po dalsich 3 s bez ACK ju zahodi.
+  Na serveri vyber 1, zadaj ID senzora (napr. T-01) a pocet ACK na vynechanie.
+  Pocitadlo zahrna aj opakovane datove spravy, nie registraciu a KEEPALIVE.
+  Nula zrusí potlacanie, nove nastavenie nahradi predchadzajuci pocet.
+  Neplatne a poskodene merania dostanu REJECT alebo RETRANSMIT normalne.
+  Ostatne senzory pokracuju nezavisle.
+
+PRIKLAD PRE PREZENTACIU UAT 5:
+  1. Spusti server aj tester, pockaj na registraciu a prve merania.
+  2. V menu servera zadaj 1, potom T-01, potom 5.
+  3. Prve nasledujuce meranie T-01 pride 3-krat, bez ACK; tester ho zahodi.
+  4. Dalsie meranie pride 3-krat; tretie odoslanie uz dostane ACK.
+  5. V logu servera uvidis 5 udalosti ACK suppressed, potom Sent ACK.
+  6. Vo Wiresharku over rovnake seq a obsah opakovani a rozostupy 3 s.
+  Server kazde meranie spracuje iba raz, duplicity iba potvrdi.
+  Pri fyzickom vypadku spojenia sa opakovanie deje aj bez nastavenia menu.
+  Tieto upravy a test boli pripravene s pomocou AI.
 
 POVODNY NAVOD PRE JSON PROTOTYP
 =============================
