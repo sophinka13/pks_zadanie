@@ -1,3 +1,9 @@
+WIRESHARK: LUA DISSECTOR JE PRIPRAVENY
+Skript: lua/fiit_meteo.lua. Nacitanie, porty a filtre: lua/README.md.
+Zobrazuje vsetky spravy a merania, overuje CRC a oznacuje chybne pakety.
+Predvoleny UDP port 9000, iny nastav v Preferences alebo cez Decode As.
+Aktualizacia pripravena s pomocou AI.
+
 AKTUALIZACIA: BINARNY PRENOS
 ==========================
 Aktualne server.py a tester.py uz pouzivaju binarny protokol v1.
