@@ -184,7 +184,6 @@ def main():
                         else:
                             sensor_id = message["sensor_id"]
                             session = sessions[sensor_id]
-                            reset_activity(session, time.monotonic())
                             accepted = session["accepted"]
                             if seq not in accepted:
                                 accepted[seq] = message["crc"]
@@ -199,6 +198,9 @@ def main():
                                 reply.update(type="REJECT", reason="Sequence number reused with different data", reason_code=5)
                             else:
                                 logger.info("SYSTEM | INFO | SERVER | Duplicate measurement received: %s, seq=%s", sensor_id, seq)
+                            # odmietnuty konflikt nesmie predlzit aktivitu relacie
+                            if reply["type"] == "ACK":
+                                reset_activity(session, time.monotonic())
                         next_seq += 1
                         if reply["type"] == "ACK" and session.get("skip_acks", 0) > 0:
                             session["skip_acks"] -= 1
