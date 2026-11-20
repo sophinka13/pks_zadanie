@@ -193,6 +193,8 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
         if reply is None:
             continue
         if reply.get("sensor_type") != sensor["sensor_type"]:
+            log_message(logger, sensor_source(sensor), "Received", reply)
+            logger.warning("SYSTEM | WARNING | %s | Ignored reply: wrong sensor type", sensor_source(sensor))
             continue
         reply["sensor_id"] = sensor["sensor_id"]
         if reply.get("type") == "KEEPALIVE": #server posiela KEEPALIVE, tester mu odpovie KEEPALIVE_ACK
@@ -202,6 +204,7 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
             source = sensor_source(sensor)
             log_message(logger, source, "Received", reply)
             if reply.get("token") != sensor["token"] or type(reply.get("seq")) is not int or reply["seq"] < 1:
+                logger.warning("SYSTEM | WARNING | %s | Ignored KEEPALIVE: invalid session or sequence", source)
                 continue
             sensor["last_contact"] = time.monotonic()
             response = {
@@ -223,18 +226,22 @@ def run_sensor(udp_socket, server_address, sensor, logger, commands, stop):
                 activate_sensor(sensor, reply["token"])
                 del registrations[ack_for]
                 logger.info("SYSTEM | INFO | %s | Registration successful", source)
-            elif reply.get("type") == "REJECT":
+            elif reply.get("type") == "REJECT" and reply.get("token") == 0:
                 del registrations[ack_for]
                 logger.warning("SYSTEM | WARNING | %s | Registration rejected: %s", source, reply.get("reason"))
+            else:
+                logger.warning("SYSTEM | WARNING | %s | Ignored registration reply: unexpected type or token", source)
             continue
         if type(ack_for) is not int or ack_for not in pending:
             log_message(logger, sensor_source(sensor), "Received", reply)
+            logger.warning("SYSTEM | WARNING | %s | Ignored reply: no pending request for seq=%s", sensor_source(sensor), ack_for)
             continue
         entry = pending[ack_for]
         sensor = entry["sensor"]
         source = sensor_source(sensor)
         log_message(logger, source, "Received", reply)
         if reply.get("token") != sensor.get("token") and not (reply.get("type") == "REJECT" and reply.get("reason_code") == 1 and reply.get("token") == 0):
+            logger.warning("SYSTEM | WARNING | %s | Ignored reply: token does not match current session", source)
             continue
         if reply.get("type") == "ACK":
             sensor["last_contact"] = time.monotonic()
