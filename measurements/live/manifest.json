@@ -1,0 +1,16 @@
+{
+  "inputs": "/Users/sophiehetesova/Desktop/3. semester/pks/zadanie/measurements/inputs.json",
+  "out": "measurements/live",
+  "variant": "both",
+  "runs": 3,
+  "interval": 0.05,
+  "interface": "lo0",
+  "host": "127.0.0.1",
+  "port": 19000,
+  "external_server": false,
+  "input_sha256": "e9872b27a0f1822d8a793057edb8e94f46e8124db5fc82243364f8b0573c48f3",
+  "measurements": 240,
+  "method": "actual UDP with dumpcap; Ethernet sizes modelled from captured IPv4",
+  "started_utc": "2026-11-20T11:49:20Z",
+  "complete": true
+}

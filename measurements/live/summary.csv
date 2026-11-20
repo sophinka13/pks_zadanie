@@ -1,0 +1,13 @@
+variant,run,scenario,packets,application_bytes,ip_bytes,ethernet_bytes,medium_byte_times
+JSON,1,registration,8,535,759,903,1063
+JSON,1,steady,480,47935,61375,70015,79615
+Binary,1,registration,8,156,380,528,688
+Binary,1,steady,480,9300,22740,31620,41220
+JSON,2,registration,8,535,759,903,1063
+JSON,2,steady,480,47950,61390,70030,79630
+Binary,2,registration,8,156,380,528,688
+Binary,2,steady,480,9300,22740,31620,41220
+JSON,3,registration,8,535,759,903,1063
+JSON,3,steady,480,47955,61395,70035,79635
+Binary,3,registration,8,156,380,528,688
+Binary,3,steady,480,9300,22740,31620,41220

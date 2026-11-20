@@ -1,0 +1,1652 @@
+
+╭─ FIIT METEO · SERVER ────────────────────────────────────────────────────────
+│  Príjem meteorologických meraní cez UDP
+│  Nastav lokálnu IP a port. Enter ponechá predvolenú hodnotu.
+╰──────────────────────────────────────────────────────────────────────────────
+  IP adresa [127.0.0.1]:   UDP port [9000]: 11:49:34.428 UTC  INFO     SERVER  Server listening on 127.0.0.1:19000
+
+╭─ SERVER · MENU ──────────────────────────────────────────────────────────────
+│  Prijímanie meraní a KEEPALIVE bežia na pozadí.
+│  0  Ukončiť server   ·   Ctrl+C  Ukončiť server
+╰──────────────────────────────────────────────────────────────────────────────
+  Voľba › 11:49:34.461 UTC  RX ←  SERVER  REGISTER #1
+    sensor_type=ThermoNode | sensor_id=T-01
+11:49:34.461 UTC  INFO     SERVER  Sensor registered: ThermoNode:T-01
+11:49:34.461 UTC  TX →  SERVER  ACK #1
+    ack_for=1 | token=808545abeaf1a884
+11:49:34.461 UTC  RX ←  SERVER  REGISTER #1
+    sensor_type=WindSense | sensor_id=W-01
+11:49:34.461 UTC  INFO     SERVER  Sensor registered: WindSense:W-01
+11:49:34.461 UTC  TX →  SERVER  ACK #2
+    ack_for=1 | token=4591b764849f55ee
+11:49:34.461 UTC  RX ←  SERVER  REGISTER #1
+    sensor_type=RainDetect | sensor_id=R-01
+11:49:34.461 UTC  INFO     SERVER  Sensor registered: RainDetect:R-01
+11:49:34.462 UTC  TX →  SERVER  ACK #3
+    ack_for=1 | token=7d5807742fd75dbf
+11:49:34.462 UTC  RX ←  SERVER  REGISTER #1
+    sensor_type=AirQuality | sensor_id=A-01
+11:49:34.462 UTC  INFO     SERVER  Sensor registered: AirQuality:A-01
+11:49:34.462 UTC  TX →  SERVER  ACK #4
+    ack_for=1 | token=4dbacaeed3852f1b
+11:49:34.462 UTC  RX ←  SERVER  DATA #2
+    temperature=-27.2 °C | humidity=2.5 % | dew_point=6.3 °C
+    pressure=880.24 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=815549157
+11:49:34.462 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.462 UTC  TX →  SERVER  ACK #5
+    ack_for=2
+11:49:34.462 UTC  RX ←  SERVER  DATA #2
+    wind_speed=24.8 m/s | wind_gust=21.9 m/s | wind_direction=276 °
+    turbulence=0.2
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3030843718
+11:49:34.462 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.462 UTC  TX →  SERVER  ACK #6
+    ack_for=2
+11:49:34.462 UTC  RX ←  SERVER  DATA #2
+    rainfall=130.4 mm | soil_moisture=80.6 % | flood_risk=0
+    rain_duration=24 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1506286599
+11:49:34.462 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.462 UTC  TX →  SERVER  ACK #7
+    ack_for=2
+11:49:34.462 UTC  RX ←  SERVER  DATA #2
+    co2=711 ppm | ozone=213.1 µg/m³ | air_quality_index=194
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3560051315
+11:49:34.462 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.462 UTC  TX →  SERVER  ACK #8
+    ack_for=2
+11:49:34.517 UTC  RX ←  SERVER  DATA #3
+    temperature=-4.3 °C | humidity=14.2 % | dew_point=-29.1 °C
+    pressure=1021.74 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3646159570
+11:49:34.517 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.517 UTC  TX →  SERVER  ACK #9
+    ack_for=3
+11:49:34.517 UTC  RX ←  SERVER  DATA #3
+    wind_speed=37.0 m/s | wind_gust=58.4 m/s | wind_direction=295 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4158276383
+11:49:34.517 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.517 UTC  TX →  SERVER  ACK #10
+    ack_for=3
+11:49:34.517 UTC  RX ←  SERVER  DATA #3
+    rainfall=31.7 mm | soil_moisture=87.9 % | flood_risk=3
+    rain_duration=14 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2819958276
+11:49:34.517 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.517 UTC  TX →  SERVER  ACK #11
+    ack_for=3
+11:49:34.518 UTC  RX ←  SERVER  DATA #3
+    co2=2981 ppm | ozone=173.3 µg/m³ | air_quality_index=232
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3883070701
+11:49:34.518 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.518 UTC  TX →  SERVER  ACK #12
+    ack_for=3
+11:49:34.567 UTC  RX ←  SERVER  DATA #4
+    temperature=-32.2 °C | humidity=60.4 % | dew_point=36.4 °C
+    pressure=810.41 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3861162260
+11:49:34.569 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.569 UTC  TX →  SERVER  ACK #13
+    ack_for=4
+11:49:34.570 UTC  RX ←  SERVER  DATA #4
+    wind_speed=12.4 m/s | wind_gust=48.4 m/s | wind_direction=208 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=664616647
+11:49:34.570 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.570 UTC  TX →  SERVER  ACK #14
+    ack_for=4
+11:49:34.570 UTC  RX ←  SERVER  DATA #4
+    rainfall=163.4 mm | soil_moisture=83.6 % | flood_risk=3
+    rain_duration=22 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1184917093
+11:49:34.570 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.570 UTC  TX →  SERVER  ACK #15
+    ack_for=4
+11:49:34.570 UTC  RX ←  SERVER  DATA #4
+    co2=2977 ppm | ozone=276.4 µg/m³ | air_quality_index=389
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1220079517
+11:49:34.570 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.570 UTC  TX →  SERVER  ACK #16
+    ack_for=4
+11:49:34.613 UTC  RX ←  SERVER  DATA #5
+    temperature=-43.9 °C | humidity=9.5 % | dew_point=-5.3 °C
+    pressure=876.23 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3776057339
+11:49:34.613 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.613 UTC  TX →  SERVER  ACK #17
+    ack_for=5
+11:49:34.613 UTC  RX ←  SERVER  DATA #5
+    wind_speed=4.8 m/s | wind_gust=9.9 m/s | wind_direction=337 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1571237905
+11:49:34.613 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.613 UTC  TX →  SERVER  ACK #18
+    ack_for=5
+11:49:34.613 UTC  RX ←  SERVER  DATA #5
+    rainfall=250.0 mm | soil_moisture=84.0 % | flood_risk=1
+    rain_duration=14 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3762780150
+11:49:34.613 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.613 UTC  TX →  SERVER  ACK #19
+    ack_for=5
+11:49:34.613 UTC  RX ←  SERVER  DATA #5
+    co2=3405 ppm | ozone=227.9 µg/m³ | air_quality_index=385
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1227897920
+11:49:34.613 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.613 UTC  TX →  SERVER  ACK #20
+    ack_for=5
+11:49:34.667 UTC  RX ←  SERVER  DATA #6
+    temperature=53.4 °C | humidity=61.6 % | dew_point=-44.6 °C
+    pressure=983.9 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3463826665
+11:49:34.667 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.667 UTC  TX →  SERVER  ACK #21
+    ack_for=6
+11:49:34.667 UTC  RX ←  SERVER  DATA #6
+    wind_speed=18.1 m/s | wind_gust=43.3 m/s | wind_direction=210 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3511964399
+11:49:34.667 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.667 UTC  TX →  SERVER  ACK #22
+    ack_for=6
+11:49:34.668 UTC  RX ←  SERVER  DATA #6
+    rainfall=19.3 mm | soil_moisture=67.5 % | flood_risk=1
+    rain_duration=25 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=157350464
+11:49:34.668 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.668 UTC  TX →  SERVER  ACK #23
+    ack_for=6
+11:49:34.668 UTC  RX ←  SERVER  DATA #6
+    co2=3753 ppm | ozone=206.6 µg/m³ | air_quality_index=427
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=363526453
+11:49:34.668 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.668 UTC  TX →  SERVER  ACK #24
+    ack_for=6
+11:49:34.717 UTC  RX ←  SERVER  DATA #7
+    temperature=-9.3 °C | humidity=73.3 % | dew_point=35.9 °C
+    pressure=872.23 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1457776011
+11:49:34.717 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.717 UTC  TX →  SERVER  ACK #25
+    ack_for=7
+11:49:34.717 UTC  RX ←  SERVER  DATA #7
+    wind_speed=44.2 m/s | wind_gust=5.5 m/s | wind_direction=344 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3303313013
+11:49:34.717 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.717 UTC  TX →  SERVER  ACK #26
+    ack_for=7
+11:49:34.718 UTC  RX ←  SERVER  DATA #7
+    rainfall=268.9 mm | soil_moisture=28.5 % | flood_risk=0
+    rain_duration=49 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3296874907
+11:49:34.718 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.718 UTC  TX →  SERVER  ACK #27
+    ack_for=7
+11:49:34.718 UTC  RX ←  SERVER  DATA #7
+    co2=970 ppm | ozone=385.2 µg/m³ | air_quality_index=9
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1320490528
+11:49:34.718 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.718 UTC  TX →  SERVER  ACK #28
+    ack_for=7
+11:49:34.767 UTC  RX ←  SERVER  DATA #8
+    temperature=41.9 °C | humidity=60.3 % | dew_point=6.9 °C
+    pressure=1065.23 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3176418377
+11:49:34.768 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.768 UTC  TX →  SERVER  ACK #29
+    ack_for=8
+11:49:34.769 UTC  RX ←  SERVER  DATA #8
+    wind_speed=33.0 m/s | wind_gust=10.0 m/s | wind_direction=31 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=550583177
+11:49:34.769 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.769 UTC  TX →  SERVER  ACK #30
+    ack_for=8
+11:49:34.769 UTC  RX ←  SERVER  DATA #8
+    rainfall=228.6 mm | soil_moisture=35.9 % | flood_risk=3
+    rain_duration=43 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1420493155
+11:49:34.770 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.770 UTC  TX →  SERVER  ACK #31
+    ack_for=8
+11:49:34.770 UTC  RX ←  SERVER  DATA #8
+    co2=4718 ppm | ozone=42.6 µg/m³ | air_quality_index=487
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2644200037
+11:49:34.770 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.770 UTC  TX →  SERVER  ACK #32
+    ack_for=8
+11:49:34.817 UTC  RX ←  SERVER  DATA #9
+    temperature=-48.7 °C | humidity=77.7 % | dew_point=-17.4 °C
+    pressure=1028.76 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=367014231
+11:49:34.818 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.818 UTC  TX →  SERVER  ACK #33
+    ack_for=9
+11:49:34.818 UTC  RX ←  SERVER  DATA #9
+    wind_speed=37.2 m/s | wind_gust=34.7 m/s | wind_direction=55 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2857780954
+11:49:34.819 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.819 UTC  TX →  SERVER  ACK #34
+    ack_for=9
+11:49:34.819 UTC  RX ←  SERVER  DATA #9
+    rainfall=439.2 mm | soil_moisture=33.9 % | flood_risk=0
+    rain_duration=7 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=399385106
+11:49:34.819 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.820 UTC  TX →  SERVER  ACK #35
+    ack_for=9
+11:49:34.820 UTC  RX ←  SERVER  DATA #9
+    co2=3166 ppm | ozone=183.6 µg/m³ | air_quality_index=332
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=782182932
+11:49:34.820 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.820 UTC  TX →  SERVER  ACK #36
+    ack_for=9
+11:49:34.867 UTC  RX ←  SERVER  DATA #10
+    temperature=36.5 °C | humidity=34.8 % | dew_point=6.9 °C
+    pressure=850.94 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2403070906
+11:49:34.868 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.868 UTC  TX →  SERVER  ACK #37
+    ack_for=10
+11:49:34.869 UTC  RX ←  SERVER  DATA #10
+    wind_speed=9.8 m/s | wind_gust=19.4 m/s | wind_direction=274 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2860610704
+11:49:34.869 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.869 UTC  TX →  SERVER  ACK #38
+    ack_for=10
+11:49:34.870 UTC  RX ←  SERVER  DATA #10
+    rainfall=213.9 mm | soil_moisture=18.2 % | flood_risk=2
+    rain_duration=2 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3368870260
+11:49:34.870 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.870 UTC  TX →  SERVER  ACK #39
+    ack_for=10
+11:49:34.870 UTC  RX ←  SERVER  DATA #10
+    co2=862 ppm | ozone=32.9 µg/m³ | air_quality_index=386
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=814611165
+11:49:34.871 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.871 UTC  TX →  SERVER  ACK #40
+    ack_for=10
+11:49:34.917 UTC  RX ←  SERVER  DATA #11
+    temperature=-6.0 °C | humidity=98.0 % | dew_point=18.9 °C
+    pressure=833.49 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3294834881
+11:49:34.917 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.917 UTC  TX →  SERVER  ACK #41
+    ack_for=11
+11:49:34.917 UTC  RX ←  SERVER  DATA #11
+    wind_speed=7.1 m/s | wind_gust=43.2 m/s | wind_direction=93 °
+    turbulence=0.4
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1588504943
+11:49:34.918 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.918 UTC  TX →  SERVER  ACK #42
+    ack_for=11
+11:49:34.918 UTC  RX ←  SERVER  DATA #11
+    rainfall=88.8 mm | soil_moisture=61.0 % | flood_risk=3
+    rain_duration=22 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3553509135
+11:49:34.918 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.918 UTC  TX →  SERVER  ACK #43
+    ack_for=11
+11:49:34.918 UTC  RX ←  SERVER  DATA #11
+    co2=554 ppm | ozone=202.5 µg/m³ | air_quality_index=102
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2677837568
+11:49:34.919 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.919 UTC  TX →  SERVER  ACK #44
+    ack_for=11
+11:49:34.965 UTC  RX ←  SERVER  DATA #12
+    temperature=-31.1 °C | humidity=38.9 % | dew_point=-30.2 °C
+    pressure=917.63 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1400190142
+11:49:34.965 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:34.965 UTC  TX →  SERVER  ACK #45
+    ack_for=12
+11:49:34.965 UTC  RX ←  SERVER  DATA #12
+    wind_speed=23.6 m/s | wind_gust=25.5 m/s | wind_direction=38 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4212582406
+11:49:34.965 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:34.965 UTC  TX →  SERVER  ACK #46
+    ack_for=12
+11:49:34.965 UTC  RX ←  SERVER  DATA #12
+    rainfall=256.9 mm | soil_moisture=44.6 % | flood_risk=0
+    rain_duration=24 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3397083819
+11:49:34.965 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:34.966 UTC  TX →  SERVER  ACK #47
+    ack_for=12
+11:49:34.966 UTC  RX ←  SERVER  DATA #12
+    co2=466 ppm | ozone=124.8 µg/m³ | air_quality_index=122
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2388609332
+11:49:34.966 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:34.966 UTC  TX →  SERVER  ACK #48
+    ack_for=12
+11:49:35.016 UTC  RX ←  SERVER  DATA #13
+    temperature=20.4 °C | humidity=61.8 % | dew_point=4.1 °C
+    pressure=1064.47 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=247480381
+11:49:35.016 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.016 UTC  TX →  SERVER  ACK #49
+    ack_for=13
+11:49:35.016 UTC  RX ←  SERVER  DATA #13
+    wind_speed=41.3 m/s | wind_gust=56.3 m/s | wind_direction=50 °
+    turbulence=0.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1440247262
+11:49:35.016 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.016 UTC  TX →  SERVER  ACK #50
+    ack_for=13
+11:49:35.017 UTC  RX ←  SERVER  DATA #13
+    rainfall=472.3 mm | soil_moisture=19.4 % | flood_risk=2
+    rain_duration=2 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=4289533131
+11:49:35.017 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.017 UTC  TX →  SERVER  ACK #51
+    ack_for=13
+11:49:35.017 UTC  RX ←  SERVER  DATA #13
+    co2=1334 ppm | ozone=387.9 µg/m³ | air_quality_index=342
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1362550959
+11:49:35.017 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.017 UTC  TX →  SERVER  ACK #52
+    ack_for=13
+11:49:35.066 UTC  RX ←  SERVER  DATA #14
+    temperature=-41.2 °C | humidity=74.7 % | dew_point=44.0 °C
+    pressure=975.71 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2271506487
+11:49:35.066 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.066 UTC  TX →  SERVER  ACK #53
+    ack_for=14
+11:49:35.066 UTC  RX ←  SERVER  DATA #14
+    wind_speed=33.3 m/s | wind_gust=55.3 m/s | wind_direction=7 °
+    turbulence=0.1
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4282147610
+11:49:35.066 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.067 UTC  TX →  SERVER  ACK #54
+    ack_for=14
+11:49:35.067 UTC  RX ←  SERVER  DATA #14
+    rainfall=357.2 mm | soil_moisture=0.1 % | flood_risk=1
+    rain_duration=23 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2562097092
+11:49:35.067 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.067 UTC  TX →  SERVER  ACK #55
+    ack_for=14
+11:49:35.067 UTC  RX ←  SERVER  DATA #14
+    co2=1237 ppm | ozone=462.0 µg/m³ | air_quality_index=485
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2672296987
+11:49:35.067 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.067 UTC  TX →  SERVER  ACK #56
+    ack_for=14
+11:49:35.116 UTC  RX ←  SERVER  DATA #15
+    temperature=-24.5 °C | humidity=99.6 % | dew_point=27.5 °C
+    pressure=825.82 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3729932020
+11:49:35.116 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.116 UTC  TX →  SERVER  ACK #57
+    ack_for=15
+11:49:35.116 UTC  RX ←  SERVER  DATA #15
+    wind_speed=47.4 m/s | wind_gust=24.2 m/s | wind_direction=85 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2783632165
+11:49:35.116 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.116 UTC  TX →  SERVER  ACK #58
+    ack_for=15
+11:49:35.116 UTC  RX ←  SERVER  DATA #15
+    rainfall=353.3 mm | soil_moisture=7.1 % | flood_risk=2
+    rain_duration=39 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1711365960
+11:49:35.116 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.116 UTC  TX →  SERVER  ACK #59
+    ack_for=15
+11:49:35.117 UTC  RX ←  SERVER  DATA #15
+    co2=2085 ppm | ozone=380.9 µg/m³ | air_quality_index=358
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3397613757
+11:49:35.117 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.117 UTC  TX →  SERVER  ACK #60
+    ack_for=15
+11:49:35.167 UTC  RX ←  SERVER  DATA #16
+    temperature=10.0 °C | humidity=84.9 % | dew_point=24.0 °C
+    pressure=989.18 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2720768230
+11:49:35.167 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.167 UTC  TX →  SERVER  ACK #61
+    ack_for=16
+11:49:35.167 UTC  RX ←  SERVER  DATA #16
+    wind_speed=24.8 m/s | wind_gust=49.2 m/s | wind_direction=109 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=641708799
+11:49:35.167 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.167 UTC  TX →  SERVER  ACK #62
+    ack_for=16
+11:49:35.167 UTC  RX ←  SERVER  DATA #16
+    rainfall=257.1 mm | soil_moisture=67.9 % | flood_risk=0
+    rain_duration=46 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=461313708
+11:49:35.167 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.167 UTC  TX →  SERVER  ACK #63
+    ack_for=16
+11:49:35.167 UTC  RX ←  SERVER  DATA #16
+    co2=2399 ppm | ozone=302.1 µg/m³ | air_quality_index=85
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=4216929946
+11:49:35.167 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.168 UTC  TX →  SERVER  ACK #64
+    ack_for=16
+11:49:35.214 UTC  RX ←  SERVER  DATA #17
+    temperature=-10.7 °C | humidity=72.1 % | dew_point=-35.8 °C
+    pressure=815.01 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=481209343
+11:49:35.214 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.214 UTC  TX →  SERVER  ACK #65
+    ack_for=17
+11:49:35.214 UTC  RX ←  SERVER  DATA #17
+    wind_speed=46.2 m/s | wind_gust=6.0 m/s | wind_direction=84 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1406211710
+11:49:35.214 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.214 UTC  TX →  SERVER  ACK #66
+    ack_for=17
+11:49:35.214 UTC  RX ←  SERVER  DATA #17
+    rainfall=246.0 mm | soil_moisture=51.9 % | flood_risk=2
+    rain_duration=42 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=321588561
+11:49:35.215 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.215 UTC  TX →  SERVER  ACK #67
+    ack_for=17
+11:49:35.215 UTC  RX ←  SERVER  DATA #17
+    co2=1238 ppm | ozone=134.1 µg/m³ | air_quality_index=493
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2859122554
+11:49:35.215 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.215 UTC  TX →  SERVER  ACK #68
+    ack_for=17
+11:49:35.267 UTC  RX ←  SERVER  DATA #18
+    temperature=-3.4 °C | humidity=79.1 % | dew_point=9.2 °C
+    pressure=826.14 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=4164279674
+11:49:35.267 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.267 UTC  TX →  SERVER  ACK #69
+    ack_for=18
+11:49:35.267 UTC  RX ←  SERVER  DATA #18
+    wind_speed=0.1 m/s | wind_gust=39.9 m/s | wind_direction=135 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=473927326
+11:49:35.267 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.267 UTC  TX →  SERVER  ACK #70
+    ack_for=18
+11:49:35.267 UTC  RX ←  SERVER  DATA #18
+    rainfall=334.5 mm | soil_moisture=33.4 % | flood_risk=3
+    rain_duration=44 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3302634146
+11:49:35.268 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.268 UTC  TX →  SERVER  ACK #71
+    ack_for=18
+11:49:35.268 UTC  RX ←  SERVER  DATA #18
+    co2=2848 ppm | ozone=88.5 µg/m³ | air_quality_index=296
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1121505201
+11:49:35.268 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.268 UTC  TX →  SERVER  ACK #72
+    ack_for=18
+11:49:35.317 UTC  RX ←  SERVER  DATA #19
+    temperature=-2.4 °C | humidity=88.7 % | dew_point=-29.4 °C
+    pressure=924.55 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=344417607
+11:49:35.317 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.317 UTC  TX →  SERVER  ACK #73
+    ack_for=19
+11:49:35.317 UTC  RX ←  SERVER  DATA #19
+    wind_speed=14.6 m/s | wind_gust=43.3 m/s | wind_direction=356 °
+    turbulence=0.8
+    sensor_id=W-01 | token=4591b764849f55ee | crc=302858994
+11:49:35.317 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.317 UTC  TX →  SERVER  ACK #74
+    ack_for=19
+11:49:35.317 UTC  RX ←  SERVER  DATA #19
+    rainfall=242.2 mm | soil_moisture=56.7 % | flood_risk=1
+    rain_duration=12 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1336233823
+11:49:35.318 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.318 UTC  TX →  SERVER  ACK #75
+    ack_for=19
+11:49:35.318 UTC  RX ←  SERVER  DATA #19
+    co2=510 ppm | ozone=255.5 µg/m³ | air_quality_index=294
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2810851483
+11:49:35.318 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.318 UTC  TX →  SERVER  ACK #76
+    ack_for=19
+11:49:35.366 UTC  RX ←  SERVER  DATA #20
+    temperature=6.9 °C | humidity=46.4 % | dew_point=24.7 °C
+    pressure=853.29 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=250865804
+11:49:35.367 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.367 UTC  TX →  SERVER  ACK #77
+    ack_for=20
+11:49:35.367 UTC  RX ←  SERVER  DATA #20
+    wind_speed=33.8 m/s | wind_gust=49.8 m/s | wind_direction=79 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3264846677
+11:49:35.368 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.368 UTC  TX →  SERVER  ACK #78
+    ack_for=20
+11:49:35.368 UTC  RX ←  SERVER  DATA #20
+    rainfall=344.4 mm | soil_moisture=68.0 % | flood_risk=3
+    rain_duration=43 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2078284852
+11:49:35.368 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.369 UTC  TX →  SERVER  ACK #79
+    ack_for=20
+11:49:35.370 UTC  RX ←  SERVER  DATA #20
+    co2=3374 ppm | ozone=324.9 µg/m³ | air_quality_index=482
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=911485362
+11:49:35.370 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.370 UTC  TX →  SERVER  ACK #80
+    ack_for=20
+11:49:35.415 UTC  RX ←  SERVER  DATA #21
+    temperature=25.8 °C | humidity=36.3 % | dew_point=-7.1 °C
+    pressure=1019.6 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1148403367
+11:49:35.416 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.416 UTC  TX →  SERVER  ACK #81
+    ack_for=21
+11:49:35.417 UTC  RX ←  SERVER  DATA #21
+    wind_speed=15.1 m/s | wind_gust=22.2 m/s | wind_direction=29 °
+    turbulence=0.9
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1479577435
+11:49:35.417 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.417 UTC  TX →  SERVER  ACK #82
+    ack_for=21
+11:49:35.418 UTC  RX ←  SERVER  DATA #21
+    rainfall=142.5 mm | soil_moisture=63.0 % | flood_risk=2
+    rain_duration=25 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1203277758
+11:49:35.418 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.418 UTC  TX →  SERVER  ACK #83
+    ack_for=21
+11:49:35.418 UTC  RX ←  SERVER  DATA #21
+    co2=1924 ppm | ozone=62.2 µg/m³ | air_quality_index=303
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=58454279
+11:49:35.418 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.418 UTC  TX →  SERVER  ACK #84
+    ack_for=21
+11:49:35.465 UTC  RX ←  SERVER  DATA #22
+    temperature=4.6 °C | humidity=71.8 % | dew_point=-35.4 °C
+    pressure=999.6 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2299736802
+11:49:35.466 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.466 UTC  TX →  SERVER  ACK #85
+    ack_for=22
+11:49:35.467 UTC  RX ←  SERVER  DATA #22
+    wind_speed=37.6 m/s | wind_gust=55.5 m/s | wind_direction=31 °
+    turbulence=0.5
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2248003248
+11:49:35.467 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.468 UTC  TX →  SERVER  ACK #86
+    ack_for=22
+11:49:35.468 UTC  RX ←  SERVER  DATA #22
+    rainfall=448.8 mm | soil_moisture=85.3 % | flood_risk=0
+    rain_duration=19 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=860912768
+11:49:35.468 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.468 UTC  TX →  SERVER  ACK #87
+    ack_for=22
+11:49:35.468 UTC  RX ←  SERVER  DATA #22
+    co2=2289 ppm | ozone=83.4 µg/m³ | air_quality_index=356
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1839003721
+11:49:35.469 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.469 UTC  TX →  SERVER  ACK #88
+    ack_for=22
+11:49:35.517 UTC  RX ←  SERVER  DATA #23
+    temperature=-15.0 °C | humidity=54.6 % | dew_point=0.1 °C
+    pressure=853.54 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1056126062
+11:49:35.518 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.518 UTC  TX →  SERVER  ACK #89
+    ack_for=23
+11:49:35.518 UTC  RX ←  SERVER  DATA #23
+    wind_speed=2.9 m/s | wind_gust=5.1 m/s | wind_direction=299 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2177507454
+11:49:35.518 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.519 UTC  TX →  SERVER  ACK #90
+    ack_for=23
+11:49:35.519 UTC  RX ←  SERVER  DATA #23
+    rainfall=235.0 mm | soil_moisture=21.5 % | flood_risk=3
+    rain_duration=50 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=121863498
+11:49:35.519 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.519 UTC  TX →  SERVER  ACK #91
+    ack_for=23
+11:49:35.519 UTC  RX ←  SERVER  DATA #23
+    co2=2770 ppm | ozone=491.8 µg/m³ | air_quality_index=412
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2074505480
+11:49:35.519 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.519 UTC  TX →  SERVER  ACK #92
+    ack_for=23
+11:49:35.567 UTC  RX ←  SERVER  DATA #24
+    temperature=44.6 °C | humidity=38.8 % | dew_point=5.2 °C
+    pressure=1009.71 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2070774063
+11:49:35.567 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.567 UTC  TX →  SERVER  ACK #93
+    ack_for=24
+11:49:35.568 UTC  RX ←  SERVER  DATA #24
+    wind_speed=25.7 m/s | wind_gust=54.3 m/s | wind_direction=80 °
+    turbulence=0.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2570726343
+11:49:35.568 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.568 UTC  TX →  SERVER  ACK #94
+    ack_for=24
+11:49:35.568 UTC  RX ←  SERVER  DATA #24
+    rainfall=475.1 mm | soil_moisture=62.1 % | flood_risk=2
+    rain_duration=29 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2327481750
+11:49:35.568 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.568 UTC  TX →  SERVER  ACK #95
+    ack_for=24
+11:49:35.568 UTC  RX ←  SERVER  DATA #24
+    co2=1291 ppm | ozone=463.6 µg/m³ | air_quality_index=400
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2942938722
+11:49:35.568 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.568 UTC  TX →  SERVER  ACK #96
+    ack_for=24
+11:49:35.617 UTC  RX ←  SERVER  DATA #25
+    temperature=-5.1 °C | humidity=70.1 % | dew_point=16.4 °C
+    pressure=1076.18 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=422798942
+11:49:35.617 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.617 UTC  TX →  SERVER  ACK #97
+    ack_for=25
+11:49:35.618 UTC  RX ←  SERVER  DATA #25
+    wind_speed=49.1 m/s | wind_gust=52.0 m/s | wind_direction=41 °
+    turbulence=0.2
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2837193985
+11:49:35.618 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.618 UTC  TX →  SERVER  ACK #98
+    ack_for=25
+11:49:35.618 UTC  RX ←  SERVER  DATA #25
+    rainfall=361.9 mm | soil_moisture=45.2 % | flood_risk=1
+    rain_duration=32 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1599809389
+11:49:35.618 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.618 UTC  TX →  SERVER  ACK #99
+    ack_for=25
+11:49:35.618 UTC  RX ←  SERVER  DATA #25
+    co2=636 ppm | ozone=284.4 µg/m³ | air_quality_index=272
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2315668868
+11:49:35.618 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.618 UTC  TX →  SERVER  ACK #100
+    ack_for=25
+11:49:35.666 UTC  RX ←  SERVER  DATA #26
+    temperature=-38.6 °C | humidity=23.4 % | dew_point=-43.5 °C
+    pressure=1063.79 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3963919826
+11:49:35.666 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.667 UTC  TX →  SERVER  ACK #101
+    ack_for=26
+11:49:35.667 UTC  RX ←  SERVER  DATA #26
+    wind_speed=3.5 m/s | wind_gust=60.9 m/s | wind_direction=34 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3340335351
+11:49:35.667 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.667 UTC  TX →  SERVER  ACK #102
+    ack_for=26
+11:49:35.667 UTC  RX ←  SERVER  DATA #26
+    rainfall=387.6 mm | soil_moisture=81.2 % | flood_risk=1
+    rain_duration=42 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1571142918
+11:49:35.667 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.667 UTC  TX →  SERVER  ACK #103
+    ack_for=26
+11:49:35.667 UTC  RX ←  SERVER  DATA #26
+    co2=3809 ppm | ozone=303.5 µg/m³ | air_quality_index=35
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3827029986
+11:49:35.667 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.667 UTC  TX →  SERVER  ACK #104
+    ack_for=26
+11:49:35.716 UTC  RX ←  SERVER  DATA #27
+    temperature=14.6 °C | humidity=41.0 % | dew_point=4.8 °C
+    pressure=821.68 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3485516199
+11:49:35.716 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.716 UTC  TX →  SERVER  ACK #105
+    ack_for=27
+11:49:35.716 UTC  RX ←  SERVER  DATA #27
+    wind_speed=44.1 m/s | wind_gust=24.0 m/s | wind_direction=206 °
+    turbulence=0.1
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3592442045
+11:49:35.716 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.716 UTC  TX →  SERVER  ACK #106
+    ack_for=27
+11:49:35.716 UTC  RX ←  SERVER  DATA #27
+    rainfall=69.4 mm | soil_moisture=29.0 % | flood_risk=2
+    rain_duration=5 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2449189433
+11:49:35.716 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.716 UTC  TX →  SERVER  ACK #107
+    ack_for=27
+11:49:35.716 UTC  RX ←  SERVER  DATA #27
+    co2=4444 ppm | ozone=279.5 µg/m³ | air_quality_index=6
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1943239904
+11:49:35.716 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.716 UTC  TX →  SERVER  ACK #108
+    ack_for=27
+11:49:35.767 UTC  RX ←  SERVER  DATA #28
+    temperature=-6.8 °C | humidity=93.5 % | dew_point=14.4 °C
+    pressure=869.67 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2800430631
+11:49:35.767 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.767 UTC  TX →  SERVER  ACK #109
+    ack_for=28
+11:49:35.767 UTC  RX ←  SERVER  DATA #28
+    wind_speed=48.2 m/s | wind_gust=58.3 m/s | wind_direction=126 °
+    turbulence=0.9
+    sensor_id=W-01 | token=4591b764849f55ee | crc=30561208
+11:49:35.767 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.767 UTC  TX →  SERVER  ACK #110
+    ack_for=28
+11:49:35.767 UTC  RX ←  SERVER  DATA #28
+    rainfall=192.4 mm | soil_moisture=68.8 % | flood_risk=2
+    rain_duration=14 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=335586860
+11:49:35.768 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.768 UTC  TX →  SERVER  ACK #111
+    ack_for=28
+11:49:35.768 UTC  RX ←  SERVER  DATA #28
+    co2=3741 ppm | ozone=401.5 µg/m³ | air_quality_index=54
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3524256093
+11:49:35.768 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.768 UTC  TX →  SERVER  ACK #112
+    ack_for=28
+11:49:35.817 UTC  RX ←  SERVER  DATA #29
+    temperature=52.2 °C | humidity=40.5 % | dew_point=43.9 °C
+    pressure=846.81 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=4290173759
+11:49:35.817 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.817 UTC  TX →  SERVER  ACK #113
+    ack_for=29
+11:49:35.817 UTC  RX ←  SERVER  DATA #29
+    wind_speed=30.4 m/s | wind_gust=4.0 m/s | wind_direction=317 °
+    turbulence=0.1
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1486526837
+11:49:35.817 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.818 UTC  TX →  SERVER  ACK #114
+    ack_for=29
+11:49:35.818 UTC  RX ←  SERVER  DATA #29
+    rainfall=163.1 mm | soil_moisture=15.0 % | flood_risk=0
+    rain_duration=2 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1259915652
+11:49:35.818 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.818 UTC  TX →  SERVER  ACK #115
+    ack_for=29
+11:49:35.818 UTC  RX ←  SERVER  DATA #29
+    co2=3851 ppm | ozone=296.7 µg/m³ | air_quality_index=325
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1187702430
+11:49:35.818 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.818 UTC  TX →  SERVER  ACK #116
+    ack_for=29
+11:49:35.867 UTC  RX ←  SERVER  DATA #30
+    temperature=4.2 °C | humidity=14.2 % | dew_point=0.5 °C
+    pressure=1044.11 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3884039398
+11:49:35.868 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.868 UTC  TX →  SERVER  ACK #117
+    ack_for=30
+11:49:35.868 UTC  RX ←  SERVER  DATA #30
+    wind_speed=21.4 m/s | wind_gust=67.3 m/s | wind_direction=298 °
+    turbulence=0.9
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2235073081
+11:49:35.868 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.868 UTC  TX →  SERVER  ACK #118
+    ack_for=30
+11:49:35.868 UTC  RX ←  SERVER  DATA #30
+    rainfall=200.5 mm | soil_moisture=48.6 % | flood_risk=0
+    rain_duration=29 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3613149816
+11:49:35.868 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.868 UTC  TX →  SERVER  ACK #119
+    ack_for=30
+11:49:35.869 UTC  RX ←  SERVER  DATA #30
+    co2=4066 ppm | ozone=125.3 µg/m³ | air_quality_index=222
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=91189206
+11:49:35.869 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.869 UTC  TX →  SERVER  ACK #120
+    ack_for=30
+11:49:35.917 UTC  RX ←  SERVER  DATA #31
+    temperature=3.8 °C | humidity=76.4 % | dew_point=37.7 °C
+    pressure=1094.19 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2005775273
+11:49:35.917 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.918 UTC  TX →  SERVER  ACK #121
+    ack_for=31
+11:49:35.918 UTC  RX ←  SERVER  DATA #31
+    wind_speed=26.7 m/s | wind_gust=32.3 m/s | wind_direction=133 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3227296874
+11:49:35.919 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.919 UTC  TX →  SERVER  ACK #122
+    ack_for=31
+11:49:35.919 UTC  RX ←  SERVER  DATA #31
+    rainfall=339.5 mm | soil_moisture=90.7 % | flood_risk=1
+    rain_duration=45 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2321250461
+11:49:35.919 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.920 UTC  TX →  SERVER  ACK #123
+    ack_for=31
+11:49:35.920 UTC  RX ←  SERVER  DATA #31
+    co2=1742 ppm | ozone=427.4 µg/m³ | air_quality_index=494
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2957061623
+11:49:35.920 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.920 UTC  TX →  SERVER  ACK #124
+    ack_for=31
+11:49:35.967 UTC  RX ←  SERVER  DATA #32
+    temperature=31.7 °C | humidity=37.0 % | dew_point=-5.1 °C
+    pressure=845.32 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2264075704
+11:49:35.968 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:35.968 UTC  TX →  SERVER  ACK #125
+    ack_for=32
+11:49:35.968 UTC  RX ←  SERVER  DATA #32
+    wind_speed=34.2 m/s | wind_gust=32.1 m/s | wind_direction=122 °
+    turbulence=0.4
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1259565586
+11:49:35.969 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:35.969 UTC  TX →  SERVER  ACK #126
+    ack_for=32
+11:49:35.969 UTC  RX ←  SERVER  DATA #32
+    rainfall=314.5 mm | soil_moisture=50.6 % | flood_risk=3
+    rain_duration=15 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1285246081
+11:49:35.969 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:35.969 UTC  TX →  SERVER  ACK #127
+    ack_for=32
+11:49:35.969 UTC  RX ←  SERVER  DATA #32
+    co2=2512 ppm | ozone=440.8 µg/m³ | air_quality_index=396
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1306586141
+11:49:35.970 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:35.970 UTC  TX →  SERVER  ACK #128
+    ack_for=32
+11:49:36.014 UTC  RX ←  SERVER  DATA #33
+    temperature=54.3 °C | humidity=50.5 % | dew_point=-31.4 °C
+    pressure=1047.65 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2149119203
+11:49:36.015 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.015 UTC  TX →  SERVER  ACK #129
+    ack_for=33
+11:49:36.015 UTC  RX ←  SERVER  DATA #33
+    wind_speed=20.2 m/s | wind_gust=13.4 m/s | wind_direction=343 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=838323396
+11:49:36.015 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.016 UTC  TX →  SERVER  ACK #130
+    ack_for=33
+11:49:36.016 UTC  RX ←  SERVER  DATA #33
+    rainfall=120.8 mm | soil_moisture=67.1 % | flood_risk=0
+    rain_duration=57 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3931490472
+11:49:36.016 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.016 UTC  TX →  SERVER  ACK #131
+    ack_for=33
+11:49:36.017 UTC  RX ←  SERVER  DATA #33
+    co2=4260 ppm | ozone=380.8 µg/m³ | air_quality_index=223
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1015484337
+11:49:36.017 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.017 UTC  TX →  SERVER  ACK #132
+    ack_for=33
+11:49:36.066 UTC  RX ←  SERVER  DATA #34
+    temperature=-40.4 °C | humidity=88.1 % | dew_point=-27.6 °C
+    pressure=850.08 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2705664026
+11:49:36.067 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.067 UTC  TX →  SERVER  ACK #133
+    ack_for=34
+11:49:36.067 UTC  RX ←  SERVER  DATA #34
+    wind_speed=15.3 m/s | wind_gust=46.8 m/s | wind_direction=161 °
+    turbulence=0.1
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1833193417
+11:49:36.067 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.067 UTC  TX →  SERVER  ACK #134
+    ack_for=34
+11:49:36.067 UTC  RX ←  SERVER  DATA #34
+    rainfall=87.3 mm | soil_moisture=79.7 % | flood_risk=3
+    rain_duration=14 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3542051280
+11:49:36.067 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.067 UTC  TX →  SERVER  ACK #135
+    ack_for=34
+11:49:36.068 UTC  RX ←  SERVER  DATA #34
+    co2=2498 ppm | ozone=264.0 µg/m³ | air_quality_index=436
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2245876785
+11:49:36.068 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.068 UTC  TX →  SERVER  ACK #136
+    ack_for=34
+11:49:36.116 UTC  RX ←  SERVER  DATA #35
+    temperature=-17.3 °C | humidity=81.1 % | dew_point=36.4 °C
+    pressure=995.43 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3630695208
+11:49:36.117 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.117 UTC  TX →  SERVER  ACK #137
+    ack_for=35
+11:49:36.117 UTC  RX ←  SERVER  DATA #35
+    wind_speed=0.4 m/s | wind_gust=46.9 m/s | wind_direction=318 °
+    turbulence=0.9
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2340217620
+11:49:36.117 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.117 UTC  TX →  SERVER  ACK #138
+    ack_for=35
+11:49:36.118 UTC  RX ←  SERVER  DATA #35
+    rainfall=144.0 mm | soil_moisture=82.3 % | flood_risk=3
+    rain_duration=3 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3966357350
+11:49:36.118 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.118 UTC  TX →  SERVER  ACK #139
+    ack_for=35
+11:49:36.118 UTC  RX ←  SERVER  DATA #35
+    co2=2311 ppm | ozone=70.9 µg/m³ | air_quality_index=142
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=907886806
+11:49:36.118 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.118 UTC  TX →  SERVER  ACK #140
+    ack_for=35
+11:49:36.165 UTC  RX ←  SERVER  DATA #36
+    temperature=-37.0 °C | humidity=39.4 % | dew_point=28.1 °C
+    pressure=995.26 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1490051618
+11:49:36.165 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.165 UTC  TX →  SERVER  ACK #141
+    ack_for=36
+11:49:36.166 UTC  RX ←  SERVER  DATA #36
+    wind_speed=5.1 m/s | wind_gust=7.5 m/s | wind_direction=275 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2749498101
+11:49:36.166 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.166 UTC  TX →  SERVER  ACK #142
+    ack_for=36
+11:49:36.166 UTC  RX ←  SERVER  DATA #36
+    rainfall=456.6 mm | soil_moisture=25.5 % | flood_risk=0
+    rain_duration=29 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2866264261
+11:49:36.166 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.166 UTC  TX →  SERVER  ACK #143
+    ack_for=36
+11:49:36.166 UTC  RX ←  SERVER  DATA #36
+    co2=3992 ppm | ozone=199.7 µg/m³ | air_quality_index=384
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1962279991
+11:49:36.166 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.166 UTC  TX →  SERVER  ACK #144
+    ack_for=36
+11:49:36.216 UTC  RX ←  SERVER  DATA #37
+    temperature=45.8 °C | humidity=54.1 % | dew_point=1.4 °C
+    pressure=981.28 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1913351529
+11:49:36.216 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.216 UTC  TX →  SERVER  ACK #145
+    ack_for=37
+11:49:36.216 UTC  RX ←  SERVER  DATA #37
+    wind_speed=25.9 m/s | wind_gust=27.1 m/s | wind_direction=67 °
+    turbulence=0.5
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4143533812
+11:49:36.216 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.216 UTC  TX →  SERVER  ACK #146
+    ack_for=37
+11:49:36.217 UTC  RX ←  SERVER  DATA #37
+    rainfall=109.2 mm | soil_moisture=82.0 % | flood_risk=3
+    rain_duration=42 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=955878707
+11:49:36.217 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.217 UTC  TX →  SERVER  ACK #147
+    ack_for=37
+11:49:36.217 UTC  RX ←  SERVER  DATA #37
+    co2=4106 ppm | ozone=466.8 µg/m³ | air_quality_index=312
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=4257614494
+11:49:36.217 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.217 UTC  TX →  SERVER  ACK #148
+    ack_for=37
+11:49:36.267 UTC  RX ←  SERVER  DATA #38
+    temperature=-47.7 °C | humidity=69.6 % | dew_point=-26.6 °C
+    pressure=1023.38 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3292200460
+11:49:36.267 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.267 UTC  TX →  SERVER  ACK #149
+    ack_for=38
+11:49:36.268 UTC  RX ←  SERVER  DATA #38
+    wind_speed=45.1 m/s | wind_gust=7.0 m/s | wind_direction=125 °
+    turbulence=0.5
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2866879770
+11:49:36.268 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.268 UTC  TX →  SERVER  ACK #150
+    ack_for=38
+11:49:36.268 UTC  RX ←  SERVER  DATA #38
+    rainfall=435.1 mm | soil_moisture=57.2 % | flood_risk=2
+    rain_duration=60 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=240231897
+11:49:36.268 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.268 UTC  TX →  SERVER  ACK #151
+    ack_for=38
+11:49:36.268 UTC  RX ←  SERVER  DATA #38
+    co2=3404 ppm | ozone=275.5 µg/m³ | air_quality_index=14
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1522485286
+11:49:36.268 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.268 UTC  TX →  SERVER  ACK #152
+    ack_for=38
+11:49:36.317 UTC  RX ←  SERVER  DATA #39
+    temperature=59.9 °C | humidity=76.8 % | dew_point=4.6 °C
+    pressure=1051.85 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3726947650
+11:49:36.318 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.318 UTC  TX →  SERVER  ACK #153
+    ack_for=39
+11:49:36.318 UTC  RX ←  SERVER  DATA #39
+    wind_speed=14.5 m/s | wind_gust=16.1 m/s | wind_direction=224 °
+    turbulence=0.8
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3180788819
+11:49:36.318 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.318 UTC  TX →  SERVER  ACK #154
+    ack_for=39
+11:49:36.318 UTC  RX ←  SERVER  DATA #39
+    rainfall=362.5 mm | soil_moisture=62.7 % | flood_risk=3
+    rain_duration=53 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3155189703
+11:49:36.319 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.319 UTC  TX →  SERVER  ACK #155
+    ack_for=39
+11:49:36.319 UTC  RX ←  SERVER  DATA #39
+    co2=4349 ppm | ozone=266.2 µg/m³ | air_quality_index=93
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2103279270
+11:49:36.319 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.319 UTC  TX →  SERVER  ACK #156
+    ack_for=39
+11:49:36.367 UTC  RX ←  SERVER  DATA #40
+    temperature=19.6 °C | humidity=11.4 % | dew_point=10.1 °C
+    pressure=942.46 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2585346742
+11:49:36.368 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.368 UTC  TX →  SERVER  ACK #157
+    ack_for=40
+11:49:36.369 UTC  RX ←  SERVER  DATA #40
+    wind_speed=36.0 m/s | wind_gust=30.9 m/s | wind_direction=313 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2601243117
+11:49:36.369 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.369 UTC  TX →  SERVER  ACK #158
+    ack_for=40
+11:49:36.369 UTC  RX ←  SERVER  DATA #40
+    rainfall=448.8 mm | soil_moisture=45.6 % | flood_risk=1
+    rain_duration=47 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=889275672
+11:49:36.369 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.370 UTC  TX →  SERVER  ACK #159
+    ack_for=40
+11:49:36.370 UTC  RX ←  SERVER  DATA #40
+    co2=4294 ppm | ozone=173.7 µg/m³ | air_quality_index=181
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2189985297
+11:49:36.370 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.370 UTC  TX →  SERVER  ACK #160
+    ack_for=40
+11:49:36.413 UTC  RX ←  SERVER  DATA #41
+    temperature=-17.7 °C | humidity=46.4 % | dew_point=-49.4 °C
+    pressure=1036.61 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1273621288
+11:49:36.414 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.414 UTC  TX →  SERVER  ACK #161
+    ack_for=41
+11:49:36.414 UTC  RX ←  SERVER  DATA #41
+    wind_speed=27.0 m/s | wind_gust=0.8 m/s | wind_direction=341 °
+    turbulence=0.8
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2421550830
+11:49:36.414 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.414 UTC  TX →  SERVER  ACK #162
+    ack_for=41
+11:49:36.414 UTC  RX ←  SERVER  DATA #41
+    rainfall=388.8 mm | soil_moisture=46.0 % | flood_risk=2
+    rain_duration=48 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3694193861
+11:49:36.414 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.414 UTC  TX →  SERVER  ACK #163
+    ack_for=41
+11:49:36.414 UTC  RX ←  SERVER  DATA #41
+    co2=2416 ppm | ozone=278.8 µg/m³ | air_quality_index=143
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3883715119
+11:49:36.414 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.415 UTC  TX →  SERVER  ACK #164
+    ack_for=41
+11:49:36.467 UTC  RX ←  SERVER  DATA #42
+    temperature=3.9 °C | humidity=99.5 % | dew_point=52.5 °C
+    pressure=1049.67 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1678308015
+11:49:36.468 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.468 UTC  TX →  SERVER  ACK #165
+    ack_for=42
+11:49:36.468 UTC  RX ←  SERVER  DATA #42
+    wind_speed=15.3 m/s | wind_gust=67.9 m/s | wind_direction=53 °
+    turbulence=0.2
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3261045787
+11:49:36.469 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.469 UTC  TX →  SERVER  ACK #166
+    ack_for=42
+11:49:36.469 UTC  RX ←  SERVER  DATA #42
+    rainfall=202.5 mm | soil_moisture=86.0 % | flood_risk=2
+    rain_duration=49 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=159188336
+11:49:36.469 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.469 UTC  TX →  SERVER  ACK #167
+    ack_for=42
+11:49:36.470 UTC  RX ←  SERVER  DATA #42
+    co2=2563 ppm | ozone=455.3 µg/m³ | air_quality_index=5
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=806000428
+11:49:36.470 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.470 UTC  TX →  SERVER  ACK #168
+    ack_for=42
+11:49:36.519 UTC  RX ←  SERVER  DATA #43
+    temperature=-13.5 °C | humidity=51.9 % | dew_point=-28.3 °C
+    pressure=1085.25 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1944468692
+11:49:36.519 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.519 UTC  TX →  SERVER  ACK #169
+    ack_for=43
+11:49:36.524 UTC  RX ←  SERVER  DATA #43
+    wind_speed=13.5 m/s | wind_gust=11.8 m/s | wind_direction=54 °
+    turbulence=0.8
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3820574352
+11:49:36.524 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.524 UTC  TX →  SERVER  ACK #170
+    ack_for=43
+11:49:36.532 UTC  RX ←  SERVER  DATA #43
+    rainfall=427.0 mm | soil_moisture=49.6 % | flood_risk=1
+    rain_duration=17 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2833330562
+11:49:36.533 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.533 UTC  TX →  SERVER  ACK #171
+    ack_for=43
+11:49:36.533 UTC  RX ←  SERVER  DATA #43
+    co2=4532 ppm | ozone=156.5 µg/m³ | air_quality_index=43
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2802886959
+11:49:36.534 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.534 UTC  TX →  SERVER  ACK #172
+    ack_for=43
+11:49:36.566 UTC  RX ←  SERVER  DATA #44
+    temperature=11.1 °C | humidity=86.1 % | dew_point=53.9 °C
+    pressure=999.54 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1629323098
+11:49:36.566 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.566 UTC  TX →  SERVER  ACK #173
+    ack_for=44
+11:49:36.566 UTC  RX ←  SERVER  DATA #44
+    wind_speed=7.9 m/s | wind_gust=27.8 m/s | wind_direction=144 °
+    turbulence=0.9
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2643023114
+11:49:36.566 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.566 UTC  TX →  SERVER  ACK #174
+    ack_for=44
+11:49:36.566 UTC  RX ←  SERVER  DATA #44
+    rainfall=360.3 mm | soil_moisture=7.9 % | flood_risk=2
+    rain_duration=15 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1094878015
+11:49:36.567 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.567 UTC  TX →  SERVER  ACK #175
+    ack_for=44
+11:49:36.567 UTC  RX ←  SERVER  DATA #44
+    co2=2277 ppm | ozone=332.9 µg/m³ | air_quality_index=250
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2334323762
+11:49:36.567 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.567 UTC  TX →  SERVER  ACK #176
+    ack_for=44
+11:49:36.617 UTC  RX ←  SERVER  DATA #45
+    temperature=-9.3 °C | humidity=15.6 % | dew_point=26.5 °C
+    pressure=1049.85 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2407121013
+11:49:36.617 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.618 UTC  TX →  SERVER  ACK #177
+    ack_for=45
+11:49:36.618 UTC  RX ←  SERVER  DATA #45
+    wind_speed=10.7 m/s | wind_gust=35.1 m/s | wind_direction=104 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2257684195
+11:49:36.618 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.618 UTC  TX →  SERVER  ACK #178
+    ack_for=45
+11:49:36.618 UTC  RX ←  SERVER  DATA #45
+    rainfall=222.5 mm | soil_moisture=34.3 % | flood_risk=2
+    rain_duration=57 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=980168495
+11:49:36.618 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.618 UTC  TX →  SERVER  ACK #179
+    ack_for=45
+11:49:36.618 UTC  RX ←  SERVER  DATA #45
+    co2=4848 ppm | ozone=196.8 µg/m³ | air_quality_index=353
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2855490424
+11:49:36.619 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.619 UTC  TX →  SERVER  ACK #180
+    ack_for=45
+11:49:36.667 UTC  RX ←  SERVER  DATA #46
+    temperature=-17.0 °C | humidity=55.2 % | dew_point=58.6 °C
+    pressure=800.18 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2356228015
+11:49:36.667 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.667 UTC  TX →  SERVER  ACK #181
+    ack_for=46
+11:49:36.667 UTC  RX ←  SERVER  DATA #46
+    wind_speed=32.4 m/s | wind_gust=27.0 m/s | wind_direction=258 °
+    turbulence=0.7
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1326925255
+11:49:36.667 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.667 UTC  TX →  SERVER  ACK #182
+    ack_for=46
+11:49:36.668 UTC  RX ←  SERVER  DATA #46
+    rainfall=442.4 mm | soil_moisture=8.2 % | flood_risk=1
+    rain_duration=9 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3230582191
+11:49:36.668 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.668 UTC  TX →  SERVER  ACK #183
+    ack_for=46
+11:49:36.668 UTC  RX ←  SERVER  DATA #46
+    co2=4200 ppm | ozone=402.0 µg/m³ | air_quality_index=229
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1838473145
+11:49:36.668 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.668 UTC  TX →  SERVER  ACK #184
+    ack_for=46
+11:49:36.712 UTC  RX ←  SERVER  DATA #47
+    temperature=16.3 °C | humidity=50.0 % | dew_point=-46.1 °C
+    pressure=836.65 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2820798634
+11:49:36.712 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.712 UTC  TX →  SERVER  ACK #185
+    ack_for=47
+11:49:36.712 UTC  RX ←  SERVER  DATA #47
+    wind_speed=12.8 m/s | wind_gust=5.2 m/s | wind_direction=47 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=712974073
+11:49:36.712 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.712 UTC  TX →  SERVER  ACK #186
+    ack_for=47
+11:49:36.713 UTC  RX ←  SERVER  DATA #47
+    rainfall=189.4 mm | soil_moisture=39.2 % | flood_risk=1
+    rain_duration=45 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1962923886
+11:49:36.713 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.713 UTC  TX →  SERVER  ACK #187
+    ack_for=47
+11:49:36.713 UTC  RX ←  SERVER  DATA #47
+    co2=441 ppm | ozone=76.2 µg/m³ | air_quality_index=150
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1551107157
+11:49:36.713 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.713 UTC  TX →  SERVER  ACK #188
+    ack_for=47
+11:49:36.767 UTC  RX ←  SERVER  DATA #48
+    temperature=24.3 °C | humidity=89.9 % | dew_point=12.9 °C
+    pressure=878.46 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3013673877
+11:49:36.767 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.767 UTC  TX →  SERVER  ACK #189
+    ack_for=48
+11:49:36.767 UTC  RX ←  SERVER  DATA #48
+    wind_speed=21.6 m/s | wind_gust=28.3 m/s | wind_direction=22 °
+    turbulence=0.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=111653685
+11:49:36.767 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.767 UTC  TX →  SERVER  ACK #190
+    ack_for=48
+11:49:36.768 UTC  RX ←  SERVER  DATA #48
+    rainfall=175.2 mm | soil_moisture=6.5 % | flood_risk=3
+    rain_duration=26 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2629460749
+11:49:36.768 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.768 UTC  TX →  SERVER  ACK #191
+    ack_for=48
+11:49:36.768 UTC  RX ←  SERVER  DATA #48
+    co2=2115 ppm | ozone=331.2 µg/m³ | air_quality_index=354
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3871811040
+11:49:36.768 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.768 UTC  TX →  SERVER  ACK #192
+    ack_for=48
+11:49:36.817 UTC  RX ←  SERVER  DATA #49
+    temperature=-38.2 °C | humidity=24.6 % | dew_point=-33.9 °C
+    pressure=828.06 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3526922635
+11:49:36.817 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.817 UTC  TX →  SERVER  ACK #193
+    ack_for=49
+11:49:36.817 UTC  RX ←  SERVER  DATA #49
+    wind_speed=17.0 m/s | wind_gust=13.3 m/s | wind_direction=326 °
+    turbulence=0.4
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4111374470
+11:49:36.817 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.817 UTC  TX →  SERVER  ACK #194
+    ack_for=49
+11:49:36.817 UTC  RX ←  SERVER  DATA #49
+    rainfall=271.0 mm | soil_moisture=55.5 % | flood_risk=3
+    rain_duration=26 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1250013348
+11:49:36.818 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.818 UTC  TX →  SERVER  ACK #195
+    ack_for=49
+11:49:36.818 UTC  RX ←  SERVER  DATA #49
+    co2=2293 ppm | ozone=250.8 µg/m³ | air_quality_index=339
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=643439185
+11:49:36.818 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.818 UTC  TX →  SERVER  ACK #196
+    ack_for=49
+11:49:36.867 UTC  RX ←  SERVER  DATA #50
+    temperature=49.5 °C | humidity=83.5 % | dew_point=-35.9 °C
+    pressure=1049.23 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=381503968
+11:49:36.867 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.867 UTC  TX →  SERVER  ACK #197
+    ack_for=50
+11:49:36.867 UTC  RX ←  SERVER  DATA #50
+    wind_speed=8.2 m/s | wind_gust=45.2 m/s | wind_direction=282 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2061867195
+11:49:36.867 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.868 UTC  TX →  SERVER  ACK #198
+    ack_for=50
+11:49:36.868 UTC  RX ←  SERVER  DATA #50
+    rainfall=51.0 mm | soil_moisture=21.1 % | flood_risk=3
+    rain_duration=24 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2945074489
+11:49:36.868 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.868 UTC  TX →  SERVER  ACK #199
+    ack_for=50
+11:49:36.868 UTC  RX ←  SERVER  DATA #50
+    co2=3323 ppm | ozone=387.6 µg/m³ | air_quality_index=283
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=2962546491
+11:49:36.868 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.868 UTC  TX →  SERVER  ACK #200
+    ack_for=50
+11:49:36.917 UTC  RX ←  SERVER  DATA #51
+    temperature=59.0 °C | humidity=78.4 % | dew_point=-24.3 °C
+    pressure=842.07 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3789158941
+11:49:36.917 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.917 UTC  TX →  SERVER  ACK #201
+    ack_for=51
+11:49:36.917 UTC  RX ←  SERVER  DATA #51
+    wind_speed=28.7 m/s | wind_gust=0.9 m/s | wind_direction=57 °
+    turbulence=0.1
+    sensor_id=W-01 | token=4591b764849f55ee | crc=863076881
+11:49:36.917 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.917 UTC  TX →  SERVER  ACK #202
+    ack_for=51
+11:49:36.917 UTC  RX ←  SERVER  DATA #51
+    rainfall=478.4 mm | soil_moisture=96.8 % | flood_risk=0
+    rain_duration=54 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3911972043
+11:49:36.917 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.917 UTC  TX →  SERVER  ACK #203
+    ack_for=51
+11:49:36.918 UTC  RX ←  SERVER  DATA #51
+    co2=4649 ppm | ozone=281.6 µg/m³ | air_quality_index=217
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3119142115
+11:49:36.918 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.918 UTC  TX →  SERVER  ACK #204
+    ack_for=51
+11:49:36.967 UTC  RX ←  SERVER  DATA #52
+    temperature=47.3 °C | humidity=96.9 % | dew_point=-16.2 °C
+    pressure=886.85 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=903350841
+11:49:36.967 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:36.967 UTC  TX →  SERVER  ACK #205
+    ack_for=52
+11:49:36.967 UTC  RX ←  SERVER  DATA #52
+    wind_speed=48.3 m/s | wind_gust=15.2 m/s | wind_direction=279 °
+    turbulence=0.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4010825156
+11:49:36.967 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:36.967 UTC  TX →  SERVER  ACK #206
+    ack_for=52
+11:49:36.967 UTC  RX ←  SERVER  DATA #52
+    rainfall=471.6 mm | soil_moisture=38.9 % | flood_risk=3
+    rain_duration=0 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3785562445
+11:49:36.968 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:36.968 UTC  TX →  SERVER  ACK #207
+    ack_for=52
+11:49:36.968 UTC  RX ←  SERVER  DATA #52
+    co2=4808 ppm | ozone=270.9 µg/m³ | air_quality_index=180
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=4075566840
+11:49:36.968 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:36.968 UTC  TX →  SERVER  ACK #208
+    ack_for=52
+11:49:37.017 UTC  RX ←  SERVER  DATA #53
+    temperature=58.0 °C | humidity=89.3 % | dew_point=36.6 °C
+    pressure=869.4 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1684642937
+11:49:37.018 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.018 UTC  TX →  SERVER  ACK #209
+    ack_for=53
+11:49:37.019 UTC  RX ←  SERVER  DATA #53
+    wind_speed=42.7 m/s | wind_gust=37.8 m/s | wind_direction=298 °
+    turbulence=0.8
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3209466605
+11:49:37.019 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.019 UTC  TX →  SERVER  ACK #210
+    ack_for=53
+11:49:37.019 UTC  RX ←  SERVER  DATA #53
+    rainfall=288.1 mm | soil_moisture=30.5 % | flood_risk=3
+    rain_duration=54 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=341402370
+11:49:37.019 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.019 UTC  TX →  SERVER  ACK #211
+    ack_for=53
+11:49:37.020 UTC  RX ←  SERVER  DATA #53
+    co2=4017 ppm | ozone=221.9 µg/m³ | air_quality_index=156
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=685945752
+11:49:37.020 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.020 UTC  TX →  SERVER  ACK #212
+    ack_for=53
+11:49:37.066 UTC  RX ←  SERVER  DATA #54
+    temperature=-8.9 °C | humidity=73.0 % | dew_point=13.8 °C
+    pressure=930.74 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1840525306
+11:49:37.067 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.068 UTC  TX →  SERVER  ACK #213
+    ack_for=54
+11:49:37.068 UTC  RX ←  SERVER  DATA #54
+    wind_speed=7.5 m/s | wind_gust=44.0 m/s | wind_direction=65 °
+    turbulence=0.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=4063155598
+11:49:37.068 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.069 UTC  TX →  SERVER  ACK #214
+    ack_for=54
+11:49:37.069 UTC  RX ←  SERVER  DATA #54
+    rainfall=343.2 mm | soil_moisture=55.1 % | flood_risk=1
+    rain_duration=31 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=4246613459
+11:49:37.069 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.069 UTC  TX →  SERVER  ACK #215
+    ack_for=54
+11:49:37.070 UTC  RX ←  SERVER  DATA #54
+    co2=2359 ppm | ozone=188.8 µg/m³ | air_quality_index=61
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1973979970
+11:49:37.070 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.070 UTC  TX →  SERVER  ACK #216
+    ack_for=54
+11:49:37.116 UTC  RX ←  SERVER  DATA #55
+    temperature=26.4 °C | humidity=44.8 % | dew_point=55.9 °C
+    pressure=947.94 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=3271873346
+11:49:37.117 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.118 UTC  TX →  SERVER  ACK #217
+    ack_for=55
+11:49:37.118 UTC  RX ←  SERVER  DATA #55
+    wind_speed=15.7 m/s | wind_gust=37.3 m/s | wind_direction=20 °
+    turbulence=0.5
+    sensor_id=W-01 | token=4591b764849f55ee | crc=759332312
+11:49:37.118 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.119 UTC  TX →  SERVER  ACK #218
+    ack_for=55
+11:49:37.119 UTC  RX ←  SERVER  DATA #55
+    rainfall=179.7 mm | soil_moisture=27.9 % | flood_risk=3
+    rain_duration=31 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2482986981
+11:49:37.119 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.119 UTC  TX →  SERVER  ACK #219
+    ack_for=55
+11:49:37.119 UTC  RX ←  SERVER  DATA #55
+    co2=1877 ppm | ozone=258.4 µg/m³ | air_quality_index=61
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=109238491
+11:49:37.119 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.120 UTC  TX →  SERVER  ACK #220
+    ack_for=55
+11:49:37.166 UTC  RX ←  SERVER  DATA #56
+    temperature=-25.3 °C | humidity=25.3 % | dew_point=-4.0 °C
+    pressure=820.98 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=953218561
+11:49:37.168 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.168 UTC  TX →  SERVER  ACK #221
+    ack_for=56
+11:49:37.169 UTC  RX ←  SERVER  DATA #56
+    wind_speed=10.7 m/s | wind_gust=69.8 m/s | wind_direction=127 °
+    turbulence=1.0
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3912403766
+11:49:37.169 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.169 UTC  TX →  SERVER  ACK #222
+    ack_for=56
+11:49:37.169 UTC  RX ←  SERVER  DATA #56
+    rainfall=23.7 mm | soil_moisture=39.8 % | flood_risk=2
+    rain_duration=42 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=983735180
+11:49:37.169 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.170 UTC  TX →  SERVER  ACK #223
+    ack_for=56
+11:49:37.170 UTC  RX ←  SERVER  DATA #56
+    co2=4689 ppm | ozone=151.6 µg/m³ | air_quality_index=98
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1639586642
+11:49:37.170 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.170 UTC  TX →  SERVER  ACK #224
+    ack_for=56
+11:49:37.213 UTC  RX ←  SERVER  DATA #57
+    temperature=19.2 °C | humidity=2.1 % | dew_point=-2.9 °C
+    pressure=992.82 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2154860874
+11:49:37.214 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.214 UTC  TX →  SERVER  ACK #225
+    ack_for=57
+11:49:37.214 UTC  RX ←  SERVER  DATA #57
+    wind_speed=5.2 m/s | wind_gust=36.2 m/s | wind_direction=286 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3456913307
+11:49:37.215 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.215 UTC  TX →  SERVER  ACK #226
+    ack_for=57
+11:49:37.215 UTC  RX ←  SERVER  DATA #57
+    rainfall=331.2 mm | soil_moisture=74.1 % | flood_risk=1
+    rain_duration=53 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=3269634697
+11:49:37.215 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.216 UTC  TX →  SERVER  ACK #227
+    ack_for=57
+11:49:37.216 UTC  RX ←  SERVER  DATA #57
+    co2=2072 ppm | ozone=396.6 µg/m³ | air_quality_index=141
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=1740530501
+11:49:37.217 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.217 UTC  TX →  SERVER  ACK #228
+    ack_for=57
+11:49:37.265 UTC  RX ←  SERVER  DATA #58
+    temperature=-4.9 °C | humidity=0.7 % | dew_point=-35.5 °C
+    pressure=1031.94 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=816178171
+11:49:37.265 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.265 UTC  TX →  SERVER  ACK #229
+    ack_for=58
+11:49:37.266 UTC  RX ←  SERVER  DATA #58
+    wind_speed=49.8 m/s | wind_gust=63.5 m/s | wind_direction=79 °
+    turbulence=0.3
+    sensor_id=W-01 | token=4591b764849f55ee | crc=1971570692
+11:49:37.266 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.266 UTC  TX →  SERVER  ACK #230
+    ack_for=58
+11:49:37.266 UTC  RX ←  SERVER  DATA #58
+    rainfall=382.8 mm | soil_moisture=94.1 % | flood_risk=1
+    rain_duration=39 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=2890297547
+11:49:37.266 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.267 UTC  TX →  SERVER  ACK #231
+    ack_for=58
+11:49:37.267 UTC  RX ←  SERVER  DATA #58
+    co2=4597 ppm | ozone=488.8 µg/m³ | air_quality_index=144
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=4034821423
+11:49:37.267 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.267 UTC  TX →  SERVER  ACK #232
+    ack_for=58
+11:49:37.316 UTC  RX ←  SERVER  DATA #59
+    temperature=-38.0 °C | humidity=23.4 % | dew_point=-36.2 °C
+    pressure=1096.68 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2004743062
+11:49:37.316 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.316 UTC  TX →  SERVER  ACK #233
+    ack_for=59
+11:49:37.316 UTC  RX ←  SERVER  DATA #59
+    wind_speed=44.2 m/s | wind_gust=16.6 m/s | wind_direction=90 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=3844881981
+11:49:37.316 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.316 UTC  TX →  SERVER  ACK #234
+    ack_for=59
+11:49:37.316 UTC  RX ←  SERVER  DATA #59
+    rainfall=437.5 mm | soil_moisture=2.7 % | flood_risk=3
+    rain_duration=37 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=1059339014
+11:49:37.316 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.316 UTC  TX →  SERVER  ACK #235
+    ack_for=59
+11:49:37.316 UTC  RX ←  SERVER  DATA #59
+    co2=1123 ppm | ozone=159.0 µg/m³ | air_quality_index=151
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=220771716
+11:49:37.316 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.317 UTC  TX →  SERVER  ACK #236
+    ack_for=59
+11:49:37.367 UTC  RX ←  SERVER  DATA #60
+    temperature=-43.6 °C | humidity=88.0 % | dew_point=17.6 °C
+    pressure=823.21 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=2809098379
+11:49:37.367 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.367 UTC  TX →  SERVER  ACK #237
+    ack_for=60
+11:49:37.367 UTC  RX ←  SERVER  DATA #60
+    wind_speed=1.2 m/s | wind_gust=18.3 m/s | wind_direction=170 °
+    turbulence=0.6
+    sensor_id=W-01 | token=4591b764849f55ee | crc=218895555
+11:49:37.367 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.367 UTC  TX →  SERVER  ACK #238
+    ack_for=60
+11:49:37.368 UTC  RX ←  SERVER  DATA #60
+    rainfall=462.3 mm | soil_moisture=67.8 % | flood_risk=0
+    rain_duration=5 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=734683043
+11:49:37.368 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.368 UTC  TX →  SERVER  ACK #239
+    ack_for=60
+11:49:37.368 UTC  RX ←  SERVER  DATA #60
+    co2=2163 ppm | ozone=295.6 µg/m³ | air_quality_index=91
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=585797310
+11:49:37.368 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.368 UTC  TX →  SERVER  ACK #240
+    ack_for=60
+11:49:37.417 UTC  RX ←  SERVER  DATA #61
+    temperature=55.2 °C | humidity=24.3 % | dew_point=7.0 °C
+    pressure=1019.21 hPa
+    sensor_id=T-01 | token=808545abeaf1a884 | crc=1899395809
+11:49:37.417 UTC  INFO     SERVER  Measurement accepted: ThermoNode:T-01
+11:49:37.417 UTC  TX →  SERVER  ACK #241
+    ack_for=61
+11:49:37.417 UTC  RX ←  SERVER  DATA #61
+    wind_speed=41.0 m/s | wind_gust=68.5 m/s | wind_direction=127 °
+    turbulence=0.4
+    sensor_id=W-01 | token=4591b764849f55ee | crc=2130127640
+11:49:37.417 UTC  INFO     SERVER  Measurement accepted: WindSense:W-01
+11:49:37.417 UTC  TX →  SERVER  ACK #242
+    ack_for=61
+11:49:37.418 UTC  RX ←  SERVER  DATA #61
+    rainfall=351.1 mm | soil_moisture=13.8 % | flood_risk=3
+    rain_duration=11 min
+    sensor_id=R-01 | token=7d5807742fd75dbf | crc=51208878
+11:49:37.418 UTC  INFO     SERVER  Measurement accepted: RainDetect:R-01
+11:49:37.418 UTC  TX →  SERVER  ACK #243
+    ack_for=61
+11:49:37.418 UTC  RX ←  SERVER  DATA #61
+    co2=2776 ppm | ozone=11.5 µg/m³ | air_quality_index=362
+    sensor_id=A-01 | token=4dbacaeed3852f1b | crc=3720065542
+11:49:37.418 UTC  INFO     SERVER  Measurement accepted: AirQuality:A-01
+11:49:37.418 UTC  TX →  SERVER  ACK #244
+    ack_for=61
+11:49:37.826 UTC  INFO     SERVER  Server stopped

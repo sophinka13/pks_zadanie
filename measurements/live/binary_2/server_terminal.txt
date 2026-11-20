@@ -1,0 +1,12 @@
+
+╭─ FIIT METEO · SERVER ────────────────────────────────────────────────────────
+│  Príjem meteorologických meraní cez UDP
+│  Nastav lokálnu IP a port. Enter ponechá predvolenú hodnotu.
+╰──────────────────────────────────────────────────────────────────────────────
+  IP adresa [127.0.0.1]:   UDP port [9000]: 
+╭─ SERVER · MENU ──────────────────────────────────────────────────────────────
+│  Prijímanie meraní a KEEPALIVE bežia na pozadí.
+│  1  Vynechať ACK pre vybraný senzor
+│  0  Ukončiť server   ·   Ctrl+C  Ukončiť server
+╰──────────────────────────────────────────────────────────────────────────────
+  Voľba › 

@@ -35,7 +35,11 @@ Po zmene z JSON restartuj oba programy. Logy zostavaju citatelne v anglictine.
 - Lua dissector: [lua/README.md](lua/README.md), port 9000 alebo Decode As.
 - Analyza efektivity: `python3 measure_efficiency.py`; vysledky a metodika
   v [measurements/README.txt](measurements/README.txt). Ide o serializacnu
-  analyzu so syntetickymi PCAP, zivy zachyt este treba doplnit.
+  analyzu so syntetickymi PCAP.
+- Zive lokalne meranie je hotove v `measurements/live/` (3 behy kazdeho
+  protokolu); postup a limity: [LIVE_MERANIE.txt](measurements/LIVE_MERANIE.txt).
+  Zopakovanie: `python3 measure_live.py --out measurements/live_novy`.
+  Loopback zachyt je skutocny; Ethernet je prepocitany model.
 
 Testy bez siete:
 

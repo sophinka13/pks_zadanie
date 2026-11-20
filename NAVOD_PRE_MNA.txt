@@ -1,3 +1,12 @@
+ZIVE MERANIE JE HOTOVE LOKALNE
+  Vysledky a skutocne PCAP: measurements/live/
+  Navod a vyhodnotenie: measurements/LIVE_MERANIE.txt
+  Zopakovanie: python3 measure_live.py --out measurements/live_novy
+  3 behy JSON a 3 behy Binary, kazdy 488 paketov, vsetky ACK overene.
+  Uspora na L7 80.60 %, model Ethernetu 54.85 %.
+  Meranie bezi na lo0 so zrychlenym intervalom 0.05 s, nie na dvoch PC.
+  Fyzicku prezentaciu UAT a realny Ethernet tento vysledok nenahradza.
+
 AKTUALNE VOLBY SPUSTANIA
   python3 server.py
   python3 tester.py

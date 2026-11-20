@@ -1,0 +1,5 @@
+{
+  "note": "L7/L3 captured; Ethernet model calculated from actual UDP payloads; loopback has no Ethernet framing",
+  "application_bytes_saving_percent": 80.60344827586206,
+  "ethernet_bytes_saving_percent": 54.84577303884235
+}

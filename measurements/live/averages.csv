@@ -1,0 +1,5 @@
+variant,scenario,runs,application_bytes_mean,application_bytes_min,application_bytes_max,ip_bytes_mean,ip_bytes_min,ip_bytes_max,ethernet_bytes_mean,ethernet_bytes_min,ethernet_bytes_max
+JSON,registration,3,535,535,535,759,759,759,903,903,903
+JSON,steady,3,47946.666666666664,47935,47955,61386.666666666664,61375,61395,70026.66666666667,70015,70035
+Binary,registration,3,156,156,156,380,380,380,528,528,528
+Binary,steady,3,9300,9300,9300,22740,22740,22740,31620,31620,31620

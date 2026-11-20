@@ -1,0 +1,110 @@
+ZIVE MERANIE JSON A BINARNEHO PROTOKOLU
+====================================
+
+HOTOVY LOKALNY BEH
+  measurements/live/ obsahuje 3 skutocne UDP behy pre kazdy protokol.
+  Server je povodny json_baseline/server.py alebo aktualny server.py.
+  measure_live.py je deterministicky replay klient pre meranie, nie interaktivny
+  tester.py. Pouziva skutocne encodery a meria odpovede skutocnych serverov.
+  Kazdy zo styroch senzorov ma vlastny UDP socket a pridelenu relaciu.
+  Posielane hodnoty su presne z ulozeneho inputs.json, zhodne pre vsetky behy.
+
+  Zachyt bol vytvoreny cez dumpcap na lo0, port 19000. Nie je synteticky.
+  Kazdy beh: 4 registracie + 4 potvrdenia, 240 DATA + 240 ACK = 488 paketov.
+  Celkovo 6 behov, 2928 zachytenych paketov. Kazdy datagram v zachyte bol
+  porovnany s bajtmi odoslanymi/prijatymi cez sockety vratane pocetnosti.
+  Ziadne stratene/pridane pakety, chyby CRC ani chybajuce ACK neboli zistene.
+
+  Interval merani bol 0.05 s, nie produkcnych 10 s. Ide o zrychlene meranie
+  objemu bajtov bez vyvolania necinnosti, nie o overenie casovania UAT.
+  Casovanie UAT 1–5 sa overuje samostatnymi sietovymi testmi.
+  Oba programy bezali na jednom fyzickom pocitaci. Toto nesplna poziadavku
+  prezentacie UAT medzi dvomi fyzickymi zariadeniami.
+
+VYSLEDKY – 240 MERANI VRATANE ACK, BEZ REGISTRACII
+  Variant   Beh    L7 zachytene bajty    Model Ethernetu z realnych paketov
+  JSON       1           47935                       70015
+  JSON       2           47950                       70030
+  JSON       3           47955                       70035
+  Binary     1            9300                       31620
+  Binary     2            9300                       31620
+  Binary     3            9300                       31620
+
+  Priemer JSON:   47946.67 B L7, 70026.67 B model Ethernetu.
+  Priemer Binary:  9300.00 B L7, 31620.00 B model Ethernetu.
+  Uspora: 80.60 % na L7, 54.85 % v modeli Ethernetu.
+  Registracie navyse: JSON 535 B L7 / 903 B Ethernet;
+                      Binary 156 B L7 / 528 B Ethernet.
+
+  Rozdiel oproti vypoctovemu modelu JSON: server prideluje nahodne tokeny
+  a jeho skutocne pocitadlo odpovedi rastie napriec vsetkymi senzormi.
+  Dlzka decimalneho CRC aj seq sa meni. Preto je modelovy vysledok mierne
+  odlisny a tri zive JSON behy maju mierne odlisne objemy. Hodnoty merani
+  zostali rovnake. Binarne polia maju pevnu dlzku, preto je vysledok stabilny.
+
+VRSTVY A LIMITY
+  L7 a L3 su skutocne zachytene objemy; dlzky IPv4 boli nezavisle porovnane
+  s dlzkami payload + 28 B (IPv4 20 B + UDP 8 B).
+  Loopback NEMA ethernetovu hlavicku, FCS ani padding. Hodnoty frame.len
+  v PCAP preto nie su Ethernet a neprezentujeme ich ako Ethernet.
+  Ethernetovy model = max(64, IPv4_length + 18) pre kazdy paket.
+  Je to prepocet skutocnych UDP/IP paketov na Ethernet II bez VLAN,
+  NIE namerany objem fyzickej ethernetovej siete.
+  medium_byte_times navyse pocita preambulu/SFD a cas IFG, oddelene od bajtov.
+  Nehodnotime energiu, rychlost, latenciu, Wi-Fi reziu, ARP ani vykon siete.
+  CoAP je stale iba modelove porovnanie z predchadzajucej analyzy;
+  tento zivy benchmark ho nemeria.
+
+SUBORY V live/
+  manifest.json          parametre, cas behu a SHA256 spolocnych vstupov
+  inputs.json            kopia spolocnych hodnot pouzitych pri merani
+  summary.csv            kazdy beh a osobitne registracie/steady
+  averages.csv           priemery a min/max
+  results.json           percenta uspor
+  comparison.svg/.png    graf zivych vysledkov; Ethernet oznaceny ako model
+  json_1 ... binary_3/
+    traffic.pcapng       skutocny dumpcap zachyt
+    capture.log          rozhranie a diagnostika dumpcap
+    replay.jsonl         odoslane/prijate spravy a presne hex bajty
+    server.log           skutocne logy servera (ignorovane gitom ako *.log)
+    server_terminal.txt  vystup terminalu servera
+    verified.json        pocet paketov, objemy a SHA256 zachytu
+
+ZOPAKOVANIE
+  Potrebne: Python 3, matplotlib, Wireshark/TShark/dumpcap a opravnenie
+  na zachytavanie rozhrania. Skript nema potrebu nastavovat opravnenia systemu.
+  Cesty na macOS hlada automaticky, na inom OS pridaj nastroje do PATH.
+
+  python3 measure_live.py --out measurements/live_novy
+
+  Zaznamy neprepisuje. Pre novy beh pouzi novy --out. Predvolene su 3 behy
+  kazdeho protokolu, 240 merani, interval 0.05 s, lo0 a port 19000.
+  Server sa spusti aj ukonci automaticky; tvoje bezne server.log/tester.log
+  sa neprepisuju. Meranie pouziva vlastne pracovne priecinky.
+
+  python3 measure_live.py --interval 10 --runs 1 --out measurements/live_10s
+
+  Tento prikaz trva priblizne 20 minut pre oba protokoly. Interval 10 s
+  nepouzivaj ako dokaz fyzickych podmienok: na lo0 stale ide o jeden pocitac.
+
+MERANIE MEDZI DVOMI POCITACMI
+  1. Na serverovom pocitaci spusti prislusny server, nastav skutocnu lokalnu
+     IP a port 19000. Pre JSON pouzi json_baseline/server.py.
+  2. Na klientskom pocitaci zvol aktivne rozhranie, napr. en0, a spusti:
+
+  python3 measure_live.py --external-server --variant JSON --runs 1 \
+    --host IP_SERVERA --interface en0 --port 19000 --interval 10 \
+    --out measurements/remote_json
+
+  3. Server ukonci. Spusti aktualny binarny server na rovnakej IP/porte.
+     Zopakuj prikaz s --variant Binary a inym --out, napr. remote_binary.
+  4. Pouzi rovnaky inputs.json a podmienky. Nespustaj sucasne interaktivny
+     tester ani inu prevadzku na meranom porte. Pred kazdym behom musia byt
+     senzory na serveri nezaregistrovane. Server spusteny externe skript neukonci.
+
+  Na zobrazenie binarneho zachytu pri porte 19000 pouzi vo Wiresharku
+  Decode As → FIITMETEO alebo nastav port dissektora na 19000.
+  Na dvoch pocitacoch treba samostatne predviest aj interaktivne UAT 1–5;
+  replay meranie ich nenahradza.
+
+Tento nastroj, meranie a vyhodnotenie boli pripravene s pomocou AI.
