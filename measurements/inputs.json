@@ -1,0 +1,2582 @@
+[
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 0,
+    "values": {
+      "temperature": -27.2,
+      "humidity": 2.5,
+      "dew_point": 6.3,
+      "pressure": 880.24
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 1,
+    "values": {
+      "temperature": -4.3,
+      "humidity": 14.2,
+      "dew_point": -29.1,
+      "pressure": 1021.74
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 2,
+    "values": {
+      "temperature": -32.2,
+      "humidity": 60.4,
+      "dew_point": 36.4,
+      "pressure": 810.41
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 3,
+    "values": {
+      "temperature": -43.9,
+      "humidity": 9.5,
+      "dew_point": -5.3,
+      "pressure": 876.23
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 4,
+    "values": {
+      "temperature": 53.4,
+      "humidity": 61.6,
+      "dew_point": -44.6,
+      "pressure": 983.9
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 5,
+    "values": {
+      "temperature": -9.3,
+      "humidity": 73.3,
+      "dew_point": 35.9,
+      "pressure": 872.23
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 6,
+    "values": {
+      "temperature": 41.9,
+      "humidity": 60.3,
+      "dew_point": 6.9,
+      "pressure": 1065.23
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 7,
+    "values": {
+      "temperature": -48.7,
+      "humidity": 77.7,
+      "dew_point": -17.4,
+      "pressure": 1028.76
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 8,
+    "values": {
+      "temperature": 36.5,
+      "humidity": 34.8,
+      "dew_point": 6.9,
+      "pressure": 850.94
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 9,
+    "values": {
+      "temperature": -6.0,
+      "humidity": 98.0,
+      "dew_point": 18.9,
+      "pressure": 833.49
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 10,
+    "values": {
+      "temperature": -31.1,
+      "humidity": 38.9,
+      "dew_point": -30.2,
+      "pressure": 917.63
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 11,
+    "values": {
+      "temperature": 20.4,
+      "humidity": 61.8,
+      "dew_point": 4.1,
+      "pressure": 1064.47
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 12,
+    "values": {
+      "temperature": -41.2,
+      "humidity": 74.7,
+      "dew_point": 44.0,
+      "pressure": 975.71
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 13,
+    "values": {
+      "temperature": -24.5,
+      "humidity": 99.6,
+      "dew_point": 27.5,
+      "pressure": 825.82
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 14,
+    "values": {
+      "temperature": 10.0,
+      "humidity": 84.9,
+      "dew_point": 24.0,
+      "pressure": 989.18
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 15,
+    "values": {
+      "temperature": -10.7,
+      "humidity": 72.1,
+      "dew_point": -35.8,
+      "pressure": 815.01
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 16,
+    "values": {
+      "temperature": -3.4,
+      "humidity": 79.1,
+      "dew_point": 9.2,
+      "pressure": 826.14
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 17,
+    "values": {
+      "temperature": -2.4,
+      "humidity": 88.7,
+      "dew_point": -29.4,
+      "pressure": 924.55
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 18,
+    "values": {
+      "temperature": 6.9,
+      "humidity": 46.4,
+      "dew_point": 24.7,
+      "pressure": 853.29
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 19,
+    "values": {
+      "temperature": 25.8,
+      "humidity": 36.3,
+      "dew_point": -7.1,
+      "pressure": 1019.6
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 20,
+    "values": {
+      "temperature": 4.6,
+      "humidity": 71.8,
+      "dew_point": -35.4,
+      "pressure": 999.6
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 21,
+    "values": {
+      "temperature": -15.0,
+      "humidity": 54.6,
+      "dew_point": 0.1,
+      "pressure": 853.54
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 22,
+    "values": {
+      "temperature": 44.6,
+      "humidity": 38.8,
+      "dew_point": 5.2,
+      "pressure": 1009.71
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 23,
+    "values": {
+      "temperature": -5.1,
+      "humidity": 70.1,
+      "dew_point": 16.4,
+      "pressure": 1076.18
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 24,
+    "values": {
+      "temperature": -38.6,
+      "humidity": 23.4,
+      "dew_point": -43.5,
+      "pressure": 1063.79
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 25,
+    "values": {
+      "temperature": 14.6,
+      "humidity": 41.0,
+      "dew_point": 4.8,
+      "pressure": 821.68
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 26,
+    "values": {
+      "temperature": -6.8,
+      "humidity": 93.5,
+      "dew_point": 14.4,
+      "pressure": 869.67
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 27,
+    "values": {
+      "temperature": 52.2,
+      "humidity": 40.5,
+      "dew_point": 43.9,
+      "pressure": 846.81
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 28,
+    "values": {
+      "temperature": 4.2,
+      "humidity": 14.2,
+      "dew_point": 0.5,
+      "pressure": 1044.11
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 29,
+    "values": {
+      "temperature": 3.8,
+      "humidity": 76.4,
+      "dew_point": 37.7,
+      "pressure": 1094.19
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 30,
+    "values": {
+      "temperature": 31.7,
+      "humidity": 37.0,
+      "dew_point": -5.1,
+      "pressure": 845.32
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 31,
+    "values": {
+      "temperature": 54.3,
+      "humidity": 50.5,
+      "dew_point": -31.4,
+      "pressure": 1047.65
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 32,
+    "values": {
+      "temperature": -40.4,
+      "humidity": 88.1,
+      "dew_point": -27.6,
+      "pressure": 850.08
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 33,
+    "values": {
+      "temperature": -17.3,
+      "humidity": 81.1,
+      "dew_point": 36.4,
+      "pressure": 995.43
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 34,
+    "values": {
+      "temperature": -37.0,
+      "humidity": 39.4,
+      "dew_point": 28.1,
+      "pressure": 995.26
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 35,
+    "values": {
+      "temperature": 45.8,
+      "humidity": 54.1,
+      "dew_point": 1.4,
+      "pressure": 981.28
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 36,
+    "values": {
+      "temperature": -47.7,
+      "humidity": 69.6,
+      "dew_point": -26.6,
+      "pressure": 1023.38
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 37,
+    "values": {
+      "temperature": 59.9,
+      "humidity": 76.8,
+      "dew_point": 4.6,
+      "pressure": 1051.85
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 38,
+    "values": {
+      "temperature": 19.6,
+      "humidity": 11.4,
+      "dew_point": 10.1,
+      "pressure": 942.46
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 39,
+    "values": {
+      "temperature": -17.7,
+      "humidity": 46.4,
+      "dew_point": -49.4,
+      "pressure": 1036.61
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 40,
+    "values": {
+      "temperature": 3.9,
+      "humidity": 99.5,
+      "dew_point": 52.5,
+      "pressure": 1049.67
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 41,
+    "values": {
+      "temperature": -13.5,
+      "humidity": 51.9,
+      "dew_point": -28.3,
+      "pressure": 1085.25
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 42,
+    "values": {
+      "temperature": 11.1,
+      "humidity": 86.1,
+      "dew_point": 53.9,
+      "pressure": 999.54
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 43,
+    "values": {
+      "temperature": -9.3,
+      "humidity": 15.6,
+      "dew_point": 26.5,
+      "pressure": 1049.85
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 44,
+    "values": {
+      "temperature": -17.0,
+      "humidity": 55.2,
+      "dew_point": 58.6,
+      "pressure": 800.18
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 45,
+    "values": {
+      "temperature": 16.3,
+      "humidity": 50.0,
+      "dew_point": -46.1,
+      "pressure": 836.65
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 46,
+    "values": {
+      "temperature": 24.3,
+      "humidity": 89.9,
+      "dew_point": 12.9,
+      "pressure": 878.46
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 47,
+    "values": {
+      "temperature": -38.2,
+      "humidity": 24.6,
+      "dew_point": -33.9,
+      "pressure": 828.06
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 48,
+    "values": {
+      "temperature": 49.5,
+      "humidity": 83.5,
+      "dew_point": -35.9,
+      "pressure": 1049.23
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 49,
+    "values": {
+      "temperature": 59.0,
+      "humidity": 78.4,
+      "dew_point": -24.3,
+      "pressure": 842.07
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 50,
+    "values": {
+      "temperature": 47.3,
+      "humidity": 96.9,
+      "dew_point": -16.2,
+      "pressure": 886.85
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 51,
+    "values": {
+      "temperature": 58.0,
+      "humidity": 89.3,
+      "dew_point": 36.6,
+      "pressure": 869.4
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 52,
+    "values": {
+      "temperature": -8.9,
+      "humidity": 73.0,
+      "dew_point": 13.8,
+      "pressure": 930.74
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 53,
+    "values": {
+      "temperature": 26.4,
+      "humidity": 44.8,
+      "dew_point": 55.9,
+      "pressure": 947.94
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 54,
+    "values": {
+      "temperature": -25.3,
+      "humidity": 25.3,
+      "dew_point": -4.0,
+      "pressure": 820.98
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 55,
+    "values": {
+      "temperature": 19.2,
+      "humidity": 2.1,
+      "dew_point": -2.9,
+      "pressure": 992.82
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 56,
+    "values": {
+      "temperature": -4.9,
+      "humidity": 0.7,
+      "dew_point": -35.5,
+      "pressure": 1031.94
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 57,
+    "values": {
+      "temperature": -38.0,
+      "humidity": 23.4,
+      "dew_point": -36.2,
+      "pressure": 1096.68
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 58,
+    "values": {
+      "temperature": -43.6,
+      "humidity": 88.0,
+      "dew_point": 17.6,
+      "pressure": 823.21
+    }
+  },
+  {
+    "sensor_type": "ThermoNode",
+    "sensor_id": "T-01",
+    "index": 59,
+    "values": {
+      "temperature": 55.2,
+      "humidity": 24.3,
+      "dew_point": 7.0,
+      "pressure": 1019.21
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 0,
+    "values": {
+      "wind_speed": 24.8,
+      "wind_gust": 21.9,
+      "wind_direction": 276,
+      "turbulence": 0.2
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 1,
+    "values": {
+      "wind_speed": 37.0,
+      "wind_gust": 58.4,
+      "wind_direction": 295,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 2,
+    "values": {
+      "wind_speed": 12.4,
+      "wind_gust": 48.4,
+      "wind_direction": 208,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 3,
+    "values": {
+      "wind_speed": 4.8,
+      "wind_gust": 9.9,
+      "wind_direction": 337,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 4,
+    "values": {
+      "wind_speed": 18.1,
+      "wind_gust": 43.3,
+      "wind_direction": 210,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 5,
+    "values": {
+      "wind_speed": 44.2,
+      "wind_gust": 5.5,
+      "wind_direction": 344,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 6,
+    "values": {
+      "wind_speed": 33.0,
+      "wind_gust": 10.0,
+      "wind_direction": 31,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 7,
+    "values": {
+      "wind_speed": 37.2,
+      "wind_gust": 34.7,
+      "wind_direction": 55,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 8,
+    "values": {
+      "wind_speed": 9.8,
+      "wind_gust": 19.4,
+      "wind_direction": 274,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 9,
+    "values": {
+      "wind_speed": 7.1,
+      "wind_gust": 43.2,
+      "wind_direction": 93,
+      "turbulence": 0.4
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 10,
+    "values": {
+      "wind_speed": 23.6,
+      "wind_gust": 25.5,
+      "wind_direction": 38,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 11,
+    "values": {
+      "wind_speed": 41.3,
+      "wind_gust": 56.3,
+      "wind_direction": 50,
+      "turbulence": 0.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 12,
+    "values": {
+      "wind_speed": 33.3,
+      "wind_gust": 55.3,
+      "wind_direction": 7,
+      "turbulence": 0.1
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 13,
+    "values": {
+      "wind_speed": 47.4,
+      "wind_gust": 24.2,
+      "wind_direction": 85,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 14,
+    "values": {
+      "wind_speed": 24.8,
+      "wind_gust": 49.2,
+      "wind_direction": 109,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 15,
+    "values": {
+      "wind_speed": 46.2,
+      "wind_gust": 6.0,
+      "wind_direction": 84,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 16,
+    "values": {
+      "wind_speed": 0.1,
+      "wind_gust": 39.9,
+      "wind_direction": 135,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 17,
+    "values": {
+      "wind_speed": 14.6,
+      "wind_gust": 43.3,
+      "wind_direction": 356,
+      "turbulence": 0.8
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 18,
+    "values": {
+      "wind_speed": 33.8,
+      "wind_gust": 49.8,
+      "wind_direction": 79,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 19,
+    "values": {
+      "wind_speed": 15.1,
+      "wind_gust": 22.2,
+      "wind_direction": 29,
+      "turbulence": 0.9
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 20,
+    "values": {
+      "wind_speed": 37.6,
+      "wind_gust": 55.5,
+      "wind_direction": 31,
+      "turbulence": 0.5
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 21,
+    "values": {
+      "wind_speed": 2.9,
+      "wind_gust": 5.1,
+      "wind_direction": 299,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 22,
+    "values": {
+      "wind_speed": 25.7,
+      "wind_gust": 54.3,
+      "wind_direction": 80,
+      "turbulence": 0.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 23,
+    "values": {
+      "wind_speed": 49.1,
+      "wind_gust": 52.0,
+      "wind_direction": 41,
+      "turbulence": 0.2
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 24,
+    "values": {
+      "wind_speed": 3.5,
+      "wind_gust": 60.9,
+      "wind_direction": 34,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 25,
+    "values": {
+      "wind_speed": 44.1,
+      "wind_gust": 24.0,
+      "wind_direction": 206,
+      "turbulence": 0.1
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 26,
+    "values": {
+      "wind_speed": 48.2,
+      "wind_gust": 58.3,
+      "wind_direction": 126,
+      "turbulence": 0.9
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 27,
+    "values": {
+      "wind_speed": 30.4,
+      "wind_gust": 4.0,
+      "wind_direction": 317,
+      "turbulence": 0.1
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 28,
+    "values": {
+      "wind_speed": 21.4,
+      "wind_gust": 67.3,
+      "wind_direction": 298,
+      "turbulence": 0.9
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 29,
+    "values": {
+      "wind_speed": 26.7,
+      "wind_gust": 32.3,
+      "wind_direction": 133,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 30,
+    "values": {
+      "wind_speed": 34.2,
+      "wind_gust": 32.1,
+      "wind_direction": 122,
+      "turbulence": 0.4
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 31,
+    "values": {
+      "wind_speed": 20.2,
+      "wind_gust": 13.4,
+      "wind_direction": 343,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 32,
+    "values": {
+      "wind_speed": 15.3,
+      "wind_gust": 46.8,
+      "wind_direction": 161,
+      "turbulence": 0.1
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 33,
+    "values": {
+      "wind_speed": 0.4,
+      "wind_gust": 46.9,
+      "wind_direction": 318,
+      "turbulence": 0.9
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 34,
+    "values": {
+      "wind_speed": 5.1,
+      "wind_gust": 7.5,
+      "wind_direction": 275,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 35,
+    "values": {
+      "wind_speed": 25.9,
+      "wind_gust": 27.1,
+      "wind_direction": 67,
+      "turbulence": 0.5
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 36,
+    "values": {
+      "wind_speed": 45.1,
+      "wind_gust": 7.0,
+      "wind_direction": 125,
+      "turbulence": 0.5
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 37,
+    "values": {
+      "wind_speed": 14.5,
+      "wind_gust": 16.1,
+      "wind_direction": 224,
+      "turbulence": 0.8
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 38,
+    "values": {
+      "wind_speed": 36.0,
+      "wind_gust": 30.9,
+      "wind_direction": 313,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 39,
+    "values": {
+      "wind_speed": 27.0,
+      "wind_gust": 0.8,
+      "wind_direction": 341,
+      "turbulence": 0.8
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 40,
+    "values": {
+      "wind_speed": 15.3,
+      "wind_gust": 67.9,
+      "wind_direction": 53,
+      "turbulence": 0.2
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 41,
+    "values": {
+      "wind_speed": 13.5,
+      "wind_gust": 11.8,
+      "wind_direction": 54,
+      "turbulence": 0.8
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 42,
+    "values": {
+      "wind_speed": 7.9,
+      "wind_gust": 27.8,
+      "wind_direction": 144,
+      "turbulence": 0.9
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 43,
+    "values": {
+      "wind_speed": 10.7,
+      "wind_gust": 35.1,
+      "wind_direction": 104,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 44,
+    "values": {
+      "wind_speed": 32.4,
+      "wind_gust": 27.0,
+      "wind_direction": 258,
+      "turbulence": 0.7
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 45,
+    "values": {
+      "wind_speed": 12.8,
+      "wind_gust": 5.2,
+      "wind_direction": 47,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 46,
+    "values": {
+      "wind_speed": 21.6,
+      "wind_gust": 28.3,
+      "wind_direction": 22,
+      "turbulence": 0.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 47,
+    "values": {
+      "wind_speed": 17.0,
+      "wind_gust": 13.3,
+      "wind_direction": 326,
+      "turbulence": 0.4
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 48,
+    "values": {
+      "wind_speed": 8.2,
+      "wind_gust": 45.2,
+      "wind_direction": 282,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 49,
+    "values": {
+      "wind_speed": 28.7,
+      "wind_gust": 0.9,
+      "wind_direction": 57,
+      "turbulence": 0.1
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 50,
+    "values": {
+      "wind_speed": 48.3,
+      "wind_gust": 15.2,
+      "wind_direction": 279,
+      "turbulence": 0.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 51,
+    "values": {
+      "wind_speed": 42.7,
+      "wind_gust": 37.8,
+      "wind_direction": 298,
+      "turbulence": 0.8
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 52,
+    "values": {
+      "wind_speed": 7.5,
+      "wind_gust": 44.0,
+      "wind_direction": 65,
+      "turbulence": 0.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 53,
+    "values": {
+      "wind_speed": 15.7,
+      "wind_gust": 37.3,
+      "wind_direction": 20,
+      "turbulence": 0.5
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 54,
+    "values": {
+      "wind_speed": 10.7,
+      "wind_gust": 69.8,
+      "wind_direction": 127,
+      "turbulence": 1.0
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 55,
+    "values": {
+      "wind_speed": 5.2,
+      "wind_gust": 36.2,
+      "wind_direction": 286,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 56,
+    "values": {
+      "wind_speed": 49.8,
+      "wind_gust": 63.5,
+      "wind_direction": 79,
+      "turbulence": 0.3
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 57,
+    "values": {
+      "wind_speed": 44.2,
+      "wind_gust": 16.6,
+      "wind_direction": 90,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 58,
+    "values": {
+      "wind_speed": 1.2,
+      "wind_gust": 18.3,
+      "wind_direction": 170,
+      "turbulence": 0.6
+    }
+  },
+  {
+    "sensor_type": "WindSense",
+    "sensor_id": "W-01",
+    "index": 59,
+    "values": {
+      "wind_speed": 41.0,
+      "wind_gust": 68.5,
+      "wind_direction": 127,
+      "turbulence": 0.4
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 0,
+    "values": {
+      "rainfall": 130.4,
+      "soil_moisture": 80.6,
+      "flood_risk": 0,
+      "rain_duration": 24
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 1,
+    "values": {
+      "rainfall": 31.7,
+      "soil_moisture": 87.9,
+      "flood_risk": 3,
+      "rain_duration": 14
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 2,
+    "values": {
+      "rainfall": 163.4,
+      "soil_moisture": 83.6,
+      "flood_risk": 3,
+      "rain_duration": 22
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 3,
+    "values": {
+      "rainfall": 250.0,
+      "soil_moisture": 84.0,
+      "flood_risk": 1,
+      "rain_duration": 14
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 4,
+    "values": {
+      "rainfall": 19.3,
+      "soil_moisture": 67.5,
+      "flood_risk": 1,
+      "rain_duration": 25
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 5,
+    "values": {
+      "rainfall": 268.9,
+      "soil_moisture": 28.5,
+      "flood_risk": 0,
+      "rain_duration": 49
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 6,
+    "values": {
+      "rainfall": 228.6,
+      "soil_moisture": 35.9,
+      "flood_risk": 3,
+      "rain_duration": 43
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 7,
+    "values": {
+      "rainfall": 439.2,
+      "soil_moisture": 33.9,
+      "flood_risk": 0,
+      "rain_duration": 7
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 8,
+    "values": {
+      "rainfall": 213.9,
+      "soil_moisture": 18.2,
+      "flood_risk": 2,
+      "rain_duration": 2
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 9,
+    "values": {
+      "rainfall": 88.8,
+      "soil_moisture": 61.0,
+      "flood_risk": 3,
+      "rain_duration": 22
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 10,
+    "values": {
+      "rainfall": 256.9,
+      "soil_moisture": 44.6,
+      "flood_risk": 0,
+      "rain_duration": 24
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 11,
+    "values": {
+      "rainfall": 472.3,
+      "soil_moisture": 19.4,
+      "flood_risk": 2,
+      "rain_duration": 2
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 12,
+    "values": {
+      "rainfall": 357.2,
+      "soil_moisture": 0.1,
+      "flood_risk": 1,
+      "rain_duration": 23
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 13,
+    "values": {
+      "rainfall": 353.3,
+      "soil_moisture": 7.1,
+      "flood_risk": 2,
+      "rain_duration": 39
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 14,
+    "values": {
+      "rainfall": 257.1,
+      "soil_moisture": 67.9,
+      "flood_risk": 0,
+      "rain_duration": 46
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 15,
+    "values": {
+      "rainfall": 246.0,
+      "soil_moisture": 51.9,
+      "flood_risk": 2,
+      "rain_duration": 42
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 16,
+    "values": {
+      "rainfall": 334.5,
+      "soil_moisture": 33.4,
+      "flood_risk": 3,
+      "rain_duration": 44
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 17,
+    "values": {
+      "rainfall": 242.2,
+      "soil_moisture": 56.7,
+      "flood_risk": 1,
+      "rain_duration": 12
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 18,
+    "values": {
+      "rainfall": 344.4,
+      "soil_moisture": 68.0,
+      "flood_risk": 3,
+      "rain_duration": 43
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 19,
+    "values": {
+      "rainfall": 142.5,
+      "soil_moisture": 63.0,
+      "flood_risk": 2,
+      "rain_duration": 25
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 20,
+    "values": {
+      "rainfall": 448.8,
+      "soil_moisture": 85.3,
+      "flood_risk": 0,
+      "rain_duration": 19
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 21,
+    "values": {
+      "rainfall": 235.0,
+      "soil_moisture": 21.5,
+      "flood_risk": 3,
+      "rain_duration": 50
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 22,
+    "values": {
+      "rainfall": 475.1,
+      "soil_moisture": 62.1,
+      "flood_risk": 2,
+      "rain_duration": 29
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 23,
+    "values": {
+      "rainfall": 361.9,
+      "soil_moisture": 45.2,
+      "flood_risk": 1,
+      "rain_duration": 32
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 24,
+    "values": {
+      "rainfall": 387.6,
+      "soil_moisture": 81.2,
+      "flood_risk": 1,
+      "rain_duration": 42
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 25,
+    "values": {
+      "rainfall": 69.4,
+      "soil_moisture": 29.0,
+      "flood_risk": 2,
+      "rain_duration": 5
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 26,
+    "values": {
+      "rainfall": 192.4,
+      "soil_moisture": 68.8,
+      "flood_risk": 2,
+      "rain_duration": 14
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 27,
+    "values": {
+      "rainfall": 163.1,
+      "soil_moisture": 15.0,
+      "flood_risk": 0,
+      "rain_duration": 2
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 28,
+    "values": {
+      "rainfall": 200.5,
+      "soil_moisture": 48.6,
+      "flood_risk": 0,
+      "rain_duration": 29
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 29,
+    "values": {
+      "rainfall": 339.5,
+      "soil_moisture": 90.7,
+      "flood_risk": 1,
+      "rain_duration": 45
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 30,
+    "values": {
+      "rainfall": 314.5,
+      "soil_moisture": 50.6,
+      "flood_risk": 3,
+      "rain_duration": 15
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 31,
+    "values": {
+      "rainfall": 120.8,
+      "soil_moisture": 67.1,
+      "flood_risk": 0,
+      "rain_duration": 57
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 32,
+    "values": {
+      "rainfall": 87.3,
+      "soil_moisture": 79.7,
+      "flood_risk": 3,
+      "rain_duration": 14
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 33,
+    "values": {
+      "rainfall": 144.0,
+      "soil_moisture": 82.3,
+      "flood_risk": 3,
+      "rain_duration": 3
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 34,
+    "values": {
+      "rainfall": 456.6,
+      "soil_moisture": 25.5,
+      "flood_risk": 0,
+      "rain_duration": 29
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 35,
+    "values": {
+      "rainfall": 109.2,
+      "soil_moisture": 82.0,
+      "flood_risk": 3,
+      "rain_duration": 42
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 36,
+    "values": {
+      "rainfall": 435.1,
+      "soil_moisture": 57.2,
+      "flood_risk": 2,
+      "rain_duration": 60
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 37,
+    "values": {
+      "rainfall": 362.5,
+      "soil_moisture": 62.7,
+      "flood_risk": 3,
+      "rain_duration": 53
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 38,
+    "values": {
+      "rainfall": 448.8,
+      "soil_moisture": 45.6,
+      "flood_risk": 1,
+      "rain_duration": 47
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 39,
+    "values": {
+      "rainfall": 388.8,
+      "soil_moisture": 46.0,
+      "flood_risk": 2,
+      "rain_duration": 48
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 40,
+    "values": {
+      "rainfall": 202.5,
+      "soil_moisture": 86.0,
+      "flood_risk": 2,
+      "rain_duration": 49
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 41,
+    "values": {
+      "rainfall": 427.0,
+      "soil_moisture": 49.6,
+      "flood_risk": 1,
+      "rain_duration": 17
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 42,
+    "values": {
+      "rainfall": 360.3,
+      "soil_moisture": 7.9,
+      "flood_risk": 2,
+      "rain_duration": 15
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 43,
+    "values": {
+      "rainfall": 222.5,
+      "soil_moisture": 34.3,
+      "flood_risk": 2,
+      "rain_duration": 57
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 44,
+    "values": {
+      "rainfall": 442.4,
+      "soil_moisture": 8.2,
+      "flood_risk": 1,
+      "rain_duration": 9
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 45,
+    "values": {
+      "rainfall": 189.4,
+      "soil_moisture": 39.2,
+      "flood_risk": 1,
+      "rain_duration": 45
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 46,
+    "values": {
+      "rainfall": 175.2,
+      "soil_moisture": 6.5,
+      "flood_risk": 3,
+      "rain_duration": 26
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 47,
+    "values": {
+      "rainfall": 271.0,
+      "soil_moisture": 55.5,
+      "flood_risk": 3,
+      "rain_duration": 26
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 48,
+    "values": {
+      "rainfall": 51.0,
+      "soil_moisture": 21.1,
+      "flood_risk": 3,
+      "rain_duration": 24
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 49,
+    "values": {
+      "rainfall": 478.4,
+      "soil_moisture": 96.8,
+      "flood_risk": 0,
+      "rain_duration": 54
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 50,
+    "values": {
+      "rainfall": 471.6,
+      "soil_moisture": 38.9,
+      "flood_risk": 3,
+      "rain_duration": 0
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 51,
+    "values": {
+      "rainfall": 288.1,
+      "soil_moisture": 30.5,
+      "flood_risk": 3,
+      "rain_duration": 54
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 52,
+    "values": {
+      "rainfall": 343.2,
+      "soil_moisture": 55.1,
+      "flood_risk": 1,
+      "rain_duration": 31
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 53,
+    "values": {
+      "rainfall": 179.7,
+      "soil_moisture": 27.9,
+      "flood_risk": 3,
+      "rain_duration": 31
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 54,
+    "values": {
+      "rainfall": 23.7,
+      "soil_moisture": 39.8,
+      "flood_risk": 2,
+      "rain_duration": 42
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 55,
+    "values": {
+      "rainfall": 331.2,
+      "soil_moisture": 74.1,
+      "flood_risk": 1,
+      "rain_duration": 53
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 56,
+    "values": {
+      "rainfall": 382.8,
+      "soil_moisture": 94.1,
+      "flood_risk": 1,
+      "rain_duration": 39
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 57,
+    "values": {
+      "rainfall": 437.5,
+      "soil_moisture": 2.7,
+      "flood_risk": 3,
+      "rain_duration": 37
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 58,
+    "values": {
+      "rainfall": 462.3,
+      "soil_moisture": 67.8,
+      "flood_risk": 0,
+      "rain_duration": 5
+    }
+  },
+  {
+    "sensor_type": "RainDetect",
+    "sensor_id": "R-01",
+    "index": 59,
+    "values": {
+      "rainfall": 351.1,
+      "soil_moisture": 13.8,
+      "flood_risk": 3,
+      "rain_duration": 11
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 0,
+    "values": {
+      "co2": 711,
+      "ozone": 213.1,
+      "air_quality_index": 194
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 1,
+    "values": {
+      "co2": 2981,
+      "ozone": 173.3,
+      "air_quality_index": 232
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 2,
+    "values": {
+      "co2": 2977,
+      "ozone": 276.4,
+      "air_quality_index": 389
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 3,
+    "values": {
+      "co2": 3405,
+      "ozone": 227.9,
+      "air_quality_index": 385
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 4,
+    "values": {
+      "co2": 3753,
+      "ozone": 206.6,
+      "air_quality_index": 427
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 5,
+    "values": {
+      "co2": 970,
+      "ozone": 385.2,
+      "air_quality_index": 9
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 6,
+    "values": {
+      "co2": 4718,
+      "ozone": 42.6,
+      "air_quality_index": 487
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 7,
+    "values": {
+      "co2": 3166,
+      "ozone": 183.6,
+      "air_quality_index": 332
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 8,
+    "values": {
+      "co2": 862,
+      "ozone": 32.9,
+      "air_quality_index": 386
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 9,
+    "values": {
+      "co2": 554,
+      "ozone": 202.5,
+      "air_quality_index": 102
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 10,
+    "values": {
+      "co2": 466,
+      "ozone": 124.8,
+      "air_quality_index": 122
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 11,
+    "values": {
+      "co2": 1334,
+      "ozone": 387.9,
+      "air_quality_index": 342
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 12,
+    "values": {
+      "co2": 1237,
+      "ozone": 462.0,
+      "air_quality_index": 485
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 13,
+    "values": {
+      "co2": 2085,
+      "ozone": 380.9,
+      "air_quality_index": 358
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 14,
+    "values": {
+      "co2": 2399,
+      "ozone": 302.1,
+      "air_quality_index": 85
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 15,
+    "values": {
+      "co2": 1238,
+      "ozone": 134.1,
+      "air_quality_index": 493
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 16,
+    "values": {
+      "co2": 2848,
+      "ozone": 88.5,
+      "air_quality_index": 296
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 17,
+    "values": {
+      "co2": 510,
+      "ozone": 255.5,
+      "air_quality_index": 294
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 18,
+    "values": {
+      "co2": 3374,
+      "ozone": 324.9,
+      "air_quality_index": 482
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 19,
+    "values": {
+      "co2": 1924,
+      "ozone": 62.2,
+      "air_quality_index": 303
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 20,
+    "values": {
+      "co2": 2289,
+      "ozone": 83.4,
+      "air_quality_index": 356
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 21,
+    "values": {
+      "co2": 2770,
+      "ozone": 491.8,
+      "air_quality_index": 412
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 22,
+    "values": {
+      "co2": 1291,
+      "ozone": 463.6,
+      "air_quality_index": 400
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 23,
+    "values": {
+      "co2": 636,
+      "ozone": 284.4,
+      "air_quality_index": 272
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 24,
+    "values": {
+      "co2": 3809,
+      "ozone": 303.5,
+      "air_quality_index": 35
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 25,
+    "values": {
+      "co2": 4444,
+      "ozone": 279.5,
+      "air_quality_index": 6
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 26,
+    "values": {
+      "co2": 3741,
+      "ozone": 401.5,
+      "air_quality_index": 54
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 27,
+    "values": {
+      "co2": 3851,
+      "ozone": 296.7,
+      "air_quality_index": 325
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 28,
+    "values": {
+      "co2": 4066,
+      "ozone": 125.3,
+      "air_quality_index": 222
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 29,
+    "values": {
+      "co2": 1742,
+      "ozone": 427.4,
+      "air_quality_index": 494
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 30,
+    "values": {
+      "co2": 2512,
+      "ozone": 440.8,
+      "air_quality_index": 396
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 31,
+    "values": {
+      "co2": 4260,
+      "ozone": 380.8,
+      "air_quality_index": 223
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 32,
+    "values": {
+      "co2": 2498,
+      "ozone": 264.0,
+      "air_quality_index": 436
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 33,
+    "values": {
+      "co2": 2311,
+      "ozone": 70.9,
+      "air_quality_index": 142
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 34,
+    "values": {
+      "co2": 3992,
+      "ozone": 199.7,
+      "air_quality_index": 384
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 35,
+    "values": {
+      "co2": 4106,
+      "ozone": 466.8,
+      "air_quality_index": 312
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 36,
+    "values": {
+      "co2": 3404,
+      "ozone": 275.5,
+      "air_quality_index": 14
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 37,
+    "values": {
+      "co2": 4349,
+      "ozone": 266.2,
+      "air_quality_index": 93
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 38,
+    "values": {
+      "co2": 4294,
+      "ozone": 173.7,
+      "air_quality_index": 181
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 39,
+    "values": {
+      "co2": 2416,
+      "ozone": 278.8,
+      "air_quality_index": 143
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 40,
+    "values": {
+      "co2": 2563,
+      "ozone": 455.3,
+      "air_quality_index": 5
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 41,
+    "values": {
+      "co2": 4532,
+      "ozone": 156.5,
+      "air_quality_index": 43
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 42,
+    "values": {
+      "co2": 2277,
+      "ozone": 332.9,
+      "air_quality_index": 250
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 43,
+    "values": {
+      "co2": 4848,
+      "ozone": 196.8,
+      "air_quality_index": 353
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 44,
+    "values": {
+      "co2": 4200,
+      "ozone": 402.0,
+      "air_quality_index": 229
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 45,
+    "values": {
+      "co2": 441,
+      "ozone": 76.2,
+      "air_quality_index": 150
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 46,
+    "values": {
+      "co2": 2115,
+      "ozone": 331.2,
+      "air_quality_index": 354
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 47,
+    "values": {
+      "co2": 2293,
+      "ozone": 250.8,
+      "air_quality_index": 339
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 48,
+    "values": {
+      "co2": 3323,
+      "ozone": 387.6,
+      "air_quality_index": 283
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 49,
+    "values": {
+      "co2": 4649,
+      "ozone": 281.6,
+      "air_quality_index": 217
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 50,
+    "values": {
+      "co2": 4808,
+      "ozone": 270.9,
+      "air_quality_index": 180
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 51,
+    "values": {
+      "co2": 4017,
+      "ozone": 221.9,
+      "air_quality_index": 156
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 52,
+    "values": {
+      "co2": 2359,
+      "ozone": 188.8,
+      "air_quality_index": 61
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 53,
+    "values": {
+      "co2": 1877,
+      "ozone": 258.4,
+      "air_quality_index": 61
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 54,
+    "values": {
+      "co2": 4689,
+      "ozone": 151.6,
+      "air_quality_index": 98
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 55,
+    "values": {
+      "co2": 2072,
+      "ozone": 396.6,
+      "air_quality_index": 141
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 56,
+    "values": {
+      "co2": 4597,
+      "ozone": 488.8,
+      "air_quality_index": 144
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 57,
+    "values": {
+      "co2": 1123,
+      "ozone": 159.0,
+      "air_quality_index": 151
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 58,
+    "values": {
+      "co2": 2163,
+      "ozone": 295.6,
+      "air_quality_index": 91
+    }
+  },
+  {
+    "sensor_type": "AirQuality",
+    "sensor_id": "A-01",
+    "index": 59,
+    "values": {
+      "co2": 2776,
+      "ozone": 11.5,
+      "air_quality_index": 362
+    }
+  }
+]

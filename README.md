@@ -33,7 +33,9 @@ Po zmene z JSON restartuj oba programy. Logy zostavaju citatelne v anglictine.
 - UAT 5: serverove menu `1`, ID senzora a pocet vynechanych ACK (0 = zrusit).
   Tester opakuje po 3 s, maximalne 3 odoslania; potom spravu zahodi.
 - Lua dissector: [lua/README.md](lua/README.md), port 9000 alebo Decode As.
-- Meranie efektivity bude nasledovat.
+- Analyza efektivity: `python3 measure_efficiency.py`; vysledky a metodika
+  v [measurements/README.txt](measurements/README.txt). Ide o serializacnu
+  analyzu so syntetickymi PCAP, zivy zachyt este treba doplnit.
 
 Testy bez siete:
 

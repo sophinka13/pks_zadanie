@@ -1,0 +1,15 @@
+variant,scenario,packets,application_bytes,ip_bytes,ethernet_bytes,medium_byte_times
+JSON,registration,8,535,759,903,1063
+JSON,corruption,4,480,592,664,744
+JSON,ack_loss,7,1024,1220,1346,1486
+JSON,idle_responsive,6,492,660,768,888
+JSON,disconnected,3,222,306,360,420
+Binary,registration,8,156,380,528,688
+Binary,corruption,4,80,192,266,346
+Binary,ack_loss,7,155,351,478,618
+Binary,idle_responsive,6,102,270,384,504
+Binary,disconnected,3,51,135,192,252
+JSON,steady,480,47777,61217,69857,79457
+Binary,steady,480,9300,22740,31620,41220
+CoAP-JSON,steady,480,25135,38575,48655,58255
+CoAP-packed,steady,480,10260,23700,33780,43380
