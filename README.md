@@ -30,6 +30,7 @@ Po zmene z JSON restartuj oba programy. Logy zostavaju citatelne v anglictine.
 - Osobny navod: [NAVOD_PRE_MNA.txt](NAVOD_PRE_MNA.txt)
 - Povodna spustitelna JSON verzia: `json_baseline/`
 - Existujuce PDF dokumentacie a ZIP este opisuju povodnu verziu.
+- Prehlad relacii: serverove menu `2` (typ, ID, stav, vek merania a potlacene ACK).
 - UAT 5: serverove menu `1`, ID senzora a pocet vynechanych ACK (0 = zrusit).
   Tester opakuje po 3 s, maximalne 3 odoslania; potom spravu zahodi.
 - Lua dissector: [lua/README.md](lua/README.md), port 9000 alebo Decode As.

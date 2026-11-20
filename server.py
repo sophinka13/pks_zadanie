@@ -69,15 +69,34 @@ def process_measurement(message, sender, sessions):
     return None
 
 
-# obsluhuje menu a cez frontu odovzda ukoncenie alebo pocet vynechanych ack
+# zobrazi aktualne relacie zo sietoveho vlakna bez zdielania menitelneho slovnika
+def show_sensors(sessions, now):
+    if not sessions:
+        console_panel("SERVER · SENZORY", ["Nie sú zaregistrované žiadne senzory."])
+        return
+    rows = [f"{'TYP':<13} {'ID':<12} {'STAV':<10} {'POSLEDNÉ MERANIE':<19} POTLAČENÉ ACK", "─" * 75]
+    for sensor_id, session in sorted(sessions.items()):
+        idle = now - session["last_data"] >= IDLE_TIMEOUT
+        state = "nečinný" if idle else "aktívny"
+        last_measurement = session.get("last_measurement")
+        age = "zatiaľ žiadne" if last_measurement is None else f"pred {max(0, now-last_measurement):.1f} s"
+        rows.append(f"{session['sensor_type']:<13} {sensor_id:<12} {state:<10} {age:<19} {session.get('skip_acks', 0)}")
+    rows.append(f"Spolu: {len(sessions)}  ·  Nečinný senzor môže naďalej odpovedať na KEEPALIVE.")
+    console_panel("SERVER · SENZORY", rows)
+
+
+# obsluhuje menu a cez frontu odovzda poziadavky sietovemu vlaknu
 def server_menu(commands):
     try:
         while True:
-            console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "1  Vynechať ACK pre vybraný senzor", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
+            console_panel("SERVER · MENU", ["Prijímanie meraní a KEEPALIVE bežia na pozadí.", "1  Vynechať ACK pre vybraný senzor", "2  Zobraziť prehľad senzorov", "0  Ukončiť server   ·   Ctrl+C  Ukončiť server"])
             choice = console_input("  Voľba › ").strip()
             if choice == "0":
                 commands.put("STOP")
                 return
+            if choice == "2":
+                commands.put("SHOW_SENSORS")
+                continue
             if choice == "1":
                 sensor_id = console_input("  ID senzora (napr. T-01) › ").strip()
                 try:
@@ -89,7 +108,7 @@ def server_menu(commands):
                     continue
                 commands.put(("SUPPRESS_ACK", sensor_id, count))
                 continue
-            console_write("  ! Zadaj 0 alebo 1.")
+            console_write("  ! Zadaj 0, 1 alebo 2.")
     except (EOFError, KeyboardInterrupt):
         return
 
@@ -126,6 +145,8 @@ def main():
                     if action == "STOP":
                         logger.info("SYSTEM | INFO | SERVER | Server stopped")
                         return
+                    if action == "SHOW_SENSORS":
+                        show_sensors(sessions, time.monotonic())
                     if isinstance(action, tuple) and action[0] == "SUPPRESS_ACK":
                         _, sensor_id, count = action
                         if sensor_id not in sessions:
@@ -187,6 +208,7 @@ def main():
                             accepted = session["accepted"]
                             if seq not in accepted:
                                 accepted[seq] = message["crc"]
+                                session["last_measurement"] = time.monotonic()
                                 # pamat na nedavne merania ma obmedzenu velkost.
                                 if len(accepted) > 256:
                                     del accepted[next(iter(accepted))]

@@ -1,3 +1,12 @@
+PREHLAD SENZOROV NA SERVERI
+  V menu servera vyber 2. Zobrazi sa typ, ID, aktivny/necinný stav,
+  cas od posledneho noveho platneho merania a zostavajuci pocet potlacenych ACK.
+  Pred prvym meranim je uvedene "zatial ziadne". Duplicita nezmeni cas
+  posledneho noveho merania. Nečinný senzor moze odpovedat na KEEPALIVE;
+  odpojeny senzor po zruseni relacie z prehladu zmizne.
+  Funguje aj bez --console-logs. Kazda volba 2 vytvori novy aktualny prehlad.
+  Pripravene s pomocou AI.
+
 ZIVE MERANIE JE HOTOVE LOKALNE
   Vysledky a skutocne PCAP: measurements/live/
   Navod a vyhodnotenie: measurements/LIVE_MERANIE.txt
