@@ -1,3 +1,4 @@
+import argparse
 import ipaddress
 import json
 import logging
@@ -201,6 +202,27 @@ def validate_values(sensor_type, values):
         if places == 0 and type(value) is not int:
             raise ValueError(f"{name} must be an integer")
         validate_number(name, value, minimum, maximum, places)
+
+
+# nacita volitelne konzolove logovanie a pocet senzorov kazdeho typu
+def parse_options(tester=False):
+    parser = argparse.ArgumentParser(description="FIIT Meteo UDP")
+    parser.add_argument("--console-logs", action="store_true", help="zobrazovat logy aj v terminali")
+    if tester:
+        parser.add_argument("--sensors-per-type", type=positive_count, default=1,
+                            help="pocet senzorov kazdeho typu (predvolene 1)")
+    return parser.parse_args()
+
+
+# prijme iba kladny cely pocet senzorov
+def positive_count(text):
+    try:
+        count = int(text)
+        if count < 1:
+            raise ValueError()
+        return count
+    except ValueError:
+        raise argparse.ArgumentTypeError("pocet senzorov musi byt kladne cele cislo") from None
 
 
 # vytvori logovanie do noveho suboru a volitelne aj do konzoly

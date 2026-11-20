@@ -27,7 +27,7 @@ from lib import (
 )
 from wire_protocol import encode_message, decode_message, calculate_crc
 from server import monitor_sessions, process_measurement, reset_activity
-from tester import corrupt_measurement, generate_values, read_custom_values
+from tester import corrupt_measurement, generate_values, read_custom_values, build_sensors
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -115,6 +115,32 @@ class PresentationInputs(unittest.TestCase):
         self.assertIn("SENSOR IDLE", self.output.getvalue())
         self.assertIn("SENSOR DISCONNECTED", self.output.getvalue())
         self.assertEqual(process_measurement(dict(sensor_id="test", token="1234567890abcdef"), session["address"], sessions), "Invalid sensor ID or token")
+
+    # overi samostatne id pre viac instancii kazdeho typu
+    def test_sensor_configuration(self):
+        sensors = build_sensors(2)
+        self.assertEqual(len(sensors), 8)
+        self.assertEqual(len({sensor["sensor_id"] for sensor in sensors}), 8)
+        for kind in SENSOR_FIELDS:
+            self.assertEqual(sum(sensor["sensor_type"] == kind for sensor in sensors), 2)
+
+    # overi volitelny konzolovy handler pri zachovani zapisu do suboru
+    def test_optional_console_logging(self):
+        from lib import ConsoleHandler
+        with tempfile.TemporaryDirectory() as work:
+            name = str(Path(work, "options"))
+            try:
+                logger = create_logger(name, console=False)
+                self.assertFalse(any(isinstance(handler, ConsoleHandler) for handler in logger.handlers))
+                with redirect_stdout(io.StringIO()) as output:
+                    logger = create_logger(name, console=True)
+                    logger.info("SYSTEM | INFO | SERVER | Console enabled")
+                self.assertIn("Console enabled", output.getvalue())
+                self.assertIn("Console enabled", Path(name + ".log").read_text())
+            finally:
+                for handler in list(logging.getLogger(name).handlers):
+                    handler.close()
+                    logging.getLogger(name).removeHandler(handler)
 
     def test_new_run_replaces_old_log_without_duplicate_handlers(self):
         with tempfile.TemporaryDirectory() as work:
@@ -244,6 +270,57 @@ class PresentationUDP(unittest.TestCase):
                     if process.poll() is None:
                         process.send_signal(signal.SIGINT)
                     process.communicate(timeout=5)
+
+    # overi osem skutocnych relacii vratane dvoch senzorov rovnakeho typu
+    def test_multiple_sensors_of_each_type(self):
+        with tempfile.TemporaryDirectory(prefix="pks-multiple-") as work:
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
+                probe.bind(("127.0.0.1", 0))
+                port = probe.getsockname()[1]
+            processes = []
+            try:
+                for script, args in (("server.py", []), ("tester.py", ["--sensors-per-type", "2"])):
+                    process = subprocess.Popen([sys.executable, str(ROOT / script), *args], cwd=work,
+                        stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+                    processes.append(process)
+                    process.stdin.write(f"127.0.0.1\n{port}\n")
+                    process.stdin.flush()
+                    if script == "server.py":
+                        deadline = time.monotonic()+5
+                        while time.monotonic() < deadline:
+                            path = Path(work, "server.log")
+                            if path.exists() and "Server listening" in path.read_text():
+                                break
+                            time.sleep(0.03)
+                deadline = time.monotonic()+6
+                content = ""
+                while time.monotonic() < deadline:
+                    path = Path(work, "tester.log")
+                    content = path.read_text() if path.exists() else ""
+                    if content.count("Measurement acknowledged") == 8:
+                        break
+                    time.sleep(0.03)
+                self.assertEqual(content.count("Registration successful"), 8, content)
+                self.assertEqual(content.count("Measurement acknowledged"), 8, content)
+                replies = [json.loads(line.split(" | Received ", 1)[1]) for line in content.splitlines() if " | Received {" in line]
+                registrations = [message for message in replies if message["type"] == "REGISTER_ACK"]
+                self.assertEqual(len({message["token"] for message in registrations}), 8)
+                for kind in SENSOR_FIELDS:
+                    self.assertEqual(sum(message["sensor_type"] == kind for message in registrations), 2)
+                server_log = Path(work, "server.log").read_text()
+                for sensor in build_sensors(2):
+                    self.assertIn(f"Measurement accepted: {sensor['sensor_type']}:{sensor['sensor_id']}", server_log)
+                for process in reversed(processes):
+                    process.stdin.write("0\n")
+                    process.stdin.flush()
+                    process.wait(timeout=3)
+                    self.assertEqual(process.returncode, 0)
+            finally:
+                for process in reversed(processes):
+                    if process.poll() is None:
+                        process.send_signal(signal.SIGINT)
+                    _, errors = process.communicate(timeout=5)
+                    self.assertNotIn("Traceback", errors)
 
     # overi pat vynechanych ack, zahodenie prveho merania a potvrdenie druheho
     def test_uat5_five_suppressed_acks(self):

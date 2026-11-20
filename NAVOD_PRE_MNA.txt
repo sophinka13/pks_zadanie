@@ -1,3 +1,29 @@
+AKTUALNE VOLBY SPUSTANIA
+  python3 server.py
+  python3 tester.py
+    logy iba do suboru, menu sa nadalej zobrazuje
+
+  python3 server.py --console-logs
+  python3 tester.py --console-logs
+    logy do suboru aj do terminalu
+
+  python3 tester.py --sensors-per-type 2 --console-logs
+    8 senzorov: T-01, T-02, W-01, W-02, R-01, R-02, A-01, A-02
+    kazdy ma vlastne vlakno, socket, token a poradove cisla
+    menu pracuje s celym zoznamom; server meni potlacanie ACK podla ID
+
+  python3 tester.py --help
+  python3 server.py --help
+    prehlad volieb; IP a port sa stale zadavaju po spusteni
+
+CASOVAC NA VYJASNENIE S CVICIACIM
+  Tester pocita 30 s od posledneho platneho KEEPALIVE, ACK alebo RETRANSMIT.
+  Doslovne zadanie hovori len o KEEPALIVE, ale pri pravidelnych datach server
+  KEEPALIVE neposiela. Takto by sa funkcne senzory samy odpojili po 30 s.
+  Ponechali sme preto sledovanie platneho kontaktu; tento vyklad treba potvrdit.
+
+Tieto upravy a testy boli pripravene s pomocou AI.
+
 WIRESHARK: LUA DISSECTOR JE PRIPRAVENY
 Skript: lua/fiit_meteo.lua. Nacitanie, porty a filtre: lua/README.md.
 Zobrazuje vsetky spravy a merania, overuje CRC a oznacuje chybne pakety.

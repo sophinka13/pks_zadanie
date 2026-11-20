@@ -7,6 +7,21 @@ python3 server.py
 python3 tester.py
 ```
 
+Logy sa vzdy zapisuju do suboru; volitelny vypis aj do terminalu:
+
+```sh
+python3 server.py --console-logs
+python3 tester.py --console-logs
+```
+
+Dva nezavisle senzory kazdeho typu (8 celkovo, ID T-01, T-02 atd.):
+
+```sh
+python3 tester.py --sensors-per-type 2 --console-logs
+```
+
+Volba `--help` zobrazi dostupne argumenty. Pocet senzorov musi byt kladny.
+
 Kazdy prikaz spusti v samostatnom terminali. IP a port nastav v programe.
 Potrebny je Python 3 a subory `lib.py`, `binary_protocol.py`, `wire_protocol.py`.
 Po zmene z JSON restartuj oba programy. Logy zostavaju citatelne v anglictine.
@@ -33,3 +48,9 @@ PKS_RUN_UDP_TESTS=1 python3 -m unittest discover -s tests -v
 ```
 
 Binarne moduly a suvisiace upravy boli pripravene s pomocou AI.
+
+Poznamka k casovacu: tester ukonci relaciu po 30 s bez platnej odpovede
+servera (KEEPALIVE, ACK alebo RETRANSMIT). Zadanie uvadza iba posledny
+KEEPALIVE, ale server pri pravidelnych datach sondy neposiela. Doslovny
+vyklad by odpojil aj funkcny senzor. Tento rozdiel treba vyjasnit s cviciacim;
+implementacia zatial zachovava kontrolu posledneho platneho kontaktu.

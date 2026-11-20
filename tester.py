@@ -6,7 +6,7 @@ import threading
 import time
 
 from lib import (
-    SENSOR_FIELDS, ask_address, create_logger,
+    SENSOR_FIELDS, ask_address, create_logger, parse_options,
     log_message, parse_sensor_value,
     console_input, console_panel, console_write,
 )
@@ -351,7 +351,7 @@ def start_measurements_and_menu(server_address, sensors, logger):
         finally:
             logger.info("SYSTEM | INFO | %s | Sensor worker stopped", source)
 
-    console_write("\n  4 senzory · samostatné vlákna · merania každých 10 s · ukončenie Ctrl+C")
+    console_write(f"\n  {len(sensors)} senzorov · samostatné vlákna · merania každých 10 s · ukončenie Ctrl+C")
     try:
         for sensor in sensors:
             worker = threading.Thread(
@@ -367,21 +367,26 @@ def start_measurements_and_menu(server_address, sensors, logger):
                 worker.join()
 
 
-# nacita adresu servera, pripravi styri senzory a spusti ich vlakna spolu s menu
+# vytvori senzory s jedinecnymi id aj pri viacerych instanciach rovnakeho typu
+def build_sensors(count):
+    return [
+        {"sensor_type": kind, "sensor_id": f"{prefix}-{index:02d}", "token": None}
+        for kind, prefix in zip(SENSOR_FIELDS, ("T", "W", "R", "A"))
+        for index in range(1, count + 1)
+    ]
+
+
+# nacita nastavenia, pripravi senzory a spusti ich vlakna spolu s menu
 def main():
-    logger = create_logger("tester", console=True)
+    options = parse_options(tester=True)
+    logger = create_logger("tester", console=options.console_logs)
     console_panel("FIIT METEO · TESTER", ["Simulátor meteorologických senzorov", "Nastav adresu servera. Enter ponechá predvolenú hodnotu."])
     try:
         server_address = ask_address("127.0.0.1", logger, "TESTER")
     except (EOFError, KeyboardInterrupt):
         logger.info("SYSTEM | INFO | TESTER | Tester stopped during configuration")
         return
-    sensors = [ #zoznam serverov
-        {"sensor_type": "ThermoNode", "sensor_id": "T-01", "token": None},
-        {"sensor_type": "WindSense", "sensor_id": "W-01", "token": None},
-        {"sensor_type": "RainDetect", "sensor_id": "R-01", "token": None},
-        {"sensor_type": "AirQuality", "sensor_id": "A-01", "token": None},
-    ]
+    sensors = build_sensors(options.sensors_per_type)
     try:
         start_measurements_and_menu(server_address, sensors, logger)
         logger.info("SYSTEM | INFO | TESTER | Tester stopped")

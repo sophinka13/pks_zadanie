@@ -5,7 +5,7 @@ import threading
 import time
 
 from lib import (
-    SENSOR_TYPES, ask_address, create_logger,
+    SENSOR_TYPES, ask_address, create_logger, parse_options,
     log_message, validate_values,
     console_input, console_panel, console_write,
 )
@@ -96,7 +96,8 @@ def server_menu(commands):
 
 # nastavi server, otvori udp socket a spracuva registracie, merania, odpovede a casovace
 def main():
-    logger = create_logger("server", console=True)
+    options = parse_options()
+    logger = create_logger("server", console=options.console_logs)
     console_panel("FIIT METEO · SERVER", ["Príjem meteorologických meraní cez UDP", "Nastav lokálnu IP a port. Enter ponechá predvolenú hodnotu."])
     try:
         address = ask_address("127.0.0.1", logger, "SERVER")
