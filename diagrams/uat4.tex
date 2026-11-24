@@ -14,7 +14,7 @@
 \draw[seqarrow] (9,-9.7)--node[above]{25 s: tretí KEEPALIVE, bez odpovede}(0,-9.7);
 \node[seqnote,text width=7cm] at (4.5,-11) {30 s: \texttt{SENSOR DISCONNECTED}\\Server zruší reláciu a token.};
 \draw[seqarrow] (0,-12.5)--node[above]{Nový REGISTER s rovnakým ID}(9,-12.5);
-\draw[seqarrow] (9,-13.4)--node[above]{ACK: nový token}(0,-13.4);
+\draw[seqarrow] (9,-13.4)--node[above]{REGISTER\_ACK: nový token}(0,-13.4);
 \draw[seqarrow] (0,-14.3)--node[above]{DATA s novým tokenom}(9,-14.3);
 \draw[seqarrow] (9,-15.2)--node[above]{ACK}(0,-15.2);
 \node[align=center,text width=8cm] at (4.5,-16.5) {Ostatné senzory počas testu pokračujú nezávisle.};

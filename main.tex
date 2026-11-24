@@ -26,26 +26,27 @@
   font={auto}, % Alternatívy: Tinos, Liberation Serif, Times New Roman (ak je nainštalované).
 }
 
+\let\originaltableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{\begingroup\small\singlespacing\originaltableofcontents\endgroup}
+
 \begin{document}
 \pksdocument
 
 \section{Úvod a architektúra}
 
-Riešenie prenáša meteorologické merania vlastným aplikačným protokolom nad UDP/IPv4. Správy sú objekty JSON zakódované v UTF-8; jeden datagram obsahuje jednu správu. Protokol zabezpečuje registráciu senzorov, potvrdenie meraní, kontrolu integrity a dostupnosti.
+Riešenie prenáša merania vlastným binárnym protokolom nad UDP/IPv4, jednu správu na datagram. Zabezpečuje registráciu, potvrdenie, integritu a dostupnosť senzorov. Pôvodná JSON verzia zostáva v \texttt{json\_baseline/} na porovnanie.
 
-\begin{itemize}
-  \item \texttt{server.py} registruje senzory, prideľuje tokeny, overuje merania a spravuje časovače relácií.
-  \item \texttt{tester.py} simuluje ThermoNode (T-01), WindSense (W-01), RainDetect (R-01) a AirQuality (A-01). Umožňuje vlastné merania, poškodenie správy, prepínanie automatiky, odpojenie a novú registráciu.
-  \item \texttt{lib.py} obsahuje spoločné funkcie pre JSON, CRC32, validáciu, logovanie a terminálové rozhranie.
-\end{itemize}
+\texttt{server.py} spravuje relácie a merania. \texttt{tester.py} emuluje štyri typy senzorov; každý má vlastné vlákno, UDP socket, frontu a časovače. Menu odovzdáva príkazy cez fronty, takže senzory fungujú nezávisle. Server má jednu sieťovú slučku a samostatné menu. \texttt{lib.py} poskytuje validáciu a logovanie; \path{binary_protocol.py} kódovanie a \path{wire_protocol.py} prepojenie formátu s reláciami.
 
-Každý senzor má vlastné vlákno, UDP socket, frontu príkazov a časovače. Hlavné vlákno testera obsluhuje menu; požiadavky odovzdáva príslušnému senzoru cez frontu. Čakanie jedného senzora neblokuje ostatné. Server spracúva komunikáciu a relácie v jednej sieťovej slučke, jeho menu beží v pomocnom vlákne.
+Spustenie: \texttt{python3 server.py} a \texttt{python3 tester.py}. IP a port sa zadávajú v rozhraní (predvolene 127.0.0.1:9000). Sockety sa vytvárajú priamo knižnicou \texttt{socket}.
 
-Programy sa spúšťajú príkazmi \texttt{python3 server.py} a \texttt{python3 tester.py}. IP adresa a port sa zadávajú pri spustení, predvolene 127.0.0.1:9000. UDP sockety sa vytvárajú a viažu priamo knižnicou \texttt{socket}.
+Konzolové logy zapína \texttt{--console-logs}. Osem senzorov spustí voľba \texttt{--sensors-per-type} s argumentom \texttt{2}.
+
+Menu testera: 1 vlastné meranie, 2 poškodenie DATA, 3 automatika, 4 odpojenie, 5 registrácia, 0 koniec. Menu servera: 1 potláčanie ACK, 2 prehľad relácií (stav, vek merania, zostávajúce potlačené ACK), 0 koniec.
 
 \subsection{Použité knižnice}
 
-Aplikácia používa iba štandardnú knižnicu Pythonu:
+Server a tester používajú štandardnú knižnicu Pythonu. Meracie skripty navyše používajú Matplotlib na grafy a externé nástroje TShark/dumpcap na analýzu a zachytávanie:
 \begin{center}
 \small\singlespacing
 \begin{tabular}{p{6cm} p{7cm}}
@@ -54,48 +55,31 @@ Aplikácia používa iba štandardnú knižnicu Pythonu:
 \hline
 \texttt{socket} & UDP komunikácia. \\
 \texttt{threading}, \texttt{queue} & Vlákna a odovzdávanie príkazov. \\
-\texttt{json}, \texttt{zlib} & Formát správ a CRC32. \\
+\texttt{json}, \texttt{zlib} & Čitateľné logy, JSON porovnanie a CRC32. \\
 \texttt{ipaddress}, \texttt{decimal} & Validácia adries a číselných vstupov. \\
 \texttt{secrets}, \texttt{random}, \texttt{copy} & Tokeny, náhodné merania a poškodená kópia. \\
+\texttt{struct}, \texttt{argparse} & Binárne polia a voľby spustenia. \\
 \texttt{time}, \texttt{logging} & Časovače a logovanie. \\
 \texttt{os}, \texttt{sys}, \texttt{shutil}, \texttt{readline} & Terminál; \texttt{readline} je voliteľný. \\
 \hline
 \end{tabular}
 \end{center}
 
-Logy udalostí (SYSTEM) a prenosov (MESSAGE) sa zapisujú do \texttt{server.log} a \texttt{tester.log}; pri novom spustení sa prepíšu. Súbor zachováva celý obsah správ a formát \texttt{čas | typ | úroveň | zdroj | udalosť}. Čas je UTC s milisekundami. Konzola zobrazuje prehľadnejšie bloky s farbami a jednotkami.
+Meracie nástroje ďalej používajú štandardné moduly \texttt{csv}, \texttt{pathlib}, \texttt{hashlib}, \texttt{statistics}, \texttt{subprocess}, \texttt{signal} a \texttt{collections}. Testy používajú \texttt{unittest}, mock objekty a dočasné súbory. Matplotlib je potrebný iba pre meracie grafy; pre server a tester sa externé Python balíky neinštalujú.
 
-\clearpage
+Logy udalostí (SYSTEM) a prenosov (MESSAGE) sa zapisujú do \texttt{server.log} a \texttt{tester.log}; pri novom spustení sa prepíšu. Súbor zachováva celý obsah správ a formát \texttt{čas | typ | úroveň | zdroj | udalosť}. Čas je UTC s milisekundami. Súborový zápis je vždy zapnutý. Voľba \texttt{--console-logs} zapne aj konzolové bloky s jednotkami; farby závisia od terminálu. Polia \texttt{sensor\_id} a \texttt{ack\_for} môžu byť v logu odvodené zo stavu relácie, hoci sa v binárnom pakete neprenášajú samostatne.
+
 \section{Návrh protokolu}
 
-\subsection{Relácia a polia správ}
+\subsection{Relácia a pôvodný JSON návrh}
 
-REGISTER obsahuje typ a jedinečné ID senzora. Server uloží jeho zdrojovú IP adresu a port a pridelí token: osem náhodných bajtov zapísaných ako 16 hexadecimálnych znakov. Ďalšie merania sa overujú podľa ID, tokenu a zdrojovej adresy. Po zrušení relácie token prestáva platiť. Typ DATA sa určuje z registrácie.
+REGISTER obsahuje typ a jedinečné ID senzora. Server uloží jeho zdrojovú IP adresu a port a pridelí token: osem náhodných bajtov zapísaných ako 16 hexadecimálnych znakov. V binárnom prenose sa ID posiela iba pri registrácii; následne sa relácia určuje tokenom, typom senzora a zdrojovou adresou. Token je v pakete osem bajtov, v logu 16 hexadecimálnych znakov. Server nepridelí nulu ani token existujúcej relácie. Po zrušení relácie token prestáva platiť. Nasledujúce JSON polia a príklady zachytávajú pôvodný návrh, nie finálnu prenosovú reprezentáciu.
 
-\begin{center}
-\small\singlespacing
-\begin{tabular}{p{3cm} p{10cm}}
-\hline
-\textbf{Pole} & \textbf{Význam} \\
-\hline
-\texttt{type} & Reťazec označujúci typ správy. \\
-\texttt{seq} & Kladné celé poradové číslo správy odosielateľa. \\
-\texttt{ack\_for} & Celé číslo správy, na ktorú odpoveď reaguje. \\
-\texttt{sensor\_id} & Reťazec s jedinečným ID senzora. \\
-\texttt{sensor\_type} & Reťazec s typom senzora. \\
-\texttt{token} & Reťazec identifikujúci reláciu. \\
-\texttt{values} & Objekt s hodnotami všetkých parametrov senzora. \\
-\texttt{crc} & Nezáporný 32-bitový kontrolný súčet DATA. \\
-\texttt{reason} & Textový dôvod odmietnutia alebo retransmisie. \\
-\hline
-\end{tabular}
-\end{center}
+V pôvodnom JSON návrhu mal server vlastný čítač a odpovede používali \texttt{ack\_for}. Vo finálnom formáte odpoveď zopakuje \texttt{seq} požiadavky; retransmisia zachová číslo aj pôvodné bajty. Každý senzor má nezávislý čítač od 1. Pred vyčerpaním 32 bitov sa musí relácia obnoviť; automatické obnovenie pri tomto limite zatiaľ nie je implementované.
 
-Každý senzor má vlastný čítač \texttt{seq} od hodnoty 1; server používa svoj čítač. Odpoveď sa priraďuje cez socket senzora a \texttt{ack\_for}. Nová správa má nové číslo, retransmisia zachováva pôvodné.
+\subsection{JSON správy a príklady pôvodného návrhu}
 
-\subsection{Typy správ a príklady}
-
-Príklady používajú ukážkový token. Zalomenia slúžia na čitateľnosť; program posiela JSON bez nadbytočných medzier.
+Príklady používajú ukážkový token. Zalomenia slúžia na čitateľnosť; JSON baseline posiela objekty bez nadbytočných medzier. Binárna verzia odlišuje registračné potvrdenie REGISTER\_ACK od dátového ACK.
 
 \paragraph{REGISTER -- senzor $\rightarrow$ server.}
 Žiadosť o registráciu typu a ID. Už obsadené ID sa odmietne.
@@ -166,7 +150,7 @@ Odpoveď na konkrétnu sondu; posiela sa aj pri vypnutej automatike.
 
 \subsection{Parametre senzorov}
 
-Obe hranice rozsahov sú povolené. Uvedená desatinná presnosť je maximálna; celočíselné polia musia byť celé čísla JSON. Tester aj server hodnoty validujú. Neplatný vstup možno opraviť bez pádu programu.
+Obe hranice rozsahov sú povolené. Uvedená desatinná presnosť je maximálna; celočíselné polia sa prijímajú iba ako celé čísla. Tester aj server hodnoty validujú. Neplatný vstup možno opraviť bez pádu programu.
 
 \begin{center}
 \small\singlespacing
@@ -200,13 +184,82 @@ Obe hranice rozsahov sú povolené. Uvedená desatinná presnosť je maximálna;
 \end{tabular}
 \end{center}
 
-Pri \texttt{flood\_risk} znamená 0 žiadne, 1 nízke, 2 stredné a 3 vysoké riziko. JSON používa desatinnú bodku; \texttt{NaN} a nekonečno sa odmietajú.
+
+\clearpage
+\subsection{Binárny formát v1}
+
+Všetky viacbajtové celé čísla sú v sieťovom poradí (big-endian). Bajty sa čítajú od začiatku datagramu; bity v payload poli od najvyššieho bitu. Datagram neobsahuje dĺžkové pole, jeho presná veľkosť vyplýva z typu správy a senzora. Neposiela sa čas merania; UTC čas vzniká pri logovaní.
+
+\begin{figure}[!htbp]
+\centering
+\input{diagrams/binary-header.tex}
+\caption{Hlavička, payload a CRC binárneho datagramu.}
+\end{figure}
+
+\begin{center}\small\singlespacing
+\begin{tabular}{p{2.8cm} p{2cm} p{8cm}}
+\hline Pole & Offset & Význam \\\hline
+Riadiaci bajt & 0 & Bity 7--6: verzia 01; 5--3: typ správy; 2--1: senzor; bit 0: rezerva 0. \\
+\texttt{seq} & 1--4 & uint32, rozsah 1 až $2^{32}-1$; odpoveď opakuje číslo požiadavky. \\
+\texttt{token} & 5--12 & uint64; nula pri REGISTER a odmietnutí neplatnej/neexistujúcej relácie. \\
+Payload & od 13 & Dĺžka závisí od typu; môže byť prázdny. \\
+CRC32 & posledné 4 B & Súčet celej hlavičky a payloadu. \\\hline
+\end{tabular}\end{center}
+
+Typy senzorov: 00 ThermoNode, 01 WindSense, 10 RainDetect, 11 AirQuality. Pevná réžia datagramu je 17 B. ACK sa priraďuje podľa socketu, typu senzora, tokenu a čakajúceho \texttt{seq}; \texttt{ack\_for} v pakete nie je. KEEPALIVE má samostatné číslo sondy servera, KEEPALIVE\_ACK ho zopakuje.
+
+\begin{center}\small\singlespacing
+\begin{tabular}{c l p{6.5cm} l}
+\hline Kód & Typ & Payload & Celkom \\\hline
+000 & REGISTER & uint8 dĺžka $N$ a $N$ UTF-8 bajtov ID & $18+N$ B \\
+001 & ACK & bez payloadu & 17 B \\
+010 & REJECT & uint8 kód dôvodu & 18 B \\
+011 & DATA & hodnoty podľa typu senzora & 21--23 B \\
+100 & RETRANSMIT & bez payloadu & 17 B \\
+101 & KEEPALIVE & bez payloadu & 17 B \\
+110 & KEEPALIVE\_ACK & bez payloadu & 17 B \\
+111 & REGISTER\_ACK & nový token v hlavičke & 17 B \\\hline
+\end{tabular}\end{center}
+
+ID má 1--255 UTF-8 bajtov, nesmie byť prázdne ani tvorené iba medzerami. REGISTER\_ACK musí obsahovať nenulový token. REJECT pri registrácii má token nula. Dôvody odmietnutia: 1 neplatná relácia/token, 2 obsadené ID, 3 neplatné hodnoty, 4 nepodporovaná správa/verzia, 5 konflikt sekvencie, 6 nesprávna zdrojová adresa. Dekóder kontroluje aj rezervný bit, presnú dĺžku, UTF-8 a nulové doplnenie. Pri neinterpretovateľnom datagrame sa chyba zaloguje bez odpovede; nie každá chyba vyvolá REJECT.
+
+\subsection{Bitové kódovanie hodnôt}
+
+Pre minimum $m$ a počet desatinných miest $d$ je kód
+\[
+ k=(v-m)10^d,\qquad v=m+\frac{k}{10^d}.
+\]
+Výpočet používa presné desatinné hodnoty; nepovolená presnosť sa odmieta, nezaokrúhľuje. Počet bitov je $\lceil\log_2(K+1)\rceil$, kde $K=(M-m)10^d$. Napríklad 21,3~°C sa pri minime $-50$~°C uloží ako 713 do 11 bitov. Nepoužité kódy nad maximom sú neplatné.
+
+\begin{center}\small\singlespacing
+\begin{tabular}{l l r r}
+\hline Senzor & Polia v poradí prenosu & Bity & Max. kód \\\hline
+ThermoNode & temperature & 11 & 1100 \\
+ & humidity & 10 & 1000 \\
+ & dew\_point & 11 & 1100 \\
+ & pressure & 15 & 30000 \\\hline
+WindSense & wind\_speed & 9 & 500 \\
+ & wind\_gust & 10 & 700 \\
+ & wind\_direction & 9 & 359 \\
+ & turbulence & 4 & 10 \\\hline
+RainDetect & rainfall & 13 & 5000 \\
+ & soil\_moisture & 10 & 1000 \\
+ & flood\_risk & 2 & 3 \\
+ & rain\_duration & 6 & 60 \\\hline
+AirQuality & co2 & 13 & 4700 \\
+ & ozone & 13 & 5000 \\
+ & air\_quality\_index & 9 & 500 \\\hline
+\end{tabular}\end{center}
+
+Polia sú spojené bez medzier. Na konci sa pridá nulové doplnenie do celého bajtu. ThermoNode má 47 bitov + 1 nulu (6 B), WindSense 32 bitov (4 B), RainDetect 31 bitov + 1 nulu (4 B), AirQuality 35 bitov + 5 núl (5 B). Celé DATA majú postupne 23, 21, 21 a 22 B. Názvy parametrov, ID a desatinné bodky sa v DATA neprenášajú.
 
 \subsection{Integrita a časovanie}
 
-CRC32 sa počíta funkciou \texttt{zlib.crc32()} nad UTF-8 serializáciou celého objektu bez poľa \texttt{crc}. Kľúče sa zoradia abecedne aj vo vnorených objektoch a vynechajú sa medzery. Ne-ASCII znaky sa zapíšu únikovými sekvenciami; nečíselné hodnoty sa nepovolia. Poradie kľúčov a odsadenie prijatého JSON preto výsledok nemenia. Číselná reprezentácia sa zachováva: napríklad \texttt{60} a \texttt{60.0} sa líšia. Pri simulácii chyby sa mení iba odosielaná kópia až po výpočte CRC.
+V binárnej verzii pokrýva \texttt{zlib.crc32()} všetky bajty pred poslednými štyrmi bajtmi CRC: riadiaci bajt, sekvenciu, token aj payload. Výsledok sa uloží ako neznamienkový uint32 v big-endian poradí. Kontrola platí pre všetky typy správ. CRC odhaľuje náhodné poškodenie, neposkytuje autentifikáciu ani šifrovanie. V pôvodnej JSON verzii sa CRC počítalo nad kanonickým JSON objektom bez poľa \texttt{crc}.
 
-Prvá DATA sa odošle po registrácii, ďalšie každých 10 s. Ručné meranie nemení plán automatiky. Na ACK sa čaká 3 s; bez odpovede sa požiadavka zahodí. Automatické opakovanie pri strate ACK táto verzia neobsahuje.
+Pri simulácii chyby tester zmení hodnotu odosielanej kópie a zachová pôvodné CRC. Uložený správny paket zostane dostupný na opakovanie. Server pri poškodení žiada RETRANSMIT iba pri priraditeľnej relácii a správnej zdrojovej adrese; neplatné hlavičky alebo neznáme relácie sa nesmú považovať za dôveryhodné.
+
+Prvá DATA sa odošle po registrácii, ďalšie každých 10 s. Ručné meranie nemení plán automatiky. Bez ACK do 3 s tester zopakuje rovnaké binárne bajty; celkovo najviac tri odoslania. Po ďalších 3 s od posledného pokusu správu zahodí. Do limitu sa započítava aj opakovanie na RETRANSMIT. Server potvrdí platnú duplicitu, ale nezapíše ju ako nové meranie. Uchováva najviac 256 nedávnych sekvencií na reláciu. Konflikt rovnakého čísla s iným CRC odmietne a neobnoví ním časovač.
 
 Po 15 s bez DATA server vypíše SENSOR IDLE a pošle KEEPALIVE. Bez odpovedí nasledujú sondy v 20. a 25. sekunde a zrušenie relácie v 30. sekunde s výpisom SENSOR DISCONNECTED. Ak DATA ešte neprišla, čas sa počíta od registrácie. KEEPALIVE\_ACK vynuluje počet nezodpovedaných sond, nová DATA obnoví aktívny stav.
 
@@ -217,7 +270,7 @@ Lokálny časovač senzora je 30 s od platného kontaktu: KEEPALIVE, ACK merania
 
 \subsection{Prijímanie na serveri}
 
-Server strieda obsluhu príkazov, časovačov a príjem UDP. Podľa typu správy overí registráciu, meranie alebo odpoveď na sondu a aktualizuje reláciu (obrázok~\ref{fig:server-receive}). Neplatný JSON sa zaloguje a zahodí. Timeout socketu je najviac 0,2 s, aby kontroly fungovali aj bez prijatých správ.
+Server strieda obsluhu príkazov, časovačov a príjem UDP. Podľa typu správy overí registráciu, meranie alebo odpoveď na sondu a aktualizuje reláciu (obrázok~\ref{fig:server-receive}). Chybný binárny formát sa zaloguje a zahodí; pri priraditeľnej poškodenej DATA sa vyžiada oprava. Timeout socketu je najviac 0,2 s, aby kontroly fungovali aj bez prijatých správ.
 
 \begin{figure}[!htbp]
 \centering
@@ -229,7 +282,7 @@ Server strieda obsluhu príkazov, časovačov a príjem UDP. Podľa typu správy
 \clearpage
 \subsection{Odosielanie na serveri}
 
-Odpoveď vzniká pri spracovaní správy alebo časovača. Server zostaví príslušný objekt, pridelí \texttt{seq}, zakóduje JSON a odošle ho na adresu senzora (obrázok~\ref{fig:server-send}). Pri KEEPALIVE uloží číslo sondy a termín ďalšej kontroly. Odosielanie je súčasťou hlavnej slučky.
+Odpoveď vzniká pri spracovaní správy alebo časovača. Server zostaví odpoveď s číslom požiadavky alebo novú sondu so samostatným číslom, doplní CRC, zakóduje binárne polia a odošle datagram na adresu senzora (obrázok~\ref{fig:server-send}). Pri KEEPALIVE uloží číslo sondy a termín ďalšej kontroly. Odosielanie je súčasťou hlavnej slučky.
 
 \begin{figure}[!htbp]
 \centering
@@ -253,7 +306,7 @@ Vlákno spracuje príkazy svojej fronty a plán automatických meraní. Pri nove
 \clearpage
 \subsection{Prijímanie vo vlákne senzora}
 
-Senzor prijíma iba odpovede zo zadanej adresy servera. ACK ukončí čakanie, RETRANSMIT vyžiada odoslanie originálu a KEEPALIVE sa potvrdí aj pri vypnutých meraniach (obrázok~\ref{fig:tester-receive}). REJECT ukončí požiadavku; odmietnutie tokenu aj lokálnu reláciu. Pri ukončení testera sa zastavia všetky vlákna a zatvoria sockety.
+Senzor prijíma iba odpovede zo zadanej adresy servera. REGISTER\_ACK vytvorí reláciu, dátové ACK ukončí čakanie, RETRANSMIT vyžiada odoslanie originálu a KEEPALIVE sa potvrdí aj pri vypnutých meraniach (obrázok~\ref{fig:tester-receive}). REJECT ukončí požiadavku; odmietnutie tokenu aj lokálnu reláciu. Pri ukončení testera sa zastavia všetky vlákna a zatvoria sockety.
 
 \begin{figure}[!htbp]
 \centering
@@ -268,23 +321,22 @@ Senzor prijíma iba odpovede zo zadanej adresy servera. ACK ukončí čakanie, R
 \paragraph{UAT 1 -- registrácia a automatické merania.}
 Každý zo štyroch senzorov dostane token a odošle aspoň dve DATA s odstupom približne 10 s. Priebeh jedného senzora je na obrázku~\ref{fig:uat1}.
 
-\begin{figure}[!htbp]
+\begin{center}
 \centering
 \input{diagrams/uat1.tex}
-\caption{UAT 1: registrácia a dve automatické merania.}
+\captionof{figure}{UAT 1: registrácia a dve automatické merania.}
 \label{fig:uat1}
-\end{figure}
+\end{center}
 
-\clearpage
 \paragraph{UAT 2 -- vlastné meranie.}
 Používateľ zadá hodnoty a server ich presne prijme a potvrdí. Automatické merania pokračujú aj počas zadávania (obrázok~\ref{fig:uat2}).
 
-\begin{figure}[!htbp]
+\begin{center}
 \centering
 \input{diagrams/uat2.tex}
-\caption{UAT 2: dodatočné meranie zadané používateľom.}
+\captionof{figure}{UAT 2: dodatočné meranie zadané používateľom.}
 \label{fig:uat2}
-\end{figure}
+\end{center}
 
 \clearpage
 \paragraph{UAT 3 -- poškodenie správy.}
@@ -297,14 +349,17 @@ Tester poškodí nasledujúcu DATA. Server ju neprijme ako platné meranie a vy�
 \label{fig:uat3}
 \end{figure}
 
-\paragraph{Lokálne overenie.}
-Prešlo všetkých 10 automatických testov vrátane UAT 1--4, chybnej IP a portu, hodnôt mimo rozsahu, presnosti vstupov a nezávislosti vlákien. Odpojenie bolo v testovanom behu zaznamenané po 30,001 s od posledného merania. Sieťové testy sa spúšťajú príkazom:
+\subsection{Overenie a odolnosť}
 
-\begin{quote}\begin{minipage}{\linewidth}\small\singlespacing
+Kompletný lokálny beh úspešne vykonal všetkých 29 testov vrátane sieťových scenárov. Automatické testy overujú UAT 1--5, hraničné hodnoty a presnosť, chybný CRC, skrátené pakety, duplicity, konflikt sekvencie a odpovede so starým tokenom. Samostatné scenáre overujú osem senzorov (dva každého typu), 30-sekundový výpadok servera, rýchly reštart a nové tokeny bez reštartu testera. Odmietnuté konfliktné meranie nepredlžuje reláciu; oneskorený ACK neobnovuje čakanie. Pri reštarte servera môže REJECT neplatného tokenu ukončiť reláciu ešte pred vypršaním 30 s.
+
+Testy sa spúšťajú príkazom:
+\begin{quote}\small\singlespacing
 \begin{verbatim}
 PKS_RUN_UDP_TESTS=1 python3 -m unittest discover -s tests -v
 \end{verbatim}
-\end{minipage}\end{quote}
+\end{quote}
+Ide o lokálne overenie; nezastupuje predvedenie UAT medzi dvomi fyzickými zariadeniami. Časovač senzora sa obnovuje platným kontaktom (ACK, KEEPALIVE, RETRANSMIT), pretože pri pravidelných dátach server KEEPALIVE neposiela. To je interpretácia odlišná od doslovného počítania iba od KEEPALIVE v zadaní.
 
 \clearpage
 \paragraph{UAT 4 -- dostupnosť a nové pripojenie.}
@@ -318,32 +373,136 @@ Najprv sa vypnú iba merania a overia odpovede na KEEPALIVE. Po obnovení jednej
 \end{figure}
 
 \clearpage
-\section{Návrh merania efektivity}
+\paragraph{UAT 5 -- strata potvrdení.}
+Voľbou 1 na serveri sa pre ID senzora nastaví počet vynechaných ACK; nula potláčanie zruší. Počet zahŕňa aj platné duplicity, nie registrácie ani KEEPALIVE. Pri $x=5$ sa prvá DATA odošle trikrát a po poslednej trojsekundovej lehote zahodí. Druhá DATA dostane ACK pri treťom pokuse. Ostatné senzory pokračujú; opakovanie funguje aj pri fyzickom výpadku bez voľby v menu.
 
-JSON a budúci binárny formát sa porovnajú na rovnakej vopred uloženej sade hodnôt: štyri senzory, každý 60 meraní s intervalom 10 s. Započítajú sa registrácie aj potvrdenia, teda pri úspešnom základnom prenose spolu 488 datagramov. Oprava poškodenej správy a nečinnosť s KEEPALIVE sa vyhodnotia ako samostatné scenáre.
+\begin{figure}[!htbp]
+\centering
+\input{diagrams/uat5.tex}
+\caption{UAT 5: päť vynechaných ACK a potvrdenie šiesteho pokusu.}
+\end{figure}
 
-\begin{enumerate}
-  \item Zachytávanie vo Wiresharku sa spustí pred registráciou a filtruje sa podľa UDP portu servera, aby zahŕňalo všetky senzory.
-  \item Pre oba formáty sa použijú rovnaké merania, počty správ, sieťové podmienky a započítané vrstvy. Scenár sa vykoná aspoň trikrát.
-  \item Porovná sa počet datagramov a súčet bajtov na aplikačnej úrovni, L3 a L2. Výsledky sa zobrazia tabuľkou a grafom.
-\end{enumerate}
+\section{Wireshark a Lua dissector}
 
-Pre IPv4 bez voliteľných polí a Ethernet II bez VLAN sa veľkosti vypočítajú ako:
+Skript \texttt{lua/fiit\_meteo.lua} dekóduje všetkých osem typov správ, 64-bitový token aj hodnoty všetkých senzorov. Overuje CRC32, dĺžky, verziu, rezervný bit, rozsahy, doplnenie a registračné ID. Chybné CRC vyznačí ako varovanie; zobrazené hodnoty sú potom nedôveryhodné. Dissector nevedie register relácií a automaticky nevyhodnocuje časovanie ani duplicity.
+
+Skript sa načíta z priečinka Personal Lua Plugins uvedeného vo Wiresharku v About/Folders alebo jednorazovo cez \texttt{-X lua\_script:lua/fiit\_meteo.lua}. Predvolený UDP port je 9000; iný port možno nastaviť v preferenciách protokolu alebo cez Decode As. Na \texttt{127.0.0.1} sa zachytáva rozhranie \texttt{lo0}; medzi počítačmi aktívne sieťové rozhranie. Zachytávanie sa spúšťa pred registráciou. Pri meraní na porte 19000 treba port dissektora zmeniť.
+
+\begin{center}\small\singlespacing
+\begin{tabular}{p{5cm} p{8cm}}
+\hline Účel & Display filter \\\hline
+Všetky správy & \texttt{fiitmeteo} \\
+Dátové správy & \texttt{fiitmeteo.type == 3} \\
+Chybné CRC & \texttt{fiitmeteo.crc\_ok == 0} \\
+Chybný formát & \texttt{fiitmeteo.malformed} \\
+Jedna sekvencia & \texttt{fiitmeteo.seq == 2} \\
+Jedna relácia & \texttt{fiitmeteo.token == 0x1234567890abcdef} \\\hline
+\end{tabular}\end{center}
+
+Samotné číslo sekvencie nie je globálne jedinečné. Pre UAT 5 sa zvolí token konkrétnej relácie a porovnajú DATA a ACK; opakované DATA majú identické bajty. Testy dissectora používajú TShark a syntetické pakety so známymi hodnotami; živé PCAP v meraní vznikli skutočným zachytávaním.
+
+\clearpage
+\section{Meranie efektivity}
+
+\subsection{Metodika a započítané vrstvy}
+
+Spoločná sada \texttt{measurements/inputs.json} obsahuje 60 meraní každého zo štyroch senzorov (240 meraní, seed 42). Úspešný ustálený prenos tvorí 240 DATA a 240 ACK; štyri registrácie a štyri odpovede sú vyhodnotené osobitne. Jeden celý beh má 488 paketov. Nezapočítané registrácie sa preto nesmú zameniť za celý prenos.
+
+\path{measure_efficiency.py} meria výstupy encoderov a vytvára modelové PCAP. \path{measure_live.py} navyše spustí skutočný JSON alebo binárny server a deterministického replay klienta so samostatnými socketmi senzorov. Nejde o interaktívny tester: účelom je prenos identických hodnôt. Dumpcap zachytí UDP a TShark nezávisle skontroluje počty, payloady aj dĺžky IP. Zachytené bajty musia presne zodpovedať odoslaným a prijatým datagramom vrátane počtu opakovaní.
+
+Pre IPv4 bez options a Ethernet II bez VLAN platí:
 \[
 L_{\mathrm{L3}}=L_{\mathrm{app}}+20+8,\qquad
-L_{\mathrm{L2}}=\max(64, L_{\mathrm{app}}+14+20+8+4).
+L_{\mathrm{Ethernet}}=\max(64,L_{\mathrm{app}}+46).
 \]
-Započítavajú sa hlavičky IPv4 a UDP, ethernetová hlavička, FCS a prípadná výplň. Ak FCS v zázname chýba, doplní sa analyticky a uvedie sa to pri výsledkoch. Pre Wi-Fi alebo loopback sa použije ich skutočná réžia. ACK a ostatné riadiace správy sa nesmú vynechať.
+Ethernetový model zahŕňa hlavičku, FCS a výplň. Preambula/SFD (8 B) a čas IFG (12 bajtových časov) sú v CSV oddelene ako \texttt{medium\_byte\_times}; IFG nie sú prenesené dátové bajty. Nepočítajú sa ARP, DNS, VLAN, Wi-Fi, IPv6 ani šifrovanie. Úspora je $100(1-B_{\mathrm{binary}}/B_{\mathrm{JSON}})$ percent pri rovnakej vrstve a rovnakom scenári.
 
-Úspora sa vyjadrí pre rovnakú vrstvu:
-\[
-U=100\left(1-\frac{B_{\mathrm{binary}}}{B_{\mathrm{JSON}}}\right)\,\%.
-\]
+\begin{figure}[!htbp]
+\centering
+\input{diagrams/encapsulation.tex}
+\caption{Príklad zapúzdrenia DATA ThermoNode do Ethernet II.}
+\end{figure}
 
-Pre ilustráciu má uvedená DATA ThermoNode po serializácii 168 B; s IPv4 a UDP 196 B a v tomto ethernetovom modeli 214 B. Dátové ACK s \texttt{seq=2} a \texttt{ack\_for=2} má na L2 80 B, spolu teda 294 B na jedno potvrdené meranie. Ide o analytický výpočet konkrétneho príkladu, nie o výsledok merania binárnej verzie.
+Príklad DATA ThermoNode má 23 B: riadiaci bajt 1 B, sekvencia 4 B, token 8 B, hodnoty 6 B a CRC 4 B. UDP má 31 B a IPv4 paket 51 B. Ethernetový rámec má 69 B vrátane FCS, bez výplne. ACK má 17 B aplikácie, 45 B IPv4; Ethernet potrebuje 1 B výplne na minimum 64 B. Jedno potvrdené meranie tak stojí v modeli 133 B. Pri loopbacku sa táto Ethernetová réžia neprenáša.
+
+\subsection{Výsledky živého lokálneho merania}
+
+V troch behoch každého formátu sa na \texttt{lo0}, porte 19000 a intervale 0,05 s zachytilo celkovo 2928 paketov. Každý zo šiestich behov mal 488 paketov a 240 potvrdených meraní. Zrýchlený interval slúži na meranie objemu; neoveruje produkčný interval 10 s. Oba procesy bežali na jednom počítači. L7 a L3 boli skutočne zachytené, Ethernet nižšie je výhradne model z reálnych IP paketov, nie namerané bajty fyzickej siete.
+
+\begin{center}\small\singlespacing
+\begin{tabular}{l r r r}
+\hline Prenos & L7 [B] & IPv4 [B] & Model Ethernet [B] \\\hline
+JSON, beh 1 & 47\,935 & 61\,375 & 70\,015 \\
+JSON, beh 2 & 47\,950 & 61\,390 & 70\,030 \\
+JSON, beh 3 & 47\,955 & 61\,395 & 70\,035 \\
+JSON, priemer & 47\,946,67 & 61\,386,67 & 70\,026,67 \\
+Binárny, každý beh & 9\,300 & 22\,740 & 31\,620 \\\hline
+\end{tabular}\end{center}
+
+Tabuľka zahŕňa DATA a ACK, nie registrácie. Registrácie pridávajú pri JSON 535 B L7 a 903 B modelu Ethernetu; pri binárnom formáte 156 B a 528 B. Úspora ustáleného binárneho prenosu je \textbf{80,60\,\% na L7} a \textbf{54,85\,\% v modeli Ethernetu}. JSON sa medzi behmi mierne mení pre náhodný token, dĺžku desiatkového CRC a skutočné sekvenčné čísla servera; hodnoty meraní zostávajú rovnaké. Binárne polia majú pevné dĺžky.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{measurements/live/comparison.png}
+\caption{Živé lokálne meranie: priemery a rozsah min./max.; Ethernet je prepočítaný model.}
+\end{figure}
+
+Výstupy sú v \texttt{measurements/live/}: \texttt{summary.csv}, \texttt{averages.csv}, manifest vstupov, skutočné \texttt{traffic.pcapng} a prepisy prenesených bajtov. Existujúce výsledky sa neprepisujú. Nový beh:
+\begin{quote}\small\singlespacing
+\begin{verbatim}
+python3 measure_live.py --out measurements/live_novy
+\end{verbatim}
+\end{quote}
+Na meranie cez dve zariadenia podporuje skript externý server, výber IP a rozhrania; presný postup je v \texttt{measurements/LIVE\_MERANIE.txt}. Takýto beh sa v uvedených výsledkoch netvrdí.
+
+\subsection{Porovnanie s existujúcim protokolom CoAP}
+
+CoAP podľa RFC 7252 poskytuje štandardné požiadavky a odpovede nad UDP. Porovnávací model používa CON POST na resource \texttt{/meteo/ID}, osembajtový korelačný token, Uri-Path a Content-Format options; server reaguje piggyback ACK s kódom 2.04 Changed. CoAP-JSON prenáša rovnaké hodnoty ako JSON objekt (Content-Format 50). CoAP-packed používa naše bitové hodnoty ako \texttt{application/octet-stream} (42), nie štandardizovanú schému senzorových dát. Prijímateľ musí poznať formát resource.
+
+\begin{center}\small\singlespacing
+\begin{tabular}{l r r}
+\hline Model, 240 potvrdených meraní & L7 [B] & Model Ethernet [B] \\\hline
+Vlastný JSON & 47\,777 & 69\,857 \\
+Vlastný binárny & 9\,300 & 31\,620 \\
+CoAP-JSON & 25\,135 & 48\,655 \\
+CoAP-packed & 10\,260 & 33\,780 \\\hline
+\end{tabular}\end{center}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{measurements/comparison.png}
+\caption{Model serializácie pri rovnakých vstupoch. Nejde o živé meranie CoAP.}
+\end{figure}
+
+CoAP pakety boli vytvorené podľa formátu RFC a dekódované natívnym dissektorom TSharku. \textbf{CoAP server a živý CoAP benchmark zatiaľ nie sú implementované.} CoAP nemá naše registrácie ani aplikačné CRC32 a jeho token slúži na koreláciu, nie na autentifikáciu relácie. Porovnanie preto zahŕňa iba potvrdené merania, nie rovnocennosť všetkých služieb; registrácie sa oddeľujú. Rozdiel medzi CoAP-JSON a CoAP-packed ukazuje vplyv samotnej reprezentácie dát. Veľkosť nášho špecializovaného protokolu nepreukazuje všeobecnú prevahu nad interoperabilným CoAP. SenML (RFC 8428) je príklad štandardnej reprezentácie senzorových údajov, ktorú tento model nepoužíva.
+
+\subsection{Réžia a chybové scenáre}
+
+Binárny ustálený prenos má 5220 B DATA a 4080 B ACK. Zo všetkých 9300 B tvoria zabalené hodnoty iba 1140 B (12,26\,\%); hlavičky DATA a CRC ďalších 4080 B. Minimálna Ethernetová veľkosť preto obmedzuje prínos ďalšieho zmenšovania hodnôt. Výsledky nevyjadrujú spotrebu batérie ani rýchlosť siete.
+
+V \texttt{measurements/summary.csv} sú samostatne modelované scenáre: oprava CRC (4 pakety), päť stratených ACK (7 paketov), tri KEEPALIVE s odpoveďami (6 paketov) a úplné odpojenie (3 sondy). Ich objem sa nemieša s bežným prenosom. Pri JSON ide v prípade straty ACK o model rovnakého scenára, pretože pôvodný JSON program túto funkciu neobsahuje. Správanie aktuálneho binárneho programu pri chybách overujú živé regresné testy.
 
 \section{Zhodnotenie}
 
-Implementácia pokrýva UAT 1--4 a lokálne overuje registráciu, prenos vlastných hodnôt, opravu poškodenia a správu relácií. Oddelené vlákna umožňujú nezávislé správanie senzorov. JSON je čitateľný, ale jeho objem je vyšší než pri cielenej binárnej reprezentácii; rozdiel sa vyhodnotí uvedeným postupom. Aktuálny tester používa štyri pevne nastavené senzory a pri strate ACK správu automaticky neopakuje.
+Implementácia pokrýva UAT 1--5, nezávislé relácie viacerých senzorov rovnakého typu a lokálne overené obnovovanie po výpadku servera. Bitové polia odstránili textové názvy a desatinné reprezentácie z prenosu. Dissector umožňuje kontrolu obsahu vo Wiresharku. Najväčšou časťou zostávajúcej réžie sú hlavičky a potvrdenia; do budúcnosti prichádza do úvahy ich optimalizácia, dávkovanie meraní a zabezpečenie prenosu. Tieto zmeny by vyžadovali nové merania aj aktualizáciu formátu.
+
+Lokálne testy a loopback meranie nenahrádzajú fyzickú prezentáciu na dvoch zariadeniach. Otvorené zostáva potvrdenie výkladu klientskeho časovača, živé porovnanie s CoAP a automatické riešenie vyčerpania 32-bitovej sekvencie. Protokol neobsahuje kryptografické zabezpečenie a nie je prezentovaný ako produkčne nasadený systém.
+
+\section{Zdroje}
+\begin{itemize}
+\item RFC 7252: \emph{The Constrained Application Protocol (CoAP)}. \url{https://www.rfc-editor.org/rfc/rfc7252.html}
+\item RFC 8428: \emph{Sensor Measurement Lists (SenML)}. \url{https://www.rfc-editor.org/rfc/rfc8428.html}
+\item Wireshark Developer's Guide, Lua API. \url{https://www.wireshark.org/docs/wsdg_html_chunked/wsluarm.html}
+\end{itemize}
+
+\clearpage
+\appendix
+\section{Príloha A: Edukatívne zhodnotenie}
+
+Pri riešení projektu som sa naučila navrhovať vlastný aplikačný protokol a prepájať jeho špecifikáciu s implementáciou. Práca s UDP mi ukázala, že potvrdenie, opakovanie, identifikáciu relácie aj kontrolu dostupnosti musí zabezpečiť aplikácia. Pri binárnom formáte som si precvičila výpočet potrebného počtu bitov, kódovanie desatinných hodnôt a poradie bajtov. Dôležité bolo rozlišovať medzi náhodným poškodením dát a bezpečnosťou komunikácie, ktorú samotné CRC neposkytuje.
+
+Vlákna a fronty mi pomohli pochopiť nezávislé spracovanie viacerých senzorov. Regresné testy ukázali význam chybových vstupov, starých tokenov a reštartov, nielen úspešného prenosu. Pri meraní som sa naučila oddeľovať skutočný zachyt od modelu a započítavať aj nižšie sieťové vrstvy. Wireshark a Lua dissector umožnili overiť, čo sa skutočne prenáša.
+
+Tieto skúsenosti môžem využiť pri ďalšom štúdiu sietí, operačných systémov a distribuovaných aplikácií. V praxi mi pomôžu pri diagnostike komunikácie, tvorbe testov a písaní presnej dokumentácie. Zároveň som si uvedomila, že zrozumiteľné výsledky a reprodukovateľný postup sú rovnako dôležité ako funkčný kód.
 
 \end{document}

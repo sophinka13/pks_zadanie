@@ -1,10 +1,10 @@
 \begin{tikzpicture}[node distance=7mm]
 \node[flowend] (start) {Výsledok spracovania správy alebo časovača};
-\node[flowchoice,below=of start] (needed) {Treba odoslať správu?};
+\node[flowchoice,below=of start] (needed) {Treba odpoveď a ACK nie je potlačené?};
 \node[flowbox,right=12mm of needed,text width=2.5cm] (none) {Bez odpovede};
-\node[flowbox,below=8mm of needed] (build) {Zostaviť ACK, REJECT, RETRANSMIT alebo KEEPALIVE};
-\node[flowbox,below=of build] (seq) {Prideliť nové \texttt{seq}; doplniť údaje relácie a prípadné \texttt{ack\_for}};
-\node[flowbox,below=of seq] (encode) {Zakódovať JSON do UTF-8};
+\node[flowbox,below=8mm of needed] (build) {Zostaviť REGISTER\_ACK, ACK, REJECT, RETRANSMIT alebo KEEPALIVE};
+\node[flowbox,below=of build] (seq) {Odpoveď: zopakovať \texttt{seq} požiadavky; sonda: nové číslo; doplniť token a typ senzora};
+\node[flowbox,below=of seq] (encode) {Zakódovať binárnu hlavičku a payload; doplniť CRC32};
 \node[flowbox,below=of encode] (send) {Odoslať cez \texttt{sendto()} na adresu senzora};
 \node[flowbox,below=of send] (log) {Zalogovať odoslaný obsah; pri sonde uložiť jej číslo a ďalší termín};
 \node[flowend,below=of log] (end) {Návrat do hlavnej slučky};
