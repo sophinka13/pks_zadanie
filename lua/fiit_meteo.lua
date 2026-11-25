@@ -1,4 +1,7 @@
 -- dissector protokolu fiit meteo v1, pripraveny s pomocou ai
+-- zabrani dvojitemu nacitaniu cez plugin aj -X lua_script
+if _G.fiit_meteo_loaded then return end
+_G.fiit_meteo_loaded = true
 local meteo = Proto("fiitmeteo", "FIIT Meteo v1")
 local kinds = {[0]="REGISTER", "ACK", "REJECT", "DATA", "RETRANSMIT", "KEEPALIVE", "KEEPALIVE_ACK", "REGISTER_ACK"}
 local sensors = {[0]="ThermoNode", "WindSense", "RainDetect", "AirQuality"}
@@ -97,7 +100,10 @@ function meteo.dissector(buffer, pinfo, tree)
     root:add(f.crc, buffer(length-4,4))
     root:add(f.calculated, calculated):set_generated()
     root:add(f.crc_ok, checksum == calculated):set_generated()
-    if checksum ~= calculated then root:add_proto_expert_info(bad_crc) end
+    if checksum ~= calculated then
+        root:add_proto_expert_info(bad_crc)
+        pinfo.cols.info:append(" [BAD CRC - untrusted values]")
+    end
     if version ~= 1 or control % 2 ~= 0 then invalid(root, "Unsupported version or nonzero reserved bit") end
     if seq == 0 then invalid(root, "Sequence number must be positive") end
     local zero_token = buffer(5,4):uint() == 0 and buffer(9,4):uint() == 0
@@ -112,11 +118,13 @@ function meteo.dissector(buffer, pinfo, tree)
         if id_length == 0 or payload_length ~= id_length+1 then invalid(root, "Invalid REGISTER length"); return end
         local identifier = buffer(14,id_length):string()
         root:add(f.id, buffer(14,id_length), buffer(14,id_length):string(ENC_UTF_8))
+        pinfo.cols.info:append(" ID=" .. buffer(14,id_length):string(ENC_UTF_8))
         if identifier:match("^%s*$") then invalid(root, "Empty sensor ID") end
         if utf8 and not utf8.len(identifier) then invalid(root, "Invalid UTF-8 sensor ID") end
     elseif kind == 2 then
         if payload_length ~= 1 then invalid(root, "REJECT requires one reason byte"); return end
         root:add(f.reason, buffer(13,1))
+        pinfo.cols.info:append(" " .. (reasons[buffer(13,1):uint()] or "Unknown reason"))
         if not reasons[buffer(13,1):uint()] then invalid(root, "Unknown rejection reason") end
     elseif kind == 3 then
         local layout, total_bits = layouts[sensor], 0
@@ -125,15 +133,20 @@ function meteo.dissector(buffer, pinfo, tree)
         local payload = buffer(13,payload_length)
         local values_tree = root:add(f.payload, payload)
         local bit_offset = 0
+        local readings = {}
         for _, field in ipairs(layout) do
             local code = payload:bitfield(bit_offset, field[2])
             local value = field[3] + code/field[5]
             local first_byte = math.floor(bit_offset/8)
             local byte_count = math.ceil((bit_offset%8+field[2])/8)
             values_tree:add(f[field[1]], buffer(13+first_byte,byte_count), value)
+            local precision = field[5] == 100 and 2 or field[5] == 10 and 1 or 0
+            readings[#readings+1] = field[1] .. "=" .. string.format("%." .. precision .. "f", value)
+                .. (field[6] ~= "" and " " .. field[6] or "")
             if code > field[4] then invalid(values_tree, "Out-of-range code for " .. field[1]) end
             bit_offset = bit_offset + field[2]
         end
+        pinfo.cols.info:append(" | " .. table.concat(readings, ", "))
         local padding = payload_length*8-total_bits
         if padding > 0 and payload:bitfield(total_bits,padding) ~= 0 then invalid(values_tree, "Nonzero DATA padding") end
     elseif payload_length ~= 0 then
@@ -149,3 +162,47 @@ function meteo.prefs_changed()
 end
 udp:add(current_port, meteo)
 udp:add_for_decode_as(meteo)
+
+-- rozpozna platny binarny paket aj na inom porte; chybne crc vyzaduje decode as
+meteo:register_heuristic("udp", function(buffer, pinfo, tree)
+    local length = buffer:len()
+    if length < 17 or buffer:reported_len() > length then return false end
+    local control = buffer(0,1):uint()
+    if math.floor(control/64) ~= 1 or control%2 ~= 0 or buffer(1,4):uint() == 0 then return false end
+    if crc32(buffer, length-4) ~= buffer(length-4,4):uint() then return false end
+    local kind = math.floor(control/8)%8
+    local sensor = math.floor(control/2)%4
+    local expected = 17
+    if kind == 0 then
+        if length < 18 or buffer(13,1):uint() == 0 then return false end
+        expected = 18+buffer(13,1):uint()
+    elseif kind == 2 then expected = 18
+    elseif kind == 3 then
+        local bits = 0
+        for _, field in ipairs(layouts[sensor]) do bits = bits+field[2] end
+        expected = 17+math.ceil(bits/8)
+    end
+    if length ~= expected then return false end
+    meteo.dissector(buffer, pinfo, tree)
+    return true
+end)
+
+-- na vyslovnu volbu pouzivatela nastavi docasne farby riadkov v gui
+local function color_packets()
+    local rules = {
+        "fiitmeteo.bad_crc || fiitmeteo.malformed",
+        "fiitmeteo.type == 2",
+        "fiitmeteo.type == 4",
+        "fiitmeteo.type == 3 && fiitmeteo.sensor == 0",
+        "fiitmeteo.type == 3 && fiitmeteo.sensor == 1",
+        "fiitmeteo.type == 3 && fiitmeteo.sensor == 2",
+        "fiitmeteo.type == 3 && fiitmeteo.sensor == 3",
+        "fiitmeteo.type == 0 || fiitmeteo.type == 7",
+        "fiitmeteo.type == 5 || fiitmeteo.type == 6",
+        "fiitmeteo.type == 1",
+    }
+    for index, filter in ipairs(rules) do set_color_filter_slot(index, filter) end
+end
+if gui_enabled() then
+    register_menu("FIIT Meteo/Color packets by sensor", color_packets, MENU_TOOLS_UNSORTED)
+end

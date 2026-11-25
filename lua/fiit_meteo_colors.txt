@@ -1,0 +1,11 @@
+# FIIT Meteo coloring rules; import in View > Coloring Rules
+@FIIT errors@fiitmeteo.bad_crc || fiitmeteo.malformed@[0,0,0][65535,49344,49344]
+@FIIT REJECT@fiitmeteo.type == 2@[0,0,0][65535,49344,65535]
+@FIIT RETRANSMIT@fiitmeteo.type == 4@[0,0,0][57568,49344,57568]
+@FIIT ThermoNode@fiitmeteo.type == 3 && fiitmeteo.sensor == 0@[0,0,0][49344,49344,65535]
+@FIIT WindSense@fiitmeteo.type == 3 && fiitmeteo.sensor == 1@[0,0,0][49344,57568,57568]
+@FIIT RainDetect@fiitmeteo.type == 3 && fiitmeteo.sensor == 2@[0,0,0][49344,65535,65535]
+@FIIT AirQuality@fiitmeteo.type == 3 && fiitmeteo.sensor == 3@[0,0,0][49344,65535,49344]
+@FIIT registration@fiitmeteo.type == 0 || fiitmeteo.type == 7@[0,0,0][65535,65535,49344]
+@FIIT KEEPALIVE@fiitmeteo.type == 5 || fiitmeteo.type == 6@[0,0,0][57568,57568,49344]
+@FIIT ACK@fiitmeteo.type == 1@[0,0,0][57568,57568,57568]

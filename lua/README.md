@@ -1,3 +1,40 @@
+## Rychle pouzitie aktualnej verzie
+
+1. Skopiruj aktualny `fiit_meteo.lua` do Personal Lua Plugins na pocitaci,
+   kde bezi Wireshark, a **uplne restartuj Wireshark**. Na tomto Macu uz bola
+   nainstalovana kopia aktualizovana. Na druhom pocitaci ju treba nahradit tiez.
+2. Hodnoty DATA su teraz priamo v stlpci **Info**, napr.
+   `DATA ThermoNode #2 | temperature=21.3 °C, humidity=55.4 %, ...`.
+   V detailoch rozbal **FIIT Meteo v1 → Payload** pre jednotlive filtrovatelne polia.
+3. Zapni **View → Colorize Packet List**, potom vyber
+   **Tools → FIIT Meteo → Color packets by sensor**.
+   Toto nastavi docasne farebne pravidla pre aktualnu relaciu Wiresharku
+   (nahradi jeho 10 docasnych farebnych slotov).
+4. Pre trvale farby pouzi **View → Coloring Rules → Import** a vyber
+   `fiit_meteo_colors.txt`. Pravidla FIIT presun nad vseobecne UDP pravidla
+   a potvrd **OK**. Subor s farbami sa nekopiruje do Lua Plugins.
+
+Predvolene farby: ThermoNode modra, WindSense tyrkysova, RainDetect azurova,
+AirQuality zelena; registracie zlta, ACK siva, KEEPALIVE olivova,
+RETRANSMIT fialova a chyba CRC cervena. Su to farby celych riadkov paketov,
+nie samostatne farby textu jednotlivych hodnot v detailovom strome.
+Docasne farby zavisia od farebnej palety profilu; importovany subor obsahuje
+konkretne farby. Chyby maju prednost pred farbou senzora.
+
+Na inom porte sa platne binarne spravy rozpoznavaju aj heuristicky podla
+hlavicky, presnej dlzky a CRC. Pre spolahlive zobrazenie poskodenych paketov
+stale nastav port alebo pouzi **Decode As → FIITMETEO**.
+Ak vidis iba UDP a surove Data, skontroluj nacitanie pluginu a Decode As.
+Ak vidis chybu dvojitej registracie protokolu, odstran dalsie stare kopie pluginu.
+Aktualna verzia osetruje dvojite nacitanie cez plugin a `-X lua_script`.
+
+Farbenie pouziva oficialne Wireshark
+[Lua GUI API](https://www.wireshark.org/docs/wsdg_html_chunked/lua_module_Gui.html);
+import vysvetluje [Wireshark Coloring Rules](https://wiki.wireshark.org/ColoringRules).
+Upravy a testy boli pripravene s pomocou AI.
+
+---
+
 # Wireshark dissector FIIT Meteo v1
 
 `fiit_meteo.lua` dekoduje vsetkych osem typov binarnych sprav, vsetky styri

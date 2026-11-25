@@ -44,6 +44,7 @@ class DissectorTests(unittest.TestCase):
             result = subprocess.run([TSHARK, "-X", "lua_script:"+str(ROOT / "lua/fiit_meteo.lua"), "-r", str(capture), *extra, "-T", "json"], capture_output=True, text=True, timeout=20)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertNotIn("Lua Error", result.stderr)
+            self.assertNotIn("Error during loading", result.stderr)
             decoded = json.loads(result.stdout)
             self.assertNotIn("Lua Error", result.stdout)
             return [row["_source"]["layers"] for row in decoded]
@@ -100,6 +101,27 @@ class DissectorTests(unittest.TestCase):
         self.assertIn("fiitmeteo.bad_crc", json.dumps(decoded[0]))
         for layers in decoded[1:]:
             self.assertIn("fiitmeteo.malformed", json.dumps(layers))
+
+    # overi hodnoty priamo v info stlpci a importovane farby v skutocnom tsharku
+    def test_info_and_colors(self):
+        packets = []
+        for sensor, fields in SENSOR_FIELDS.items():
+            values = {name: lo for name, (lo, hi, places) in fields.items()}
+            packets.append(encode_packet(dict(type="DATA", sensor_type=sensor, seq=2, token=1, values=values)))
+        with tempfile.TemporaryDirectory() as work:
+            path = Path(work, "test.pcap")
+            write_capture(path, packets, port=9100)
+            shutil.copy(ROOT/"lua/fiit_meteo_colors.txt", Path(work, "colorfilters"))
+            result = subprocess.run([TSHARK, "-X", "lua_script:"+str(ROOT/"lua/fiit_meteo.lua"),
+                "--color", "-r", str(path), "-T", "fields", "-e", "frame.coloring_rule.name", "-e", "_ws.col.Info"],
+                env=dict(os.environ, WIRESHARK_CONFIG_DIR=work), capture_output=True, text=True, timeout=20)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertNotIn("Error during loading", result.stderr)
+            for sensor in SENSOR_FIELDS:
+                self.assertIn("FIIT "+sensor, result.stdout)
+            for value in ("temperature=-50.0 °C", "humidity=0.0 %", "pressure=800.00 hPa",
+                          "wind_speed=0.0 m/s", "rainfall=0.0 mm", "co2=300 ppm"):
+                self.assertIn(value, result.stdout)
 
     # overi nastavitelny port aj manualne decode as
     def test_custom_port(self):
